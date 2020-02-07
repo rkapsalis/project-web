@@ -69,7 +69,7 @@ display:block;
 		//align-content: center;
 		//align-items: center;
        width: 100%;
-	   height:auto;
+	   height: 85%;
 }
 
 }
@@ -106,6 +106,11 @@ display:block;
 	transform:rotateY(180deg);
 	backface-visibility:hidden;
 	transition:all .4s linear;
+	height: auto;
+	//overflow-y: auto;
+	
+	//scroll-behaviour: smooth;
+	
 }
 .login-html .sign-in,
 .login-html .sign-up,
@@ -163,6 +168,7 @@ display:block;
 }
 .login-form .group .button{
 	background:#1161ee;
+	cursor: pointer;
 }
 .login-form .group label .icon{
 	width:15px;
@@ -218,4 +224,15 @@ display:block;
 }
 .foot-lnk{
 	text-align:center;
+}
+.footer{
+	position: fixed;
+	left: 640px;
+}
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .footer{
+	  position: relative;
+    left: 1px;
+  }
 }
