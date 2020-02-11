@@ -11,13 +11,6 @@ $users = JsonMachine::fromFile('ex1.json','/locations');
 $j=0;
 var_dump(count(array_keys((array)$users)));
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "web";
-
-$array = array();
-$arrayn = array();
 $arr = array();
 $arr_ac = array();
 $count = 0;
@@ -32,7 +25,7 @@ $activity_confidence = "NULL";
 foreach ($users as $row=>$value ) {
 	         //if($row == 'timestampMs'){
 	              $timestampMs = $value['timestampMs'];
-				  //var_dump($timestampMs);
+				  
 			  //}
 			 // if($row == 'latitudeE7'){
 				  $latitudeE7 = $value['latitudeE7'];
@@ -48,41 +41,38 @@ foreach ($users as $row=>$value ) {
 			   var_dump($arr);
 			   $count++;
 	          
-								if (isset($value["activity"])) {
+					if (isset($value["activity"])) {
 									
-								foreach ($value["activity"] as $valac ){
-										 $activity = $value["activity"][$counter2];
-									   $activity_timestamp = $activity["timestampMs"];
-									   $c=count($activity["activity"]);
-									   
-									   if($c>1 ){
-									    foreach ($valac["activity"] as $vala ){
-									      $activity_type = $activity["activity"][$counter1]["type"];
-									      $activity_confidence = $activity["activity"][$counter1]["confidence"];
-									    
-									      $arr_ac[$counter]["timestampMs"] = $activity_timestamp;
-			                  $arr_ac[$counter][$counter1]["type"] = $activity_type;
-			                  $arr_ac[$counter][$counter1]["confidence"] = $activity_confidence;
-			                  $arr_ac[$counter][$counter1]["count"] = $count;
-									      var_dump($arr_ac);
-									      $counter1++;
-									   }									   
-									 }
-									else{
-										$activity_type = $activity["activity"][0]["type"];									   
-									  $activity_confidence = $activity["activity"][0]["confidence"];
-									  $arr_ac[$counter]["timestampMs"] = $activity_timestamp;
-									  $arr_ac[$counter]["type"] = $activity_type;
-			              $arr_ac[$counter]["confidence"] = $activity_confidence; 
-			              $arr_ac[$counter]["count"] = $count;
-									  var_dump($arr_ac);									   
-									}
-									
-									$counter++;
-									$counter2++;
-									}
-									 $counter2 = 0;
-								}	
+						foreach ($value["activity"] as $valac ){
+							 $activity = $value["activity"][$counter2];
+							 $activity_timestamp = $activity["timestampMs"];
+							 $c=count($activity["activity"]);
+						      if($c>1 ){
+							    foreach ($valac["activity"] as $vala ){
+								     $activity_type = $activity["activity"][$counter1]["type"];
+								     $activity_confidence = $activity["activity"][$counter1]["confidence"];
+								     $arr_ac[$counter]["timestampMs"] = $activity_timestamp;
+			                                             $arr_ac[$counter][$counter1]["type"] = $activity_type;
+			                                             $arr_ac[$counter][$counter1]["confidence"] = $activity_confidence;
+			                                             $arr_ac[$counter][$counter1]["count"] = $count;
+								     $counter1++;
+							    }									   
+							 }
+						      else{
+							  $activity_type = $activity["activity"][0]["type"];									   
+							  $activity_confidence = $activity["activity"][0]["confidence"];
+							  $arr_ac[$counter]["timestampMs"] = $activity_timestamp;
+							  $arr_ac[$counter]["type"] = $activity_type;
+			                                  $arr_ac[$counter]["confidence"] = $activity_confidence; 
+			                                  $arr_ac[$counter]["count"] = $count;
+																	   
+							}
+							$counter1 = 0;		
+							$counter++;
+							$counter2++;
+							}
+							 $counter2 = 0;
+					}	
 		
 }
 ?>
