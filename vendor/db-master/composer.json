@@ -1,0 +1,31 @@
+{
+    "name": "brick/db",
+    "description": "Database tools library",
+    "type": "library",
+    "keywords": [
+        "Brick",
+        "DB",
+        "PDO",
+        "BulkInserter",
+        "BulkDeleter"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1",
+        "ext-pdo": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "7.*",
+        "php-coveralls/php-coveralls": "2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Brick\\Db\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Brick\\Db\\Tests\\": "tests/"
+        }
+    }
+}
