@@ -1,10 +1,51 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: content-type,  x-filename,cache-control");
+header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
 require_once 'C:/Users/Ρωμανός/vendor/autoload.php';
 include_once 'JsonMachine.php';
 
 ini_set('memory_limit', '-1');
+ini_set('file_uploads'   , '1');
+ini_set('max_input_vars', '1000000');
+ini_set('post_max_size', '6000M');
+ini_set('upload_max_filesize', '6000M');
+
 set_time_limit(900);
 use Brick\Db\Bulk\BulkInserter;
+if( isset($_POST['cens']) && isset($_SERVER['HTTP_X_FILENAME']) ){
+     $rect = json_decode($_POST["cens"], true);
+	 var_dump($rect);
+}
+else{
+	die("error");
+}
+$fn = (isset($_SERVER['HTTP_X_FILENAME']) ? $_SERVER['HTTP_X_FILENAME'] : false);
+if ($fn) { //AJAX
+file_put_contents(
+		$_SERVER['DOCUMENT_ROOT'].'/' . $fn,
+		file_get_contents($_FILES['file']['name'])
+	);
+	echo "$fn uploaded";
+}
+	else {
+
+	// form submit
+	$files = $_FILES['fileselect'];
+
+	foreach ($files['error'] as $id => $err) {
+		if ($err == UPLOAD_ERR_OK) {
+			$fn = $files['name'][$id];
+			move_uploaded_file(
+				$files['tmp_name'][$id],
+				$_SERVER['DOCUMENT_ROOT'].'/' . $fn
+			);
+			echo "<p>File $fn uploaded.</p>";
+		}
+	}
+
+}
+$filename = $_SERVER['DOCUMENT_ROOT'].'/' . $fn;
 $users = JsonMachine::fromFile('Ιστορικό_τοποθεσίας4.json','/locations');
 
 $servername = "localhost";
