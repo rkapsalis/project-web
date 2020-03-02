@@ -4,13 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-<link href="upload.css" rel="stylesheet">
+<link href="upload1.css" rel="stylesheet">
 <link rel="stylesheet" href="usr.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"/>
- <link rel="stylesheet" href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"/>
+<link rel="stylesheet" href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" ></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>	
@@ -20,7 +21,7 @@
 <header>
 <section>
  <img src="yellow_low res.png" style="padding: 20px 0px 5px 0px" height="35" width="44"> 
-<a href="https://www.linkedin.com/in/sutharmayur" id="logo" target="_blank">Patras Gazer</a>
+<a href="upload1.html" id="logo" target="_blank">Patras Gazer</a>
 
 <label for="toggle-1" class="toggle-menu"><ul><li></li> <li></li> <li></li></ul></label>
 <input type="checkbox" id="toggle-1">
@@ -28,15 +29,15 @@
 <nav >
 <ul>
 <li><a href="#logo"><i class="fa fa-home"></i>Home</a></li>
-<li><a href="#about"><i class="icon-user"></i>User Data</a></li>
-<li><a href="#portfolio"><i class="fas fa-chart-bar"></i>Statistics</a></li>
+<li><a href="user_data.html"><i class="icon-user"></i>User Data</a></li>
+<li><a href="user_stats.html"><i class="fas fa-chart-bar"></i>Statistics</a></li>
 <li><a href="upload1.html"><i class="fa fa-upload"></i>Upload</a></li>
-<li><a href="#gallery"><i class="fa fa-question-circle"></i>Help</a></li>
+<li><a href="help.html"><i class="fa fa-question-circle"></i>Help</a></li>
 <li><a href="#contact"><i class="icon-phone"></i>Contact</a></li>
 </ul>
 </nav>
 </header>
-
+</section>
 <div class="container">
     <div class="wrapper">
       <ul class="steps">
@@ -45,60 +46,197 @@
         <li>Step 3</li>
       </ul>
 	 
-      <form class="form-wrapper">
+      <form class="form-wrapper" id="upload2" action="http:127.0.0.1:80/json-machine-master/src/parser1.php" method="POST" enctype="multipart/form-data">
         <fieldset class="section is-active">
           <h3>Please select the area(s) you want to exclude</h3>
            <div id="mapid"></div>
-          <div class="button">Next</div>
+		   <input type="hidden" name="cens" id="cens" value="[]"/>
+          <input type="submit"  value="Submit" class="button" id="upload10" name="upload10"/>
         </fieldset>
-        <fieldset class="section">
-         <div class="container">
-    <form id="upload" action="index.html" method="POST" enctype="multipart/form-data">
-    <div class="form-group desktop-upload">
-      <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="2097152" />
-      <div>
-        <div id="filedrag">
-		  <h2> Please select your .json file</h2>
-          <!-- <img class="box-icon" src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Octicons-cloud-upload.svg" /> -->
-		  <img class="box-icon" src="https://image.flaticon.com/icons/svg/617/617517.svg" />
-          <label class="up" for="fileselect">Drop files here or</label>
-          <input type="file" id="fileselect" name="fileselect[]" />
-        </div>
+		
+        <fieldset class="section">        
+		
+		<div class="container">
+         
+         <div class="form-group desktop-upload">
+         <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="20971520000" />
+         <div>
+          <div id="filedrag">
+		   <h2> Please select your .json file</h2>
+           <!-- <img class="box-icon" src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Octicons-cloud-upload.svg" /> -->
+		   <img class="box-icon" src="https://image.flaticon.com/icons/svg/617/617517.svg" />
+           <label class="up" for="fileselect">Drop files here or</label>
+           <input type="file" id="fileselect" name="fileselect[]" />
+         </div>
         <div id="messages">
           <p></p>
         </div>
         <div id="progress"></div>
+       </div>
       </div>
-    </div>
     <div class="form-group mobile-upload">
       <label for="exampleFormControlFile1">Example file input</label>
-      <input type="file" class="form-control-file" id="exampleFormControlFile1">
+      <input type="file" class="form-control-file" id="exampleFormControlFile1" />
+	  
     </div>
-    <button type="submit" id="submitbutton" class="btn btn-primary">Upload Files</button>
-  </form>
-  <br>
-        </fieldset>
-        <fieldset class="section">
-          <h3>Choose a Password</h3>
-          <input type="password" name="password" id="password" placeholder="Password">
-          <input type="password" name="password2" id="password2" placeholder="Re-enter Password">
-          <input class="submit button" type="submit" value="Sign Up">
-        </fieldset>
-        <fieldset class="section">
-          <h3>Account Created!</h3>
-          <p>Your account has now been created.</p>
+	<h3 id="status"></h3>
+    <button type="submit" id="submitbutton" class="button">Upload File</button>
+   
+  </div>
+   </fieldset>       
+       
+        <fieldset class="section" >
+          <h3>File Uploaded!</h3>
+          <p>Your .json file has been uploaded successfully.</p>
           <div class="button">Reset Form</div>
         </fieldset>
-      </form>
+     </form>
     </div>
   </div>
-     <script src="upload1.js"></script>	
+ 
+  <script type="text/javascript">
+	  (function() {
+    
+	// getElementById
+	function $id(id) {
+		return document.getElementById(id);
+	}
+	// output information
+	function Output(msg) {
+		var m = $id("messages");
+		m.innerHTML = msg + m.innerHTML;
+	}
+	// file drag hover
+	function FileDragHover(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		e.target.className = (e.type == "dragover" ? "hover" : "");
+    // look at removal of class on icon
+	}
+	// file selection-it is called when one or more files is chosen or dropped
+	function FileSelectHandler(e) {
+		// cancel event and hover styling
+		FileDragHover(e);
+		// fetch FileList object
+		var files = e.target.files || e.dataTransfer.files;
+		// process all File objects
+		for (var i = 0, f; f = files[i]; i++) {
+			ParseFile(f);
+			UploadFile(f);
+		}
+	}
+
+	// output file information
+	function ParseFile(file) {
+		Output(
+			"File name: " + file.name
+		);
+    
+		// display text
+		if (file.type.indexOf("text") == 0) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				Output(
+					"<p>" + file.name + ":</p><pre>" +
+					e.target.result.replace(/</g, "&lt;").replace(/>/g, "&gt;") +
+					"</pre>"
+				);
+			}
+			reader.readAsText(file);
+		}
+	}
+  
+	function UploadFile(file) {
+		var xhr = new XMLHttpRequest();
+		var validExtensions = ['json']; //array of valid extensions
+        var fileName = file.name;
+        var fileNameExt = fileName.substr(fileName.lastIndexOf('.') + 1);
+		var flag = true;
+		console.log(file.name);
+        if ($.inArray(fileNameExt, validExtensions) == -1){
+           alert("Invalid file type");
+           $("#yourElem").uploadifyCancel(q);
+           flag = false;
+        }
+		
+        if (xhr.upload && flag == true) {
+			// create progress bar
+			
+		    var o = $id("progress");
+			var progress = o.appendChild(document.createElement("p"));
+		    progress.appendChild(document.createTextNode("Uploading..."));
+			// progress bar
+			xhr.upload.addEventListener("progress", function(e) {
+			 var pc = parseInt(100 - (e.loaded / e.total * 100));
+			 var percent = e.loaded / e.total;
+			 var perc = parseInt(percent * 100)
+			 $id("status").innerHTML = perc + "% uploaded... please wait";
+		     progress.style.backgroundPosition = pc + "% 0";
+			}, false);
+			// file received/failed
+			xhr.onreadystatechange = function(e) {
+				if (xhr.readyState == 4) {
+					progress.className = (xhr.status == 200 ? "success" : "failure");
+				}
+		   };
+		  
+			// start upload
+			document.getElementById("submitbutton").addEventListener("click", function () {
+			console.log($id('submitbutton'));
+			console.log($id('cens'));
+			var cens = $id('cens').value;
+			//var params = "file="+file"&cens="+cens ;
+			  var data = new FormData();
+              data.append("file", file);
+			  data.append("cens", cens);
+			xhr.open("POST", $id("upload2").action, true);
+				console.log(file);
+				console.log(cens);
+			//xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.setRequestHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+			xhr.setRequestHeader("X-FILENAME", file.name);
+			//xhr.send("file=" + file + "&cens="+ cens);
+			xhr.send(data);
+			console.log(xhr.responseText);
+			});
+		}
+		else{
+			alert("Error!");
+		}
+	}
+
+	// initialize
+	function Init() {
+		var fileselect = $id("fileselect"),
+			filedrag = $id("filedrag"),
+			submitbutton = $id("submitbutton");
+			 console.log("Upload Initialised");
+		// file select
+		fileselect.addEventListener("change", FileSelectHandler, false);
+		// is XHR2 available?
+		var xhr = new XMLHttpRequest();
+		if (xhr.upload) {
+			// file drop
+			filedrag.addEventListener("dragover", FileDragHover, false);
+			filedrag.addEventListener("dragleave", FileDragHover, false);
+			filedrag.addEventListener("drop", FileSelectHandler, false);
+		    //filedrag.style.display = "block";
+		}
+	}
+
+	// call initialization file
+	if (window.File && window.FileList && window.FileReader) {
+		Init();
+	}
+	 })();
+</script>
+      <script src="upload1.js"></script>
   </body>
   <footer>
 <ul class="social">
 <p><span class="footer__copyright">Romanos Kapsalis &copy;</span> 2020 </p>
 
-<li><a href="https://www.linkedin.com/in/sutharmayur" style="padding: 0px 0px 0px 68px" target="_blank"><i class="icon-linkedin"></i></a></li>
+<li><a href="https://www.linkedin.com/in/romanos-kapsalis/" style="padding: 0px 0px 0px 68px" target="_blank"><i class="icon-linkedin"></i></a></li>
 <li><a href="https://github.com/rkapsalis" target="_blank"><i class="icon-github"></i></a></li>
 
 </ul>
