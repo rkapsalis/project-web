@@ -1,10 +1,10 @@
 <?php
+ session_start();
 if (isset($_POST["login"])) {
     require_once 'db_handler.inc.php';
 
     $username = $_POST["usrn"];
-    $password = $_POST["pass"];
-    //$db_data = array();
+    $password = $_POST["pass"];   
     $count=0;
 
      //τσεκαρουμε αν υπαρχει στην βαση
@@ -21,34 +21,36 @@ if (isset($_POST["login"])) {
 
         if ($rows > 0) {  //αν υπαρχει τετοιο username στην βαση
             while($row = mysqli_fetch_assoc($result)) {  //while ή if?
-                $password_check = password_verify($pwd, $row['password']); 
+                $password_check = password_verify($password, $row['password']); 
                 //$conn->query($sql) === TRUE
                 if ($password_check == TRUE) {//τσεκαρουμε αν το χασαρισμενο password αντιστοιχει
-                    session_start();
-                    $_SESSION[''] = $row[''];
-                    $count++;
-                    echo "success";
+                   
+					session_regenerate_id();                   
+					$_SESSION['name'] = $_POST['username'];
+			        $_SESSION['id'] = $row['userID'];
+					$_SESSION['rememberMe'] = true;
+					
+					if($row['type'] == 'admin'){
+                        header("Location: admin.php"); 
+                    } else {
+                       header("Location: user_data.php"); 
+                    }
+                    $count++;                    
                     exit();                                       
                 }
             }
-             //echo json_encode($db_data);
-             
+                         
         } 
         else{
-            echo "fail";
+           die("wrong password or username");
         }
         if($count == 0){
-            echo "fail";
+           die("username not found");
         }
         mysqli_stmt_close($stmt);
         mysqli_close($conn);
-}
-    /* else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    } /*
-    
-}    
-    
+}  
+}   
 }
 
 
