@@ -1,13 +1,17 @@
+<!DOCTYPE html>
 <html>
-
-
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<title>Patras Gazer</title>
  <link rel="stylesheet" href="usr.css">
  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
  <link rel="stylesheet" href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="user_data.js"></script>
+  <body>
  <header>
 <section>
  <img src="yellow_low res.png" style="padding: 20px 0px 5px 0px" height="35" width="44"> 
@@ -19,11 +23,11 @@
 <nav >
 <ul>
 
-<li><a href="#about"><i class="icon-user"></i>User Data</a></li>
-<li><a href="#portfolio"><i class="fas fa-chart-bar"></i>Statistics</a></li>
+<li><a href="user_data.html"><i class="icon-user"></i>User Data</a></li>
+<li><a href="user_stats.html"><i class="fas fa-chart-bar"></i>Statistics</a></li>
 <li><a href="upload1.html"><i class="fa fa-upload"></i>Upload</a></li>
 <li><a href="help.html"><i class="fa fa-question-circle"></i>Help</a></li>
-<li><a href="#"><i class="fa fa-sign-out-alt" ></i>Sign out</a></li>
+<li><a href="http://localhost/logout.php"><i class="fa fa-sign-out-alt" ></i>Sign out</a></li>
 
 </ul>
 </nav>
@@ -31,46 +35,44 @@
 
 </section>
 <main>
+<section id="gallery" class="content">
+
+  <div class="welcome">
+    <img src="patra.jpg" style="padding: 20px 0px 5px 0px" height="210" width="95%">
+    <!-- <h3>Welcome back, <br /> <?=$_SESSION['name']?>!</h3> -->
+  </div>
+</section>
 <section id="about" class="content">
-<h2>My stats</h2>
- <div class="pill-wrapper">
+  <h2>My stats</h2>
+   <div class="pill-wrapper">
     <div class="pill">
-      <i class="pill__icon fa fa-user"></i>
-      <div class="pill__detail">View Detail</div>
       <div class="pill__content">
-        <div class="pill__date">March 2020</div>
+        <div class="pill__date"> </div>
         <div class="pill__title">Eco score</div>
-        <div class="pill__value">1231</div>        
+        <div class="pill__value" id="my_eco"> </div>        
       </div>
     </div>
 
-
- <div class="pill">
-      <i class="pill__icon fa fa-user"></i>
-      <div class="pill__detail">View Detail</div>
-      <div class="pill__content">
-        <div class="pill__date">//today</div>
+    <div class="pill">      
+      <div class="pill__content">        
         <div class="pill__title">Upload range</div>
-        <div class="pill__value">1446</div>        
+        <div class="pill__value" id="range"> </div>        
       </div>
     </div>
 	
-	<div class="pill">
-      <i class="pill__icon fa fa-user"></i>
-      <div class="pill__detail">View Detail</div>
-      <div class="pill__content">
-        <div class="pill__date">//today</div>
+	<div class="pill">     
+      <div class="pill__content">       
         <div class="pill__title">Latest upload</div>
-        <div class="pill__value">65%</div>        
+        <div class="pill__value" id="last_up"> </div>        
       </div>
     </div>    
   </div>
 </section>
 <section id="portfolio" class="content">
-<h2>Annual chart</h2>
-<div class="chart_cont">
-<canvas id="annual" width="400" height="400"></canvas>
-</div>
+  <h2>Annual chart</h2>
+  <div class="chart_cont">
+    <canvas id="annual" width="400" height="400"></canvas>
+  </div>
 </section>
 
 <section id="services" class="content">
@@ -79,100 +81,35 @@
     <h3>March eco-score</h3>
     <ul class="feed">
       <li class="feed__item user">
-        <div class="user__avatar"></div>
-        <div class="user__name">User</div>
+        <div class="user__avatar" id="first"></div>
+        <div class="user__name" id="one"> </div>
         <div class="user__message">1st</div>
-        <div class="user__timestamp">4 minutes ago</div>
+        <div class="user__score" id="score_one">score: </div>
       </li>
       <li class="feed__item user">
-        <div class="user__avatar"></div>
-        <div class="user__name">User</div>
+        <div class="user__avatar" id="second"></div>
+        <div class="user__name" id="two"> </div>
         <div class="user__message">2nd</div>
-        <div class="user__timestamp">4 minutes ago</div>
+        <div class="user__score" id="score_two">score: </div>
       </li>
       <li class="feed__item user">
-        <div class="user__avatar"></div>
-        <div class="user__name">User</div>
+        <div class="user__avatar" id="third"></div>
+        <div class="user__name" id="three"> </div>
         <div class="user__message">3rd</div>
-        <div class="user__timestamp">4 minutes ago</div>
+        <div class="user__score" id="score_three">score: </div>
       </li>
       <li class="feed__item user">
         <div class="user__avatar"></div>
-        <div class="user__name">User</div>
-        <div class="user__message">new comment</div>
-        <div class="user__timestamp">4 minutes ago</div>
-      </li>
-           
+        <div class="user__name" id="my_name"> </div>
+        <div class="user__message" id="my_rank"> </div>
+        <div class="user__score" id="my_score">score: </div>
+      </li>           
     </ul>
-
   </div>
 </section>
 
-<section id="gallery" class="content">
-<h2>Gallery</h2>
-<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-</section>
-
-<section id="contact" class="content">
-<h2>Contact</h2>
-<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-</section>
 </main>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script>
-var ctx = document.getElementById('annual');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        datasets: [{
-            label: 'eco-score',
-            data: [12, 19, 3, 5, 2, 3, 3, 7, 1, 14, 10, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(43, 59, 62, 0.2)',
-				'rgba(120, 159, 64, 0.2)',
-				'rgba(420, 49, 264, 0.2)',
-				'rgba(4, 58, 154, 0.2)',
-				'rgba(320, 159, 64, 0.2)',
-				'rgba(20, 139, 64, 0.2)',
-				'rgba(217, 233, 21, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(43, 59, 62, 1)',
-				'rgba(120, 159, 64, 1)',
-				'rgba(420, 49, 264, 1)',
-				'rgba(4, 58, 154, 1)',
-				'rgba(320, 159, 64, 1)',
-				'rgba(20, 139, 64, 1)',
-				'rgba(217, 233, 21, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
-</script>
-</script>
 
 </body>
 <footer>
