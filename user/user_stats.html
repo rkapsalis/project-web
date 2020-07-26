@@ -1,0 +1,125 @@
+<html>
+
+
+<meta name="viewport"  charset="UTF8" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+ <link rel="stylesheet" href="usr.css">
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
+ <link rel="stylesheet" href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="user_stats.js"></script>
+
+<body>
+ <header>
+<section>
+ <img src="yellow_low res.png" style="padding: 20px 0px 5px 0px" height="35" width="44"> 
+<a href="usr.html" id="logo" target="_blank">Patras Gazer</a>
+
+<label for="toggle-1" class="toggle-menu"><ul><li></li> <li></li> <li></li></ul></label>
+<input type="checkbox" id="toggle-1">
+
+<nav >
+<ul>
+<li><a href="userdata.php"><i class="icon-user"></i>User Data</a></li>
+<li><a href="user_stats.php"><i class="fas fa-chart-bar"></i>Statistics</a></li>
+<li><a href="upload1.php"><i class="fa fa-upload"></i>Upload</a></li>
+<li><a href="help.html"><i class="fa fa-question-circle"></i>Help</a></li>
+<li><a href="http://localhost/logout.php"><i class="fa fa-sign-out-alt" ></i>Sign out</a></li>
+</ul>
+</nav>
+</header>
+
+</section>
+
+<section id="about" class="content">
+<h2>About</h2>
+<p>Please pick month and year range and then click sumbit.</p>
+<select
+    name="monthsince"
+    id="monthsince"
+   
+  >
+    <option value="">Since (Month) </option>
+    <option value="01">Ιανουάριος</option>
+    <option value="02">Φεβρουάριος</option>
+    <option value="03">Μάρτιος</option>
+    <option value="04">Απρίλιος</option>
+    <option value="05">Μάιος</option>
+    <option value="06">Ιούνιος</option>
+    <option value="07">Ιούλιος</option>
+    <option value="08">Αύγουστος</option>
+    <option value="09">Σεπτέμβριος</option>
+    <option value="10">Οκτώβριος</option>
+    <option value="11">Νοέμβριος</option>
+    <option value="12">Δεκέμβριος</option>
+  </select>
+
+
+<select
+    name="monthsince"
+    id="monthsince"
+    onchange="getForms()"
+    action="showDate(monthsince1,yearsince1,monthuntil1,yearuntil1)"
+  >
+    <option value="">Until (Month) </option>
+    <option value="01">Ιανουάριος</option>
+    <option value="02">Φεβρουάριος</option>
+    <option value="03">Μάρτιος</option>
+    <option value="04">Απρίλιος</option>
+    <option value="05">Μάιος</option>
+    <option value="06">Ιούνιος</option>
+    <option value="07">Ιούλιος</option>
+    <option value="08">Αύγουστος</option>
+    <option value="09">Σεπτέμβριος</option>
+    <option value="10">Οκτώβριος</option>
+    <option value="11">Νοέμβριος</option>
+    <option value="12">Δεκέμβριος</option>
+  </select>
+
+  <select
+    name="yearsince"
+    id="yearsince"
+    
+  >
+    <option value="">Until (Year) </option>
+
+  </select>
+
+</section>  
+</section>
+
+<section id="portfolio" class="content">
+<h2>Percentage of records per activity type</h2>
+<div class="chart_cont">
+    <canvas id="percentage" width="400" height="400"></canvas>
+  </div>
+</section>
+
+<section id="services" class="content">
+<h2> Time of the day with the most records per activity type</h2>
+<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+</section>
+
+<section id="gallery" class="content">
+<h2>The day with the most records per activity type</h2>
+<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+</section>
+
+<section id="contact" class="content">
+<h2>Heatmap</h2>
+<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+</section>
+
+</body>
+<footer>
+<ul class="social">
+<p><span class="footer__copyright">Romanos Kapsalis &copy;</span> 2020 </p>
+
+<li><a href="https://www.linkedin.com/in/romanos-kapsalis/" style="padding: 0px 0px 0px 68px" target="_blank"><i class="icon-linkedin"></i></a></li>
+<li><a href="https://github.com/rkapsalis" target="_blank"><i class="icon-github"></i></a></li>
+
+</ul>
+</footer>
+</html>
