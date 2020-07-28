@@ -41,7 +41,7 @@
     id="monthsince"
    
   >
-    <option value="">Since (Month) </option>
+    <option value="" selected>Since (Month) </option>
     <option value="01">Ιανουάριος</option>
     <option value="02">Φεβρουάριος</option>
     <option value="03">Μάρτιος</option>
@@ -56,14 +56,22 @@
     <option value="12">Δεκέμβριος</option>
   </select>
 
+<select
+    name="yearsince"
+    id="yearsince"
+    
+  >
+    <option value="">Since (Year) </option>
+
+  </select>
 
 <select
-    name="monthsince"
-    id="monthsince"
+    name="monthuntil"
+    id="monthuntil"
     onchange="getForms()"
     action="showDate(monthsince1,yearsince1,monthuntil1,yearuntil1)"
   >
-    <option value="">Until (Month) </option>
+    <option value="" selected>Until (Month) </option>
     <option value="01">Ιανουάριος</option>
     <option value="02">Φεβρουάριος</option>
     <option value="03">Μάρτιος</option>
@@ -79,14 +87,14 @@
   </select>
 
   <select
-    name="yearsince"
-    id="yearsince"
+    name="yearuntil"
+    id="yearuntil"
     
   >
     <option value="">Until (Year) </option>
 
   </select>
-
+   <button type="submit" id="submitrange" class="button">Submit</button>
 </section>  
 </section>
 
