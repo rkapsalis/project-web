@@ -28,10 +28,17 @@ $end = strtotime(date("Y-m-31", strtotime($date_end)))*1000;
 //var_dump($sel);	
 $result1 = $conn->query("SELECT type,COUNT(*) as type_counter FROM activity WHERE UID='$uid' AND timestampMs>=$start AND timestampMs<=$end GROUP BY type");
 $result2 = $conn->query("SELECT DISTINCT FROM_UNIXTIME(timestampMs/1000, '%Y') as time FROM activity WHERE UID='$uid' ORDER BY time"); //GET YEARS TO FILL DROP-DOWN MENU
-//$result3 = $conn->query("SELECT FROM_UNIXTIME(timestampMs/1000, %h:%i:%s), type,COUNT(*) as type_counter FROM activity WHERE UID='$uid' AND timestampMs>=$start AND timestampMs<=$end GROUP BY type");
+$result3 = $conn->query("SELECT ph,type_counter FROM (SELECT type, COUNT(*) as type_counter, FROM_UNIXTIME(timestampMs/1000, '%h%p') as ph FROM activity WHERE UID='$uid' AND timestampMs>=$start AND timestampMs<=$end GROUP BY type,ph ORDER BY type_counter DESC, type) AS Y GROUP BY type");
+$result4 = $conn->query("SELECT pd,type_counter FROM (SELECT type, COUNT(*) as type_counter, FROM_UNIXTIME(timestampMs/1000, '%W') as pd FROM activity WHERE UID='$uid' AND timestampMs>=$start AND timestampMs<=$end GROUP BY type,pd ORDER BY type_counter DESC, type) AS Y GROUP BY type");
+
+
  $years =[];
  $sum = [];
- $types =[];
+ $types = [];
+ $peak_h = [];
+ $sum_ph = [];
+ $peak_d = [];
+ $sum_pd = [];
 
 while($row=mysqli_fetch_assoc($result2)) {
     array_push($years, $row['time']);
@@ -40,6 +47,16 @@ while($row1=mysqli_fetch_assoc($result1)) {
     array_push($sum, $row1['type_counter']);
     array_push($types, $row1['type']);
 }
-$user_stats = array('years'=> $years,'start'=>$start, 'end'=>$end,'type'=>$types, 'sum'=>$sum);
+while($row2=mysqli_fetch_assoc($result3)) {
+    array_push($peak_h, $row2['ph']);
+   array_push($sum_ph, $row2['type_counter']);
+   
+}
+while($row3=mysqli_fetch_assoc($result4)) {
+    array_push($peak_d, $row3['pd']);
+    array_push($sum_pd, $row3['type_counter']);
+   
+}
+$user_stats = array('years'=> $years,'start'=>$start, 'end'=>$end,'type'=>$types, 'sum'=>$sum, 'hour'=>$peak_h,'sum_ph'=>$sum_ph, 'day'=>$peak_d, 'sum_pd'=>$sum_pd);
 echo json_encode($user_stats);
 ?>			
