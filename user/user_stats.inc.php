@@ -61,9 +61,9 @@ while($row3=mysqli_fetch_assoc($result4)) {
    
 }
 while($row4=mysqli_fetch_assoc($result5)) {
-    array_push($lon, $row4['longitudeE7']);
-    array_push($lat, $row4['latitudeE7']);
-    array_push($heat_count, $row4['heat_count']);
+    array_push($lon, ['lon'=>$row4['longitudeE7']/ 10000000.0, 'lat' => $row4['latitudeE7']/ 10000000.0, 'heat_count' => $row4['heat_count']]);
+    // array_push($lat, $row4['latitudeE7']);
+    // array_push($heat_count, $row4['heat_count']);
 }
 
 $user_stats = array('years'=> $years,'start'=>$start, 'end'=>$end,'type'=>$types, 'sum'=>$sum, 'hour'=>$peak_h,'sum_ph'=>$sum_ph, 'day'=>$peak_d, 'sum_pd'=>$sum_pd, 'lon'=>$lon, 'lat'=>$lat, 'heat_count'=>$heat_count);
