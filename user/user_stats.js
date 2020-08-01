@@ -188,8 +188,34 @@
 									        }
 									    }
 									});	
-							     
-			
+									//most frequent days table
+							 var html = '<table>';
+							 html += '<tr>';
+							
+						    html += '<th>'+ 'Type' + '</th>';
+						    html += '<th>'+ 'Most common days' + '</th>';						    
+						   
+						
+							 html += '</tr>';
+							 //for( var i = 0; i < response['hour'].length; i++) {
+							  
+							  for( var j in response['type'] ) {
+							  	html += '<tr>';
+							    html += '<td>' + response['type'][j] + '</td>';
+							    html += '<td>' + response['day'][j] + '</td>';
+							     html += '</tr>';
+							  }						 
+							
+							 html += '</table>';
+							 document.getElementById('table1').innerHTML = html;
+
+							let mymap = L.map('mapid')
+							let osmUrl='https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+							let osmAttrib='Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
+							let osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
+							 mymap.addLayer(osm);
+							mymap.setView([38.246242, 21.7350847], 16);
+										
       },
 		error: function(XMLHttpRequest, textStatus, errorThrown){
 		   //console.log(response);

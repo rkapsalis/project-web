@@ -300,4 +300,5 @@ th{
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+#mapid{ height: 300px; width: 100%; align: "center"; bottom: 10px; top: 5px;}
 /*background-color:#1caff9; */

@@ -30,7 +30,7 @@ $result1 = $conn->query("SELECT type,COUNT(*) as type_counter FROM activity WHER
 $result2 = $conn->query("SELECT DISTINCT FROM_UNIXTIME(timestampMs/1000, '%Y') as time FROM activity WHERE UID='$uid' ORDER BY time"); //GET YEARS TO FILL DROP-DOWN MENU
 $result3 = $conn->query("SELECT ph,type_counter FROM (SELECT type, COUNT(*) as type_counter, FROM_UNIXTIME(timestampMs/1000, '%h%p') as ph FROM activity WHERE UID='$uid' AND timestampMs>=$start AND timestampMs<=$end GROUP BY type,ph ORDER BY type_counter DESC, type) AS Y GROUP BY type");
 $result4 = $conn->query("SELECT pd,type_counter FROM (SELECT type, COUNT(*) as type_counter, FROM_UNIXTIME(timestampMs/1000, '%W') as pd FROM activity WHERE UID='$uid' AND timestampMs>=$start AND timestampMs<=$end GROUP BY type,pd ORDER BY type_counter DESC, type) AS Y GROUP BY type");
-
+$result5 =  $conn->query("SELECT latitudeE7, longitudeE7, COUNT(*) AS heat_count FROM data WHERE UID='$uid' AND timestampMs>=$start AND timestampMs<=$end GROUP BY latitudeE7, longitudeE7");
 
  $years =[];
  $sum = [];
@@ -39,6 +39,9 @@ $result4 = $conn->query("SELECT pd,type_counter FROM (SELECT type, COUNT(*) as t
  $sum_ph = [];
  $peak_d = [];
  $sum_pd = [];
+ $lon = [];
+ $lat = [];
+ $heat_count = [];
 
 while($row=mysqli_fetch_assoc($result2)) {
     array_push($years, $row['time']);
@@ -57,6 +60,12 @@ while($row3=mysqli_fetch_assoc($result4)) {
     array_push($sum_pd, $row3['type_counter']);
    
 }
-$user_stats = array('years'=> $years,'start'=>$start, 'end'=>$end,'type'=>$types, 'sum'=>$sum, 'hour'=>$peak_h,'sum_ph'=>$sum_ph, 'day'=>$peak_d, 'sum_pd'=>$sum_pd);
+while($row4=mysqli_fetch_assoc($result5)) {
+    array_push($lon, $row4['longitudeE7']);
+    array_push($lat, $row4['latitudeE7']);
+    array_push($heat_count, $row4['heat_count']);
+}
+
+$user_stats = array('years'=> $years,'start'=>$start, 'end'=>$end,'type'=>$types, 'sum'=>$sum, 'hour'=>$peak_h,'sum_ph'=>$sum_ph, 'day'=>$peak_d, 'sum_pd'=>$sum_pd, 'lon'=>$lon, 'lat'=>$lat, 'heat_count'=>$heat_count);
 echo json_encode($user_stats);
 ?>			
