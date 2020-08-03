@@ -114,4 +114,4 @@ CREATE TABLE history(
 	"type"		ENUM('insert', 'update', 'delete'),
 	"tableName"	VARCHAR(15)
 );
-
+INSERT INTO `user` (userID, username, password, email, type, firstname, lastname) VALUES ('fMBGynlMFdP1HBFb5crZnKmDReRc56F4ZTvxpWu7318=','romanosK','$2y$10$gaIfq9FJI0WrnP6cv4IZieILxaUZg.qzNd/JjLHnnc4nYfwJ2n8Qy', 'romanos_kapsalis@gmail.com','admin', 'Ρωμανός', 'Καψάλης');
