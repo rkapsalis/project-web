@@ -1,20 +1,20 @@
  $(document).ready(function() {
               
 
-  //     $.ajax({    //create an ajax request to display.php
-  //       type: "POST",
-  //       url: "",             
-  //       dataType: "json",                   
-  //       success: function(response){       
-           
+      $.ajax({    //create an ajax request to display.php
+        type: "POST",
+        url: "dashboard.php",             
+        dataType: "json",                   
+        success: function(response){       
+            console.log(response);
 			
 			
-  //       },
-		// error: function(XMLHttpRequest, textStatus, errorThrown){
-		//    //console.log(response);
-		//    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-		// }
-  //     });
+        },
+		error: function(XMLHttpRequest, textStatus, errorThrown){
+		   //console.log(response);
+		   alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+		}
+      });
 
 	
 

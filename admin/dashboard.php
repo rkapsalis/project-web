@@ -28,7 +28,7 @@ $dayArray = array();
 $hourArray = array();
 $yearArray = array();
 
-while($row1 = mysql_fetch_array($result1)){
+while($row1 = mysqli_fetch_assoc($result_a)){
 
    $typeArray[$row1['type']] = $row1['type_counter'];
 }
@@ -37,7 +37,7 @@ foreach($typeArray as $k => $id){
     echo $k."=>".$id;
 }
 
-while($row2 = mysql_fetch_array($result2)){
+while($row2 = mysqli_fetch_assoc($result_b)){
 
    $userArray[$row2['UID']] = $row2['user_counter'];
 }
@@ -46,7 +46,7 @@ foreach($userArray as $k => $id){
     echo $k."=>".$id;
 }
 
-while($row3 = mysql_fetch_array($result3)){
+while($row3 = mysqli_fetch_assoc($result_c)){
 
    $monthArray[$row3['month']] = $row3['month_counter'];
 }
@@ -55,7 +55,7 @@ foreach($monthArray as $k => $id){
     echo $k."=>".$id;
 }
 
-while($row4 = mysql_fetch_array($result4)){
+while($row4 = mysqli_fetch_assoc($result_d)){
 
    $dayArray[$row1['day']] = $row4['day_counter'];
 }
@@ -64,7 +64,7 @@ foreach($dayArray as $k => $id){
     echo $k."=>".$id;
 }
 
-while($row5 = mysql_fetch_array($result5)){
+while($row5 = mysqli_fetch_assoc($result_e)){
 
    $hourArray[$row5['hour']] = $row5['hour_counter'];
 }
@@ -73,7 +73,7 @@ foreach($hourArray as $k => $id){
     echo $k."=>".$id;
 }
 
-while($row6 = mysql_fetch_array($result6)){
+while($row6 = mysqli_fetch_assoc($result_f)){
 
    $yearArray[$row6['year']] = $row6['year_counter'];
 }
