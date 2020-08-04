@@ -23,7 +23,7 @@ input[type=checkbox], label{display:none;}
 
 .content{display:table; margin-bottom:20px; width:900px; }
 .content h2{font-size:18px; font-weight:500; color:#002e5b; border-bottom:1px solid #fde428; display:table; padding-bottom:10px; margin-bottom:10px;}
-.content p{font-size:14px; line-height:22px; color:#7c7c7c; text-align:justify;}
+.content p{font-size:14px; line-height:22px; color: black; text-align:justify;}
 
 footer{display:table; padding-bottom:30px; width:100%;}
 .social{margin:0px auto; display:table; display:table;}
@@ -232,4 +232,107 @@ h1 {padding: 20px 0px;}
 .pill-wrapper{width:100%;}
 .pill{border-radius:20px; width:95%;}
 .pill__content{padding:0 0 0 10; grid-column: 1 / 3}
+}
+#delete{
+  border-radius:8px;
+  background-color:  #002e5b;
+  padding: 10px;
+  cursor: pointer;
+  color: #fde428;
+  border: none;
+  position: relative;
+  margin-top: 10px;
+}
+.confirmation-popup-container{
+   visibility: hidden;
+}
+.confirmation-popup-container.is-visible{
+  visibility: visible;
+    /*  position: relative;
+  width: 90%;
+  max-width: 400px;
+  margin: 4em auto;
+  background: #FFF;
+  border-radius: .25em .25em .4em .4em;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);*/
+     position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.50);
+    z-index: 999999
+}
+.dialog{
+  width: 400px;
+    margin: 100px auto 0;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,.2);
+    border-radius: 3px;
+    overflow: hidden
+}
+.dialog header{
+   /*background-color: #f6f7f9;
+    border-bottom: 1px solid #e5e5e5;*/
+    padding: 10px 8px;
+    background-color: #f6f7f9;
+    border-bottom: 1px solid #e5e5e5
+}
+.modal-buttons{
+   border-top: 1px solid #e5e5e5;
+    padding: 8px 10px;
+    display: inline;
+
+}
+.dialog header h3 {
+    font-size: 16px;
+    margin: 0;
+    color: #555;
+    display: inline-block
+}
+.dialog header .fa-close {
+    float: right;
+    color: black;
+    cursor: pointer;
+    transition: all .5s ease;
+    padding: 0 15px;
+    border-radius: 1px    
+}
+.dialog-ovelay .dialog header .fa-close:hover {
+    color: #b9b9b9
+}
+.dialog-ovelay .dialog header .fa-close:active {
+    box-shadow: 0 0 5px #673AB7;
+    color: #a2a2a2
+}
+.modal-center{
+  padding: 12px 10px;
+}
+.modal-center p{
+    margin: 0;
+    font-size: 15px;
+    color: #333
+}
+.controls .button {
+    padding: 5px 15px;
+    border-radius: 3px
+}
+.button-default {
+    background-color: rgb(248, 248, 248);
+    border: 1px solid rgba(204, 204, 204, 0.5);
+    color: #5D5D5D;
+}
+.button-danger {
+    background-color: #f44336;
+    border: 1px solid #d32f2f;
+    color: #f5f5f5
+}
+.controls{
+  direction: rtl;
+  border-top: 1px solid #e5e5e5;
+    padding: 8px 10px;
+}
+.button {
+  cursor: pointer
 }
