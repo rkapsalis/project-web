@@ -334,15 +334,18 @@ h1 {padding: 20px 0px;}
     padding: 8px 10px;
 }
 .button {
-  cursor: pointer
+  cursor: pointer;
+  /*left:40%;*/
 }
 #monthuntil{
   display: inline;
   padding: 2px;
-  width: 109px ;
+  width: 109px !important;
    border-radius: 5px;
-    
-  margin-right: 6px;
+    margin-bottom: 10px;
+  /*margin-right: 6px;*/
+   margin-right: 0px;
+
 }
 #yearuntil{
   display: inline;
@@ -368,8 +371,7 @@ h1 {padding: 20px 0px;}
   margin-right: 0px;
   padding: 2px;
   width: 100px !important;  
-  margin-bottom: 10px;
-    
+  margin-bottom: 10px;   
 
 }
 #submitrange{
@@ -385,8 +387,9 @@ h1 {padding: 20px 0px;}
 #select-box{
   background-color: #b7a162;
   padding: 10px;
-   height: 190px;
+   height: 185px;
    border-radius: 5px;
+   display: flex;;
 }
 #select-box h3{
   width: 300px;
@@ -396,23 +399,24 @@ h1 {padding: 20px 0px;}
 }
 #block1{
   width: 316px;
-
+  padding-left: 4px;
 }
 #block2{
-  margin: -38px 20px 2px 301px;
+ /* margin: -38px 20px 2px 301px;*/
   width: 316px;
-  top: -140px;
+  /*top: -140px;*/
   position: relative;
   display: block;
-  padding-left: 20px;
+  padding-left: 15px;
 }
 #block3{
-  margin: -124px 0px 2px 601px;
-  width: 300px;
-  top: -150px;
+ /* margin: -124px 0px 2px 640px;*/
+  width: 295px;
+  /*top: -150px;*/
+
   position: relative;
   display: block;
-  padding-left: 50px;
+  padding-left: 15px;
 }
 select{
   width: 100px ;  
@@ -420,6 +424,7 @@ select{
     background-color: #002e5b;
   color:#fde428;
   padding: 2px;
+  border-radius: 5px;
 }
 #select-box h5{
  
@@ -427,9 +432,18 @@ select{
  display: inline;
   
 }
-#am-pm{
-   width: 50px ;  
+#am-pm, #minutesuntil, #minutessince, #hoursince, #houruntil{
+   width: 60px ;  
 }
 #activity1 {
-  
+  margin-left: 2px;
+}
+#minutessince{
+  margin-right: 40px;
+}
+#activity1, #activity2{
+  width: 120px !important;
+}
+#hour1, #hour2{
+   margin-left: 25px;
 }
