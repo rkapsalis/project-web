@@ -29,11 +29,10 @@ $daysince = $_POST["daysince"];
 $activity1 = $_POST["activity1"];
 $activity2 = $_POST["activity2"]
  
-$month = date("(F)", date("m"));
-$year = date("Y");
-$date_start = "$year_s-$month_s";
-$date_end = "$year_u-$month_u";
-$start = strtotime(date("Y-m-01", strtotime($date_start)))*1000;
+
+$date_start = "$year_s-$month_s-$daysince $hoursince:$minutessince $pm_am_s";
+$date_end = "$year_u-$month_u-$dayuntil $houruntil:$minutesuntil $pm_am_u";
+$start = strtotime(date("Y-m-l h:i A", strtotime($date_start)))*1000;
 $end = strtotime(date("Y-m-31", strtotime($date_end)))*1000;
 
 //var_dump($sel);	
@@ -41,7 +40,7 @@ $result1 = $conn->query("SELECT type,COUNT(*) as type_counter FROM activity WHER
 $result2 = $conn->query("SELECT DISTINCT FROM_UNIXTIME(timestampMs/1000, '%Y') as time FROM activity WHERE UID='$uid' ORDER BY time"); //GET YEARS TO FILL DROP-DOWN MENU
 $result3 = $conn->query("SELECT ph,type_counter FROM (SELECT type, COUNT(*) as type_counter, FROM_UNIXTIME(timestampMs/1000, '%h%p') as ph FROM activity WHERE UID='$uid' AND timestampMs>=$start AND timestampMs<=$end GROUP BY type,ph ORDER BY type_counter DESC, type) AS Y GROUP BY type");
 $result4 = $conn->query("SELECT pd,type_counter FROM (SELECT type, COUNT(*) as type_counter, FROM_UNIXTIME(timestampMs/1000, '%W') as pd FROM activity WHERE UID='$uid' AND timestampMs>=$start AND timestampMs<=$end GROUP BY type,pd ORDER BY type_counter DESC, type) AS Y GROUP BY type");
-$result5 =  $conn->query("SELECT latitudeE7, longitudeE7, COUNT(*) AS heat_count FROM data WHERE UID='$uid' AND timestampMs>=$start AND timestampMs<=$end GROUP BY latitudeE7, longitudeE7");
+$result5 =  $conn->query("SELECT latitudeE7, longitudeE7, COUNT(*) AS heat_count FROM data WHERE  AND timestampMs>=$start AND timestampMs<=$end GROUP BY latitudeE7, longitudeE7");
 
  $years =[];
  $sum = [];

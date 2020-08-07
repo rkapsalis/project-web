@@ -417,6 +417,7 @@ h1 {padding: 20px 0px;}
   position: relative;
   display: block;
   padding-left: 15px;
+  z-index: 99
 }
 select{
   width: 100px ;  
@@ -446,4 +447,90 @@ select{
 }
 #hour1, #hour2{
    margin-left: 25px;
+}
+
+
+
+
+
+.dropdown {
+  position: relative;
+  font-size: 14px;
+  color: #333;
+   box-sizing: border-box;
+}
+  .dropdown-list {
+    padding: 12px;
+    background: #fff;
+    position: absolute;
+    top: 30px;
+    left: 2px;
+    right: 2px;
+    box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .15);
+    transform-origin: 50% 0;
+    transform: scale(1, 0);
+    transition: transform .15s ease-in-out .15s;
+    max-height: 40vh;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    background-color:  #002e5b;  
+    color: #fde428;
+  }
+  
+  .dropdown-option {
+    display: block;
+    padding: 8px 12px;
+    opacity: 0;
+    transition: opacity .15s ease-in-out;
+    box-sizing: border-box;
+  }
+  
+  .dropdown-label {
+    display: block;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    line-height: 1;
+    cursor: pointer;
+    box-sizing: border-box;
+    background-color:  #002e5b;  
+  color: #fde428;
+  }
+    
+    .dropdown-label:before {
+      content: '▼';
+      float: right;
+    }
+  
+  
+   
+  .on .dropdown-list {
+      transform: scale(1, 1);
+      transition-delay: 0s;
+      box-sizing: border-box;
+
+    }
+      
+      .on .dropdown-option {
+        opacity: 1;
+        transition-delay: .2s;
+        box-sizing: border-box;
+      }
+    
+    
+    .dropdown-label:before {
+      content: '▲';
+    }
+  
+  
+  .dropdown-option input[type=checkbox]{
+    position: relative;
+    top: -1px;
+    margin-right: 4px;
+    display: inline-block !important;
+  }
+   a .dropdown-option {
+  text-decoration: none;
+  color: #379937;
 }

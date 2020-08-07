@@ -5,7 +5,6 @@
 <link rel="stylesheet" href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
@@ -44,7 +43,7 @@
     <section id="about" class="content">
       
       <h2>About</h2>
-      <p>Please pick month, day, activity, time (hour, pm or am and minutes) and year. You can also pick range of these values and then click sumbit.</p>
+      <p>Please pick month, day, activity, time (hour, pm or am and minutes) and year. You can also pick range of these values and then click submit.</p>
       <div id="select-box">
         <div id=block1>
           <h3>Day</h3>
@@ -53,7 +52,7 @@
             name="daysince"
             id="daysince"
             >
-            <option value="" selected>ALL </option>
+            <option value="ALL" selected>ALL </option>
             <option value="01">Δευτέρα</option>
             <option value="02">Τρίτη</option>
             <option value="03">Τετάρτη</option>
@@ -67,7 +66,7 @@
             name="dayuntil"
             id="dayuntil"
             >
-            <option value="" selected>ALL </option>
+            <option value="ALL" selected>ALL </option>
             <option value="01">Δευτέρα</option>
             <option value="02">Τρίτη</option>
             <option value="03">Τετάρτη</option>
@@ -79,7 +78,7 @@
           <h3>Hour (Since)</h3>
           <h5 id="hour1">h:</h5>
           <select name="hoursince" id="hoursince" >
-            <option value="">ALL </option>
+            <option value="ALL">ALL </option>
             
             <option value="01">01</option>
             <option value="02">02</option>
@@ -96,14 +95,14 @@
             
           </select>
           <select name="am-pm" id="am-pm">
-            <option value="">ALL </option>
-            <option value="01">AM</option>
-            <option value="02">PM</option>
+            <option value="ALL">ALL </option>
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
             
           </select>
           <h5>m:</h5>
           <select name="minutessince" id="minutessince">
-            <option value="">ALL </option>
+            <option value="ALL">ALL </option>
             
           </select>
           
@@ -119,7 +118,7 @@
             id="monthsince"
             
             >
-            <option value="" selected>ALL</option>
+            <option value="ALL" selected>ALL</option>
             <option value="01">Ιανουάριος</option>
             <option value="02">Φεβρουάριος</option>
             <option value="03">Μάρτιος</option>
@@ -139,7 +138,7 @@
             id="monthuntil"
             
             >
-            <option value="" selected>ALL </option>
+            <option value="ALL" selected>ALL </option>
             <option value="01">Ιανουάριος</option>
             <option value="02">Φεβρουάριος</option>
             <option value="03">Μάρτιος</option>
@@ -156,7 +155,7 @@
           <h3>Hour (Until)</h3>
           <h5 id="hour2">h:</h5>
           <select name="houruntil" id="houruntil" >
-            <option value="">ALL </option>
+            <option value="ALL">ALL </option>
             
             <option value="01">01</option>
             <option value="02">02</option>
@@ -173,14 +172,14 @@
             
           </select>
           <select name="am-pm" id="am-pm">
-            <option value="">ALL </option>
-            <option value="01">AM</option>
-            <option value="02">PM</option>
+            <option value="ALL">ALL </option>
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
             
           </select>
           <h5>m:</h5>
           <select name="minutesuntil" id="minutesuntil">
-            <option value="" selected>ALL </option>
+            <option value="ALL" selected>ALL </option>
             
           </select>
           
@@ -190,7 +189,7 @@
           <h3>Year</h3>
           <h5>since:</h5>
           <select name="yearsince" id="yearsince">
-            <option value="">ALL</option>
+            <option value="ALL">ALL</option>
           </select>
           <h5>until:</h5>
           <select
@@ -198,30 +197,39 @@
             id="yearuntil"
             
             >
-            <option value="">ALL</option>
+            <option value="ALL">ALL</option>
           </select>
           <h3>Activity</h3>
-          <select name="activity1" id="activity1">
-            <option value="">ALL </option>
+         <!--  <select name="activity1" id="activity1" multiple >
+            <option value="ALL">ALL </option>
           </select>
-          <h5>AND</h5>
-          <select name="activity2" id="activity2">
+          <h5>AND</h5> -->
+          <!--    <select name="activity2" id="activity2">
             <option value="">ALL</option>
-          </select>
-        </div>
-      </div>
-    </section>
-    <!-- </section> -->
-    <section id="contact" class="content">
-      <h2>Heatmap</h2>
-      <div id="mapid"></div>
-    </section>
-  </body>
-  <footer>
-    <ul class="social">
-      <p><span class="footer__copyright">Romanos Kapsalis &copy;</span> 2020 </p>
-      <li><a href="https://www.linkedin.com/in/romanos-kapsalis/" style="padding: 0px 0px 0px 68px" target="_blank"><i class="icon-linkedin"></i></a></li>
-      <li><a href="https://github.com/rkapsalis" target="_blank"><i class="icon-github"></i></a></li>
-    </ul>
-  </footer>
-</html>
+          </select> -->
+          <div class="dropdown" data-control="checkbox-dropdown">
+            <label class="dropdown-label">Select</label>
+
+            <div class="dropdown-list">
+              <a href="#" data-toggle="check-all" class="dropdown-option">
+                Check All
+              </a>
+            </div>
+          </div>
+
+
+        </section>
+        <!-- </section> -->
+        <section id="contact" class="content">
+          <h2>Heatmap</h2>
+          <div id="mapid"></div>
+        </section>
+      </body>
+      <footer>
+        <ul class="social">
+          <p><span class="footer__copyright">Romanos Kapsalis &copy;</span> 2020 </p>
+          <li><a href="https://www.linkedin.com/in/romanos-kapsalis/" style="padding: 0px 0px 0px 68px" target="_blank"><i class="icon-linkedin"></i></a></li>
+          <li><a href="https://github.com/rkapsalis" target="_blank"><i class="icon-github"></i></a></li>
+        </ul>
+      </footer>
+    </html>
