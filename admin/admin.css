@@ -519,7 +519,7 @@ select{
       }
     
     
-    .dropdown-label:before {
+    .on .dropdown-label:before {
       content: '▲';
     }
   
@@ -530,7 +530,7 @@ select{
     margin-right: 4px;
     display: inline-block !important;
   }
-   a .dropdown-option {
+   a, .dropdown-option {
   text-decoration: none;
-  color: #379937;
+  color: #fde428;
 }
