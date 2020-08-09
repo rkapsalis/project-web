@@ -19,6 +19,7 @@
  <script src="\Leaflet.heat-gh-pages\dist\leaflet-heat.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="user_stats.js"></script>
+<style> body{background-color: #1caff9;} .content p{color:black;}</style>
 
 <body>
  <header>
@@ -45,6 +46,7 @@
 <section id="about" class="content">
 <h2>About</h2>
 <p>Please pick month and year range and then click sumbit.</p>
+ <div id="select-box">
 <select
     name="monthsince"
     id="monthsince"
@@ -104,18 +106,19 @@
 
   </select>
    <button type="submit" id="submitrange" class="button">Submit</button>
+</div>
 </section>  
 </section>
 
 <section id="portfolio" class="content">
-<h2>Percentage of records per activity type</h2>
+<!-- <h2>Percentage of records per activity type</h2> -->
 <div class="chart_cont">
     <canvas id="percentage" width="100" height="100"></canvas>
   </div>
 </section>
 
 <section id="services" class="content">
-<h2> Time of the day with the most records per activity type</h2>
+<!-- <h2> Time of the day with the most records per activity type</h2> -->
 <div class="chart_cont">
     <canvas id="sum_ph" width="300" height="250"></canvas>
   </div>
@@ -123,7 +126,7 @@
 </section>
 
 <section id="gallery" class="content">
-<h2>The day with the most records per activity type</h2>
+<!-- <h2>The day with the most records per activity type</h2> -->
 <div class="chart_cont">
     <canvas id="sum_pd" width="400" height="400"></canvas>
   </div>
@@ -131,7 +134,7 @@
 </section>
 
 <section id="contact" class="content">
-<h2>Heatmap</h2>
+<!-- <h2>Heatmap</h2> -->
 <div id="mapid"></div>
 </section>
 

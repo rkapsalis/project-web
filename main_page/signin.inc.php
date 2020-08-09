@@ -1,17 +1,29 @@
 <?php
- session_start();
-if (isset($_POST["login"])) {
+
+header("Access-Control-Allow-Origin", "http://127.0.0.1");
+header("Access-Control-Allow-Credentials: true");
+header("Cache-Control: no-cache");
+header("Pragma: no-cache");
+header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+header("Access-Control-Allow-Headers: content-type,  x-filename,cache-control, Origin");
+ini_set('display_errors', 1);
+
+session_start();
+
+
+//if (isset($_POST["pass"])) {
     require_once 'db_handler.inc.php';
 
     $username = $_POST["usrn"];
-    $password = $_POST["pass"];   
+    $password = $_POST["pass"];
+    //$db_data = array();
     $count=0;
-
+     
      //τσεκαρουμε αν υπαρχει στην βαση
-        $sql = "SELECT * FROM users WHERE username=?";
+        $sql = "SELECT * FROM user WHERE username=?";
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt,$sql)){
-            header("Location:.../login.php?error=sqlerror");
+            header("Location:.../main.html?error=sqlerror");
             exit();
         }
         mysqli_stmt_bind_param($stmt,"s",$username);
@@ -25,32 +37,38 @@ if (isset($_POST["login"])) {
                 //$conn->query($sql) === TRUE
                 if ($password_check == TRUE) {//τσεκαρουμε αν το χασαρισμενο password αντιστοιχει
                    
-					session_regenerate_id();                   
-					$_SESSION['name'] = $_POST['username'];
+					//session_regenerate_id();                   
+					$_SESSION['name'] = $row['username'];
 			        $_SESSION['id'] = $row['userID'];
-					$_SESSION['rememberMe'] = true;
-					
-					if($row['type'] == 'admin'){
-                        header("Location: admin.php"); 
+					$_SESSION['rememberMe'] = TRUE;
+					//var_dump($_SESSION);
+					if($row['type']== 'admin'){
+                        header("Location: http://localhost/dashboard.html");						
+                       // echo 'admin';					
                     } else {
-                       header("Location: user_data.php"); 
+                      header("Location: http://localhost/user_data.html"); 
+					   //echo "user";
                     }
-                    $count++;                    
+                    $count++;                
                     exit();                                       
                 }
             }
-                         
+             //echo json_encode($db_data);
+             
         } 
         else{
            die("wrong password or username");
         }
         if($count == 0){
+            // var_dump($password_check);
            die("username not found");
         }
         mysqli_stmt_close($stmt);
         mysqli_close($conn);
-}  
-}   
-}
+//}
+?>
+  
+    
+
 
 

@@ -22,8 +22,8 @@ function eco_score($uid, $month, $year){
 	$query_date = "$year-$month-01";
 	$start = strtotime(date("Y-m-01 00:00:00", strtotime($query_date)))*1000;
 	$end = strtotime(date("Y-m-t 23:59:59", strtotime($query_date)))*1000;	
-	$result = $conn->query("SELECT * FROM activity WHERE userid='$uid' AND timestampMs>=$start AND timestampMs<=$end");		
-	
+	$result = $conn->query("SELECT * FROM activity WHERE UID='$uid' AND timestampMs>=$start AND timestampMs<=$end");		
+	// var_dump($result);
 	if ($result) {
 	
 		$body = ["ON_BICYCLE", "ON_FOOT", "RUNNING", "WALKING"]; //δραστηριότητα σώματος		
@@ -54,32 +54,51 @@ function eco_score($uid, $month, $year){
 	}
 	return $ecoscore;
 }
-$eco_score = eco_score($uid, $month, $year);
+// $eco_score = eco_score($uid, $month, $year); -------------τρεχων μηνας
 require 'db_handler.inc.php';
 
 
 //η περίοδος που καλύπτουν οι εγγραφές του χρήστη
 
-$min_date = $conn->query("SELECT MIN((timestampMs)) FROM data WHERE UID='$uid'");
+$min_date = $conn->query("SELECT MIN(timestampMs) FROM data WHERE UID='$uid'");
 $max_date = $conn->query("SELECT MAX((timestampMs)) FROM data WHERE UID='$uid'");
-if ($min_date and $max_date) {
-					
-    if(is_null($min_date)){
-     	 // echo "<div class=/"pill__value/">Empty Set</div>";
-	}
-    else{			  
-		//$min = date("j F Y", mysqli_fetch_assoc($min_date)["MIN(timestampMs)"] / 1000.0);
-		//$max = date("j F Y", mysqli_fetch_assoc($max_date)["MAX(timestampMs)"] / 1000.0);
-		//print_r(mysqli_fetch_assoc($min_date));
-       
-		$min = date("j F Y", mysqli_fetch_assoc($min_date)["MIN((timestampMs))"]/ 1000.0 );
-		$max = date("j F Y", mysqli_fetch_assoc($max_date)["MAX((timestampMs))"]/ 1000.0);
-		//echo "<div class=/"pill__value/">$min - $max</div>";							
-        }
+//var_dump(mysqli_fetch_row($min_date));
+// echo("SELECT MIN(timestampMs) FROM data WHERE UID='$uid'");
+$min_date = mysqli_fetch_row($min_date);
+$max_date = mysqli_fetch_row($max_date);
+// var_dump($min_date[0]);
+if($min_date != NULL){
+   $min = date("j F Y", $min_date[0]/ 1000.0 );
 }
 else{
-	//echo "<div class=/"pill__value/">Error</div>";
+  $min = "N/A";
+  
 }
+if($max_date != NULL){
+   $max = date("j F Y", $max_date[0]/ 1000.0);
+}
+else{
+   $max = "N/A";
+}
+// if ($min_date and $max_date) {
+$month1 = date("n", $min_date[0]/ 1000.0);
+$year1 = date("Y", $min_date[0]/ 1000.0);
+$eco_score = eco_score($uid, $month1, $year1);					
+//     if(is_null($min_date)){
+//      	 // echo "<div class=/"pill__value/">Empty Set</div>";
+//     	$min = "N/A";
+// 	}
+//     else{			  
+// 		//print_r(mysqli_fetch_assoc($min_date));
+       
+// 		$min = date("j F Y", mysqli_fetch_assoc($min_date)["MIN((timestampMs))"]/ 1000.0 );
+// 		$max = date("j F Y", mysqli_fetch_assoc($max_date)["MAX((timestampMs))"]/ 1000.0);
+// 		//echo "<div class=/"pill__value/">$min - $max</div>";							
+//         }
+// }
+// else{
+// 	//echo "<div class=/"pill__value/">Error</div>";
+// }
          
 
 
@@ -87,19 +106,27 @@ else{
 //η ημερομηνία τελευταίου upload που έκανε ο χρήστης
 
 $last_upload = $conn->query("SELECT MAX(uploadTime) FROM data WHERE UID='$uid'");
-if ($last_upload) {					
-     if(is_null($last_upload)){
-		//echo "<div class="pill__value">Empty Set</div>";
-	}
-    else{			
-
-		$last_up = date("j F Y, H:m:s", strtotime(mysqli_fetch_assoc($last_upload)["MAX(uploadTime)"]));
-		//echo "<div class="pill__value">$last_up</div>";							
-    }
+$last_upload = mysqli_fetch_row($last_upload);
+if($last_upload != NULL){
+   $last_up = date("j F Y, H:m:s", strtotime(($last_upload)[0]));
 }
 else{
-	//echo "<div class="pill__value">Error</div>";
-} 
+  $last_up = "N/A";
+  
+}
+// if ($last_upload) {					
+//      if(is_null($last_upload)){
+// 		//echo "<div class="pill__value">Empty Set</div>";
+// 	}
+//     else{			
+
+// 		$last_up = date("j F Y, H:m:s", strtotime(mysqli_fetch_assoc($last_upload)["MAX(uploadTime)"]));
+// 		//echo "<div class="pill__value">$last_up</div>";							
+//     }
+// }
+// else{
+// 	//echo "<div class="pill__value">Error</div>";
+// } 
 
 
 
@@ -174,9 +201,14 @@ for ($i = 1; $i <= 12; $i++) {
 				$rank[3]['name'] = $my_name;
                 $rank[3]['surname'] = $my_surname;
                 $rank[3]['score'] = $eco_score;
-                $rank[3]['rank'] = $my_rank;
+                if($my_rank == false){
+                	$my_rank = "N/A";
+                }
+                else{
+                   $rank[3]['rank'] = $my_rank;
+                }
 				$leaderboard = $rank;
 		
-	$user_data = array('uid'=> $uid,'name'=> $u_name,'month'=> $month,'year'=> $year,'score'=> $eco_score,'min_date'=> $min,'max_date'=> $max,'upload'=> $last_up,'lead'=> $leaderboard,'months'=> $ac_per_month);
+	$user_data = array('uid'=> $uid,'name'=> $u_name,'month'=> $month1,'year'=> $year,'score'=> $eco_score,'min_date'=> $min,'max_date'=> $max,'upload'=> $last_up,'lead'=> $leaderboard,'months'=> $ac_per_month);
 	echo json_encode($user_data);
 ?>			

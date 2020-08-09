@@ -3,7 +3,7 @@ session_start();
 //require_once 'db_handler.inc.php';
 // Resume the previous session
 error_reporting(E_ALL);
-
+set_time_limit(900);
 // If the user is not logged in redirect to the login page
 if (!isset($_SESSION['rememberMe'])) {
 	header('Location: main.html');
@@ -65,7 +65,11 @@ while($row4=mysqli_fetch_assoc($result5)) {
     // array_push($lat, $row4['latitudeE7']);
     // array_push($heat_count, $row4['heat_count']);
 }
-
+// $EncryptedEmail = 'romanos_kapsalis@gmail.com';
+//         $encryptionMethod = "AES-256-CBC";  // υπαρχουν πολλες επιλογές εδώ, βλέπουμε
+//         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc')); //initialization vector
+//         $key = 'CEID@WEB2020';
+//         $userID = openssl_encrypt($EncryptedEmail, $encryptionMethod, $key, 0, $iv);
 $user_stats = array('years'=> $years,'start'=>$start, 'end'=>$end,'type'=>$types, 'sum'=>$sum, 'hour'=>$peak_h,'sum_ph'=>$sum_ph, 'day'=>$peak_d, 'sum_pd'=>$sum_pd, 'lon'=>$lon, 'lat'=>$lat, 'heat_count'=>$heat_count);
 echo json_encode($user_stats);
 ?>			
