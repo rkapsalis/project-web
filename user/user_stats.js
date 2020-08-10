@@ -46,11 +46,14 @@
 		        dataType: "json",                   
 		        success: function(response){       
 		            console.log(response);
-		            $("#portfolio").append("<h2>Percentage of records per activity type</h2>");
-		            $("#services").append("<h2> Time of the day with the most records per activity type</h2>");
-		            $("#gallery").append(" <h2>The day with the most records per activity type</h2>");
-		            $("#contact").append("<h2>Heatmap</h2>");  
-                                         
+		            // $("#portfolio").append("<h2>Percentage of records per activity type</h2>");
+		            // $("#services").append("<h2> Time of the day with the most records per activity type</h2>");
+		            // $("#gallery").append(" <h2>The day with the most records per activity type</h2>");
+		            // $("#contact").append("<h2>Heatmap</h2>");  
+                     $('#portfolio').show(); 
+                     $('#services').show();   
+                     $('#gallery').show();     
+                      $('#contact').show();                        
 		             //percentage graph
 		             new Chart(document.getElementById("percentage"), {
 					    type: 'pie',
@@ -58,7 +61,7 @@
 					      labels: response['type'],
 					      datasets: [{
 					        label: "Percentage of records per activity type",
-					        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#d47850"],
+					        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#d47850", "#ff7850","#228b22","#F6CE53"],
 					        data: response['sum']
 					      }]
 					    },
