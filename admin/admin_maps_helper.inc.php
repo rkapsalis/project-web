@@ -2,6 +2,13 @@
 session_start();
 //require_once 'db_handler.inc.php';
 // Resume the previous session
+header("Access-Control-Allow-Origin", "http://127.0.0.1");
+header("Access-Control-Allow-Credentials: true");
+header("Cache-Control: no-store");
+header("Pragma: no-cache");
+header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+header("Access-Control-Allow-Headers: content-type,  x-filename,cache-control, Origin");
+ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // If the user is not logged in redirect to the login page
