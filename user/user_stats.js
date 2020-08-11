@@ -45,7 +45,7 @@
 		        },             
 		        dataType: "json",                   
 		        success: function(response){       
-		            console.log(response);
+		            //console.log(response);
 		            // $("#portfolio").append("<h2>Percentage of records per activity type</h2>");
 		            // $("#services").append("<h2> Time of the day with the most records per activity type</h2>");
 		            // $("#gallery").append(" <h2>The day with the most records per activity type</h2>");
