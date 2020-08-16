@@ -1,16 +1,16 @@
-$(document).ready(function() {
+ $(document).ready(function() {
               
 
       $.ajax({    //create an ajax request to display.php
         type: "POST",
-        url: "user_data.inc.php",             
+        url: "user_data.inc.php", 
+                  
         dataType: "json",                   
         success: function(response){       
             console.log(response);		
-            //$("#responsecontainer").html(response); 
             //response = JSON.parse(response);
-            //$('.html').html("<div class='new' id='" + id + "'>jitender</div>");
-			$('.welcome').html(" <h3>Welcome back, <br />'" + response['uid'] + "'!</h3>");
+            //$('.html').append("<div class='new' id='" + id + "'>jitender</div>");
+			$('.welcome').append(" <h3>Welcome back, <br />" + response["name"] + "!</h3>");
             $(".pill_date").text("" + response["month"] + "" + response["year"]);			
             $("#my_eco").text(response["score"] + "%");
 			$("#range").text("" + response["min_date"] + " - " + response["max_date"]);
@@ -29,14 +29,14 @@ $(document).ready(function() {
 			if ('2' in response["lead"]){$("#three").text("" + response["lead"][2]["name"] + "  " + response["lead"][2]["surname"]);}
 			if ('2' in response["lead"]){$("#score_three").text("" + response["lead"][2]["score"] + "%");}
 			//user
-			$("#my_name").text("" + response["lead"][3]["name"] + "  " + response["lead"][3]["surname"]);
+			$("#my_name").text("" + response["lead"][3]["name"] + "  " + response["lead"][3]["surname"] + ".");
 			$("#my_rank").text("" + response["lead"][3]["rank"] + "");
 			$("#my_score").text("" + response["lead"][3]["score"] + "%");			
 			
 			
         },
 		error: function(XMLHttpRequest, textStatus, errorThrown){
-		   //console.log(response);
+		   console.log(response);
 		   alert("Status: " + textStatus); alert("Error: " + errorThrown); 
 		}
       });
