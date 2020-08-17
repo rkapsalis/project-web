@@ -1,17 +1,17 @@
 <?php
 session_start();
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: content-type,  x-filename,cache-control");
-header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+// header("Access-Control-Allow-Origin: *");
+// header("Access-Control-Allow-Headers: content-type,  x-filename,cache-control");
+// header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
 
-ini_set('memory_limit', '-1');
-ini_set('file_uploads'   , '1');
-ini_set('max_input_vars', '10000');
-//ini_set('post_max_size', '6000M');
-ini_set('max_input_time', '2592000');
-ini_set('upload_max_filesize', '6000M');
+// ini_set('memory_limit', '-1');
+// ini_set('file_uploads'   , '1');
+// ini_set('max_input_vars', '10000');
+// //ini_set('post_max_size', '6000M');
+// ini_set('max_input_time', '2592000');
+// ini_set('upload_max_filesize', '6000M');
 
-set_time_limit(900);
+// set_time_limit(900);
 // Resume the previous session
 error_reporting(E_ALL);
 
@@ -39,7 +39,7 @@ $minutesuntil = $_POST["minutesuntil"];
 $dayuntil = $_POST["dayuntil"];
 $daysince = $_POST["daysince"];
 $selected = $_POST["selected"];
-$type = $_POST["type"];
+$file_type = $_POST["file_type"];
 
 if($month_s == 'ALL'){
     $month_s = "01";
@@ -85,7 +85,7 @@ $end = strtotime(date("Y-m-31", strtotime($date_end)))*1000;
 
 $selected = implode("','",$selected);
 
-$result =  $conn->query("SELECT d.latitudeE7, d.longitudeE7, d.heading, a.type, a.confidence, a.timestampMs, d.verticalAccuracy, d.velocity, d.accuracy, d.altitude, d.timestampMs, d.UID
+$result =  $conn->query("SELECT d.latitudeE7, d.longitudeE7, d.heading, a.type, a.confidence, a.timestampMs as a_timestampMs, d.verticalAccuracy, d.velocity, d.accuracy, d.altitude, d.timestampMs, d.UID
                           FROM data d 
                           INNER JOIN activity a ON a.fileID = d.fileID AND a.location_id = d.location_id
                           WHERE a.type IN ('$selected') AND d.timestampMs>=$start AND d.timestampMs<=$end")or die(mysqli_error($conn));
@@ -102,6 +102,7 @@ $result =  $conn->query("SELECT d.latitudeE7, d.longitudeE7, d.heading, a.type, 
  $type = [];
  $confidence = [];
  $UID = [];
+ $data = [];
 
 while($row=mysqli_fetch_assoc($result)) {
     array_push($latitudeE7, $row['latitudeE7']);    
@@ -116,14 +117,47 @@ while($row=mysqli_fetch_assoc($result)) {
     array_push($type, $row['type']);
     array_push($confidence, $row['confidence']);
     array_push($UID, $row['UID']);
+    array_push($data,['latitudeE7' => $row['latitudeE7'],'longitudeE7'=> $row['longitudeE7'],'velocity'=> $row['velocity'],'accuracy' => $row['accuracy'],'verticalAccuracy'=> $row['verticalAccuracy'],'altitude', $row['altitude'],'timestampMs'=> $row['timestampMs'],'a_timestampMs'=> $row['a_timestampMs'],'heading'=>$row['heading'],'type'=> $row['type'],'confidence'=> $row['confidence'], 'UID'=> $row['UID'] ]);
 }
-if(type=="JSON"){
+if($file_type=="JSON"){
+   $fp = fopen('data.json', 'w');
+   fwrite($fp, json_encode($data,JSON_PRETTY_PRINT));
+   fclose($fp);
+  
+}
+if($file_type=="CSV"){
+	$pathToGenerate='data.csv';    // your path and file name
+    $header=FALSE;
+    $createFile=fopen($pathToGenerate,'w+');
+    foreach ($data as $row)
+    {   if (!$header)
+        {   fputcsv($createFile,array_keys($row));
+            $header=TRUE;
+        }
+        fputcsv($createFile,$row);   // write the data for all rows
+    }
+    fclose($createFile);
+}
+if($file_type=="XML"){
+	$xml = new SimpleXMLElement('<Locations/>'); 
+	array_to_xml($newArray, $xml);
 
-}
-if(type=="CSV"){
-	
-}
-if(type=="XML"){
-	
+	//Creates XML string and XML document using the DOM 
+	$domxml = new DOMDocument('1.0');
+	$root = $xmlDoc->appendChild($xmlDoc->createElement("Locations"));
+   foreach($data['employe'] as $user){
+        if(!empty($user)){
+            $tabUser = $tabUsers->appendChild($xmlDoc->createElement('employe'));
+            foreach($user as $key=>$val){
+                $tabUser->appendChild($xmlDoc->createElement($key, $val));
+            }
+        }
+    }
+	$domxml->preserveWhiteSpace = false; //remove redundant white space
+	$domxml->formatOutput = true; //make the output pretty
+	$domxml->loadXML($xml->asXML());
+
+	$data = $domxml->saveXML();
+	$domxml->save('data.xml'); //save as file
 }
 ?>
