@@ -15,9 +15,9 @@ a{
   text-decoration: none;
 }
 
-p, li, a{
+/*p, li, a{
   font-size: 14px;
-}
+}*/
 
 fieldset{
   margin: 0;

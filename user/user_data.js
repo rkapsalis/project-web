@@ -20,17 +20,17 @@
 			annual(response["months"]);
             //1st		
             console.log(response["lead"][3]["name"]);				
-			if ('0' in response["lead"]) {$("#one").text("" + response["lead"][0]["name"] + "  " + response["lead"][0]["surname"]);}
+			if ('0' in response["lead"]) {$("#one").text("" + response["lead"][0]["name"] + "  " + response["lead"][0]["surname"] + ".");}
 			if ('0' in response["lead"]){$("#score_one").text("" + response["lead"][0]["score"] + "%");}
 			//2nd
-			if ('1' in response["lead"]){$("#two").text("" + response["lead"][1]["name"] + "  " + response["lead"][1]["surname"]);}
+			if ('1' in response["lead"]){$("#two").text("" + response["lead"][1]["name"] + "  " + response["lead"][1]["surname"]+ ".");}
 			if ('1' in response["lead"]){$("#score_two").text("" + response["lead"][1]["score"] + "%");}
 			//3rd
-			if ('2' in response["lead"]){$("#three").text("" + response["lead"][2]["name"] + "  " + response["lead"][2]["surname"]);}
+			if ('2' in response["lead"]){$("#three").text("" + response["lead"][2]["name"] + "  " + response["lead"][2]["surname"]+ ".");}
 			if ('2' in response["lead"]){$("#score_three").text("" + response["lead"][2]["score"] + "%");}
 			//user
 			$("#my_name").text("" + response["lead"][3]["name"] + "  " + response["lead"][3]["surname"] + ".");
-			$("#my_rank").text("" + response["lead"][3]["rank"] + "");
+			$("#my_rank").text("Position: " + response["lead"][3]["rank"] + "");
 			$("#my_score").text("" + response["lead"][3]["score"] + "%");			
 			
 			
@@ -42,7 +42,7 @@
       });
 
 	
-
+//annual chart
 function annual(months) {
 var ctx = document.getElementById('annual');	
 var myChart = new Chart(ctx, {
