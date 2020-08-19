@@ -5,7 +5,7 @@
    <link rel="icon" 
       type="image/png" 
       href="yellow_high res.png">
-    <title>Patras Gazer</title>
+    <title>User data | Patras Gazer</title>
 
   <link rel="stylesheet" href="usr.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
@@ -15,11 +15,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="user_data.js"></script>
+   <style> body{background-color: #1caff9;} .content p{color:black;}</style>
   <body>
     <header>
       <section>
         <img src="yellow_low res.png" style="padding: 20px 0px 5px 0px" height="35" width="44">
-        <a href="usr.html" id="logo" target="_blank">Patras Gazer</a>
+        <a href="user_data.html" id="logo" target="_blank">Patras Gazer</a>
         <label for="toggle-1" class="toggle-menu"><ul><li></li> <li></li> <li></li></ul></label>
         <input type="checkbox" id="toggle-1">
         <nav >
@@ -34,12 +35,13 @@
       </header>
     </section>
     <main>
-      <section id="gallery" class="content">
+      <section id="gallery" class="content" style="margin-bottom: 30px !important;">
         <div class="welcome">
-          <img src="patra.jpg" style="padding: 20px 0px 5px 0px" height="210" width="95%">
+          <img src="patra.jpg" style="padding: 20px 0px 5px 0px" height="210" width="100%">
           <!-- <h3>Welcome back, <br /> <?=$_SESSION['name']?>!</h3> -->
         </div>
       </section>
+      <div class="central-container">
       <section id="about" class="content">
         <h2>My stats</h2>
         <div class="pill-wrapper">
@@ -103,6 +105,7 @@
           </ul>
         </div>
       </section>
+    </div>
     </main>
   </body>
   <footer>

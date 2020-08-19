@@ -1,68 +1,62 @@
 <html>
-
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
- <link rel="stylesheet" href="usr.css">
- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
- <link rel="stylesheet" href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-<body>
- <header>
-<section>
- <img src="yellow_low res.png" style="padding: 20px 0px 5px 0px" height="35" width="44"> 
-<a href="usr.html" id="logo" target="_blank">Patras Gazer</a>
-
-<label for="toggle-1" class="toggle-menu"><ul><li></li> <li></li> <li></li></ul></label>
-<input type="checkbox" id="toggle-1">
-
-<nav >
-<ul>
-<li><a href="#logo"><i class="fa fa-home"></i>Home</a></li>
-<li><a href="#about"><i class="icon-user"></i>User Data</a></li>
-<li><a href="#portfolio"><i class="fas fa-chart-bar"></i>Statistics</a></li>
-<li><a href="upload1.html"><i class="fa fa-upload"></i>Upload</a></li>
-<li><a href="help.html"><i class="fa fa-question-circle"></i>Help</a></li>
-<li><a href="#contact"><i class="icon-phone"></i>Contact</a></li>
-</ul>
-</nav>
-</header>
-
-</section>
-
-<section id="about" class="content">
-<h2> First Step</h2>
-<p>Go to Google Takeout to download your Location History data: on that page, deselect everything except Location History by clicking "Select none" and then reselecting "Location History". Then, hit "Next" and, finally, click "Create archive". Once the archive has been created, click "Download".</p>
-</section>
-
-<section id="portfolio" class="content">
-<h2>Second Step</h2>
-<p> Unzip the downloaded file, and open the "Location History" folder within. Then, select "Upload" from the menu above.</p>
-</section>
-
-<section id="services" class="content">
-<h2>Third Step</h2>
-<p> Select the areas you want to exclude (optional). Notice that "Patras Gazer", automatically, does not insert data other than the city of Patras (> 10km from coordinates 38.230462,21.753150). Then click "Next". Click "browse" to select your file or drag and drop it. If your .json file is up to 30 mb this might take a while. Please wait.</p>
-</section>
-
-<section id="gallery" class="content">
-<h2>Statistics</h2>
-<p></p>
-</section>
-
-<section id="contact" class="content">
-<h2>Contact</h2>
-<p> </p>
-</section>
-
-</body>
-<footer>
-<ul class="social">
-<p><span class="footer__copyright">Romanos Kapsalis &copy;</span> 2020 </p>
-
-<li><a href="https://www.linkedin.com/in/romanos-kapsalis/" style="padding: 0px 0px 0px 68px" target="_blank"><i class="icon-linkedin"></i></a></li>
-<li><a href="https://github.com/rkapsalis" target="_blank"><i class="icon-github"></i></a></li>
-
-</ul>
-</footer>
-</html>
+	<meta charset="utf-8">
+	<link rel="icon"
+		type="image/png"
+		href="yellow_high res.png">
+		<title>Help | Patras Gazer</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+		<link rel="stylesheet" href="usr.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
+		<link rel="stylesheet" href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+		<style> body{background-color: #1caff9;} .content p{color:black;}</style>
+		<body>
+			<header>
+				<section>
+					<img src="yellow_low res.png" style="padding: 20px 0px 5px 0px" height="35" width="44">
+					<a href="user_data.html" id="logo" target="_blank">Patras Gazer</a>
+					<label for="toggle-1" class="toggle-menu"><ul><li></li> <li></li> <li></li></ul></label>
+					<input type="checkbox" id="toggle-1">
+					<nav >
+						<ul>
+							<li><a href="#about"><i class="icon-user"></i>User Data</a></li>
+							<li><a href="#portfolio"><i class="fas fa-chart-bar"></i>Statistics</a></li>
+							<li><a href="upload1.html"><i class="fa fa-upload"></i>Upload</a></li>
+							<li><a href="help.html"><i class="fa fa-question-circle"></i>Help</a></li>
+							<li><a href="http://localhost/logout.php"><i class="fa fa-sign-out-alt" ></i>Sign out</a></li>
+						</ul>
+					</nav>
+				</header>
+			</section>
+			<div class="central-container" >
+				<section id="about" class="content">
+					<h2> First Step</h2>
+					<p>Go to Google Takeout to download your Location History data: on that page, deselect everything except Location History by clicking "Select none" and then reselecting "Location History". Then, hit "Next" and, finally, click "Create archive". Once the archive has been created, click "Download".</p>
+				</section>
+				<section id="portfolio" class="content">
+					<h2>Second Step</h2>
+					<p> Unzip the downloaded file, and open the "Location History" folder within. Then, select "Upload" from the menu above.</p>
+				</section>
+				<section id="services" class="content">
+					<h2>Third Step</h2>
+					<p> Select the areas you want to exclude (optional). Notice that "Patras Gazer", automatically, does not insert data other than the city of Patras (> 10km from coordinates 38.230462,21.753150). Then click "Next". Click "browse" to select your file or drag and drop it. If your .json file is up to 30 mb this might take a while. Please wait.</p>
+				</section>
+				<section id="gallery" class="content">
+					<h2>Statistics</h2>
+					<p></p>
+				</section>
+				<section id="contact" class="content">
+					<h2>Contact</h2>
+					<p> </p>
+				</section>
+			</div>
+		</body>
+		<footer>
+			<ul class="social">
+				<p><span class="footer__copyright">Romanos Kapsalis &copy;</span> 2020 </p>
+				<li><a href="https://www.linkedin.com/in/romanos-kapsalis/" style="padding: 0px 0px 0px 68px" target="_blank"><i class="icon-linkedin"></i></a></li>
+				<li><a href="https://github.com/rkapsalis" target="_blank"><i class="icon-github"></i></a></li>
+			</ul>
+		</footer>
+	</html>

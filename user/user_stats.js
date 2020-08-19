@@ -50,6 +50,7 @@
 		            // $("#services").append("<h2> Time of the day with the most records per activity type</h2>");
 		            // $("#gallery").append(" <h2>The day with the most records per activity type</h2>");
 		            // $("#contact").append("<h2>Heatmap</h2>");  
+		             $('.central-container').show();
                      $('#portfolio').show(); 
                      $('#services').show();   
                      $('#gallery').show();     
