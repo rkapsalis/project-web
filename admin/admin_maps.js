@@ -197,6 +197,7 @@
              success: function(response) {
                  console.log(response);
                  //show heatmap
+                 $('.central-container').show();
                  $('#contact').show();
                  //heatmap
                  let mymap = L.map('mapid')

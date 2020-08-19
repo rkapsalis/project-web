@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <meta name="viewport"  charset="UTF8" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-<title>Patras Gazer</title>
+ <link rel="icon"
+    type="image/png"
+    href="yellow_high res.png">
+<title>Heatmap | Patras Gazer</title>
 <link rel="stylesheet" href="admin.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
 <link rel="stylesheet" href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
@@ -16,6 +19,7 @@
   <script src="\Leaflet.heat-gh-pages\dist\leaflet-heat.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="admin_maps.js"></script>
+  <style> .content{width:1000px !important;}</style>
   <body>
     <header>
       <section>
@@ -35,12 +39,12 @@
         </nav>
       </section>
     </header>
-    <section id="gallery" class="content">
+  <!--   <section id="gallery" class="content">
       <div class="welcome">
         <img src="patra.jpg" style="padding: 20px 0px 5px 0px" height="210" width="95%">
-        <!-- <h3>Welcome back, <br /> <?=$_SESSION['name']?>!</h3> -->
-      </div>
-    </section>
+        <h3>Welcome back, <br /> <?=$_SESSION['name']?>!</h3> -->
+     <!--  </div>
+    </section> --> 
     <section id="about" class="content">
       
       <p>Please pick month, day, activity, time (hour, pm or am and minutes) and year. You can also pick range of these values and then click submit.</p>
@@ -90,22 +94,17 @@
             <option value="09">09</option>
             <option value="10">10</option>
             <option value="11">11</option>
-            <option value="12">12</option>
-            
+            <option value="12">12</option>            
           </select>
           <select name="am-pm" id="am-pm">
             <option value="ALL">ALL </option>
             <option value="AM">AM</option>
-            <option value="PM">PM</option>
-            
+            <option value="PM">PM</option>            
           </select>
           <h5>m:</h5>
           <select name="minutessince" id="minutessince">
-            <option value="ALL">ALL </option>
-            
-          </select>
-          
-          
+            <option value="ALL">ALL </option>            
+          </select>       
           
         </div>
         
@@ -166,8 +165,7 @@
             <option value="09">09</option>
             <option value="10">10</option>
             <option value="11">11</option>
-            <option value="12">12</option>
-            
+            <option value="12">12</option>            
           </select>
           <select name="am-pm2" id="am-pm2">
             <option value="ALL">ALL </option>
@@ -198,13 +196,6 @@
             <option value="ALL">ALL</option>
           </select>
           <h3>Activity</h3>
-          <!--  <select name="activity1" id="activity1" multiple >
-            <option value="ALL">ALL </option>
-          </select>
-          <h5>AND</h5> -->
-          <!--    <select name="activity2" id="activity2">
-            <option value="">ALL</option>
-          </select> -->
           <div class="dropdown" data-control="checkbox-dropdown">
             <label class="dropdown-label">Select</label>
             <div class="dropdown-list">
@@ -219,6 +210,7 @@
       </div>
     </section>
     <!-- </section> -->
+    <div class="central-container" style="display:none;">
     <section id="contact" class="content" style="display:none;">
       <h2>Heatmap</h2>
       <div id="mapid"></div>
@@ -229,6 +221,7 @@
       <button type="submit" id="XMLbutton" href="xml.png" class="button">XML</button>
       <button type="submit" id="JSONbutton" class="button">JSON</button>
     </section>
+  </div>
   </body>
   <footer>
     <ul class="social">

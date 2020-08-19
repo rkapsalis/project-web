@@ -2,7 +2,10 @@
 <html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-  <title>Patras Gazer</title>
+   <link rel="icon"
+    type="image/png"
+    href="yellow_high res.png">
+  <title>Dashboard | Patras Gazer</title>
   <link rel="stylesheet" href="admin.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
   <link rel="stylesheet" href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
@@ -33,10 +36,11 @@
     <main>
       <section id="gallery" class="content">
         <div class="welcome">
-          <img src="patra.jpg" style="padding: 20px 0px 5px 0px" height="210" width="95%">
+          <img src="patra.jpg" style="padding: 20px 0px 5px 0px" height="210" width="100%">
           <!-- <h3>Welcome back, <br /> <?=$_SESSION['name']?>!</h3> -->
         </div>
       </section>
+      <div class="central-container">
       <section id="about" class="content">
         <h2>Distribution of the number of records</h2>
         <div class="pill-wrapper">
@@ -49,9 +53,7 @@
                 <canvas id="annual" width="400" height="400"></canvas>
               </div>
             </div>
-          </div>
-          
-          
+          </div>      
           <div class="pill">
             <div class="pill__content">
               <div class="pill__title">Per Day</div>
@@ -85,9 +87,7 @@
           </div>
         </div>
       </section>
-      <!-- <section id="services" class="content"> -->
-      
-      
+      <!-- <section id="services" class="content"> -->      
     </section>
     <section id="portfolio" class="content">
       <div class="pill-wrapper">
@@ -113,6 +113,7 @@
       
     </div>
   </section>
+</div>
 </main>
 </body>
 <footer>
