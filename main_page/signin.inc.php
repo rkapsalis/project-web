@@ -41,27 +41,30 @@ session_start();
 					$_SESSION['name'] = $row['username'];
 			        $_SESSION['id'] = $row['userID'];
 					$_SESSION['rememberMe'] = TRUE;
-					//var_dump($_SESSION);
+					
 					if($row['type']== 'admin'){
-                        header("Location: http://localhost/dashboard.html");						
-                       // echo 'admin';					
+                      header("Location: http://localhost/dashboard.html");                    			
                     } else {
-                      header("Location: http://localhost/user_data.html"); 
-					   //echo "user";
+                      header("Location: http://localhost/user_data.html"); 					   
                     }
                     $count++;                
                     exit();                                       
                 }
-            }
-             //echo json_encode($db_data);
+            }      
              
         } 
         else{
-           die("wrong password or username");
+            $error="Sorry, wrong password or username. Please try again.";
+             $_SESSION["error"] = $error;
+            header("location: http://localhost/main.php"); //send user back to the login page
+           // die("wrong password or username");
         }
         if($count == 0){
-            // var_dump($password_check);
-           die("username not found");
+            // var_dump($password_check)
+             $error1 ="Sorry, username not found. Please try again.";
+            $_SESSION["error"] = $error1;
+            header("location: http://localhost/main.php"); //send user back to the login page
+           // die("username not found");
         }
         mysqli_stmt_close($stmt);
         mysqli_close($conn);
