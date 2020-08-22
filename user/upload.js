@@ -162,11 +162,7 @@ marker.bindPopup("<b>Πλατεία Γεωργίου</b>");
             // file received/failed
             xhr.onreadystatechange = function(e) {
                 if (xhr.readyState == 4) { //The operation is complete
-                    progress.className = (xhr.status == 200 ? "success" : "failure");
-                    if(progress.className == "success"){
-                    	$('#progress p').show(); 
-                        $('#progress h3').show();   
-                    }
+                    progress.className = (xhr.status == 200 ? "success" : "failure");                   
                 }
             };
 
@@ -190,7 +186,7 @@ marker.bindPopup("<b>Πλατεία Γεωργίου</b>");
                 console.log(xhr.responseText);
             });
         } else {
-            alert("Error!");
+            alert("Error! Wrong file type, please try again.");
         }
     }
 

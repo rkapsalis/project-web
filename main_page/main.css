@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Dancing+Script);
 body{
 	//margin:0;
 	color:#6a6f8c;
@@ -236,7 +237,7 @@ display:block;
 }
 .footer{
 	position: absolute;
-	left: 750px;
+	left: 810px;
 	color: #FFFFFF;
 	text-align: center;
     
@@ -244,8 +245,8 @@ display:block;
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   .footer{
-	  position: relative;
-    left: 1px;
+	  position: absolute;
+    left: 85px !important;
   }
 }
 .left h1{
@@ -320,3 +321,9 @@ display:block;
 .fa-info-circle{
 	color:#fde428;
 }
+footer{display:table; padding-bottom:30px; width:100%; padding-top: 10px; }
+.social{margin:0px auto; display:table; list-style: none;}
+.social li{float:left; padding:0px 10px; }
+.social li a{color:#002e5b; transition: all 0.5s ease 0s;}
+.social li a:hover{color:#fde428; transition: all 0.5s ease 0s;}
+.footer .social p{margin-bottom: 2px;}
