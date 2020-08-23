@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-		<style> body{background-color: #1caff9;} .content p{color:black;}</style>
+		<style> body{background-color: #1caff9;} .content p{color:black;} #gallery li{list-style-type: disc !important; list-style-position: inside;}</style>
 		<body>
 			<header>
 				<section>
@@ -20,8 +20,8 @@
 					<input type="checkbox" id="toggle-1">
 					<nav >
 						<ul>
-							<li><a href="#about"><i class="icon-user"></i>User Data</a></li>
-							<li><a href="#portfolio"><i class="fas fa-chart-bar"></i>Statistics</a></li>
+							<li><a href="user_data.html"><i class="icon-user"></i>User Data</a></li>
+							<li><a href="user_stats.html"><i class="fas fa-chart-bar"></i>Statistics</a></li>
 							<li><a href="upload1.html"><i class="fa fa-upload"></i>Upload</a></li>
 							<li><a href="help.html"><i class="fa fa-question-circle"></i>Help</a></li>
 							<li><a href="http://localhost/logout.php"><i class="fa fa-sign-out-alt" ></i>Sign out</a></li>
@@ -46,7 +46,14 @@
 				</section>
 				<section id="gallery" class="content">
 					<h2>Statistics</h2>
-					<p></p>
+					<p> Select year and the month, you can also select a range of these values or all the months and years. Then when you are ready, click submit and after a while you will be able to see detailed stats of your data for the selected period. This data includes:
+						<ul>
+							<li> a graph showing the percentage of records per activity type, </li>
+							<li> a graph and a table showing the time of the day with the most records per activity type </li>
+							<li> a graph and a table showing the day with the most records per activity type</li>
+							<li> a heatmap showing your locations for the selected period</li>
+						</ul>
+					</p>
 				</section>
 				<section id="contact" class="content">
 					<h2>Contact</h2>
