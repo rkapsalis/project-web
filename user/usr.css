@@ -171,11 +171,8 @@ h1 {padding: 20px 0px;}
   grid-template-columns: 40px 1fr 1fr;
   grid-template-rows: 20px 20px;
   grid-column-gap: 1em; /* we only set column gap. we could do something like -> grid-gap: 0 1em; */
-  
-  
   grid-template-areas: "user-avatar user-name    user-name"
-                       "user-avatar user-message user-timestamp";
-  
+                       "user-avatar user-message user-timestamp";  
   align-items: center;
 }
 
@@ -235,11 +232,18 @@ h1 {padding: 20px 0px;}
   .pill{border-radius:20px; width:100%;}
   .pill__content{padding:0 0 0 10; grid-column: 1 / 3}
   .chart_cont{
-    width: 90%;
-    height: 90%;
+    width: 300px;
+    height: 300px;
   }
+  #text_picker{margin-right: 40px !important; margin-left: 30px;}
   #select-box{ max-width: 80% !important; } 
-  .map-container{ max-width: 40% !important; margin:5px;}
+  #select-box{
+      width: 87% !important;
+    height: 180px !important;
+    margin-left: 30px !important;
+    }
+  .map-container{ /*max-width: 40% !important;*/ margin:5px;}
+
 }
 
 #monthuntil{
@@ -320,6 +324,8 @@ tr:nth-child(even) {
   max-width: 35%;
   margin-top: 5px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+  width:340px;
+  min-width: 340px;
 }
 tr{
  background-color:  #D3D3D3;
@@ -338,8 +344,11 @@ tr{
 }
 .map-container{
   background-color: #fff;
-  width:950px;
+  width: 100%;
   padding: 10px;
+  margin: auto;
+  position: relative;
+
 }
 .central-container{
   background-color: #e5e5e5;

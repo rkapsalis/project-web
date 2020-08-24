@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-		<style> body{background-color: #1caff9;} .content p{color:black;} #gallery li{list-style-type: disc !important; list-style-position: inside;}</style>
+		<style> body{background-color: #1caff9;} .content p{color:black;} #gallery li{list-style-type: disc !important; list-style-position: inside;} .content p, li{font-size: 15px !important;} @media only screen and (max-width: 980px) {#subheader, #portfolio h2, #services h2{margin: 0 100px 5px !important; } .content{width:90% !important;}}</style>
 		<body>
 			<header>
 				<section>
@@ -33,31 +33,31 @@
 				
 				<section id="about" class="content">
 					<h2> Upload </h2>
-					<h2 style="font-size: 15px !important;"> First Step</h2>
-					<p>Go to <a href="https://takeout.google.com/settings/takeout"> Google Takeout</a> to download your Location History data: on that page, deselect everything except Location History by clicking "Select none" and then reselecting "Location History". Then, hit "Next" and, finally, click "Create archive". Once the archive has been created, click "Download".</p>
+					<h2 id="subheader" style="font-size: 15px !important; text-align:center !important; display:block; margin: 0 400px 5px;"> First Step</h2>
+					<p>Go to <a href="https://takeout.google.com/settings/takeout"> Google Takeout</a> to download your Location History data: on this page, deselect everything except Location History by clicking "Select none" and then reselecting "Location History". Then, hit "Next" and, finally, click "Create archive". Once the archive has been created, click "Download".</p>
 				</section>
 				<section id="portfolio" class="content">
-					<h2 style="font-size: 15px !important;">Second Step</h2>
+					<h2 style="font-size: 15px !important; text-align:center !important; display:block; margin: 0 400px 5px;">Second Step</h2>
 					<p> Unzip the downloaded file, and open the "Location History" folder within. Then, select "Upload" from the menu above.</p>
 				</section>
 				<section id="services" class="content">
-					<h2 style="font-size: 15px !important;">Third Step</h2>
-					<p> In order to upload your json file to "Patras Gazer", select "Upload" from the main menu. Then, you have the option to select the areas you want to exclude by clicking the rectangle in the right hand side in the map and by drawing rectangles containing that areas. Then click "Next". (This step is optional, if you want to proceed without excluding any areas, just click "Next"). Click "browse" to select your file or drag and drop it. If your .json file is up to 30 mb this might take a while, so please be patient. Notice that "Patras Gazer", automatically, does not insert data other than the city of Patras (> 10km from coordinates 38.230462, 21.753150).</p>
+					<h2 style="font-size: 15px !important; text-align:center !important; display:block; margin: 0 400px 5px;">Third Step</h2>
+					<p> In order to upload your json file to "Patras Gazer", select "Upload" from the main menu. Then, you get the option to select the areas you want to exclude by clicking the rectangle in the right hand side of the map and by drawing rectangles containing these areas. Then click "Next" (this step is optional, if you want to proceed without excluding any areas, just click "Next"). Click "browse" to select your file or drag and drop it. Finally, click "Upload". If your .json file is larger than 30 mb this might take a while, so please be patient. Notice that "Patras Gazer", does not insert data other than the city of Patras (> 10km from coordinates 38.230462, 21.753150) by default.</p>
 				</section>
 				<section id="gallery" class="content">
 					<h2>Statistics</h2>
-					<p> Select year and the month, you can also select a range of these values or all the months and years. Then when you are ready, click submit and after a while you will be able to see detailed stats of your data for the selected period. This data includes:
+					<p> Select year and month, you can also select a range of these values or all the months and years. Then, when you are ready click "Submit" and after a while you will be able to see detailed stats of your data for the selected period. This data includes:
 						<ul>
-							<li> a graph showing the percentage of records per activity type, </li>
-							<li> a graph and a table showing the time of the day with the most records per activity type </li>
-							<li> a graph and a table showing the day with the most records per activity type</li>
+							<li> a graph showing the percentage of records per activity type </li>
+							<li> a table showing the time of the day with the most records per activity type and a graph showing the number of records per activity type</li>
+							<li> a table showing the day with the most records per activity type and a graph showing the number of records per activity type</li>
 							<li> a heatmap showing your locations for the selected period</li>
 						</ul>
 					</p>
 				</section>
 				<section id="contact" class="content">
 					<h2>Contact</h2>
-					<p> </p>
+					<p>For any information needed you can contact us by clicking <a href="https://rkapsalis.github.io/page/#contact">here</a>. </p>
 				</section>
 			</div>
 		</body>

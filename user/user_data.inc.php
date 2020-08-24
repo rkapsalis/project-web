@@ -24,17 +24,18 @@ require 'db_handler.inc.php';
 //-------------------------------------υπολογισμός eco-score---------------------------------------------
 function eco_score($uid, $month, $year){
 	require 'db_handler.inc.php';
-	$query_date = "$year-$month-01";
+	$query_date = "$month-01";
 	$start = strtotime(date("Y-m-01 00:00:00", strtotime($query_date)))*1000;
 	$end = strtotime(date("Y-m-t 23:59:59", strtotime($query_date)))*1000;	
-	$result = $conn->query("SELECT * FROM activity WHERE UID='$uid' AND type='user' AND timestampMs>=$start AND timestampMs<=$end");		
+	$result = $conn->query("SELECT * FROM activity WHERE UID='$uid'AND timestampMs>=$start AND timestampMs<=$end");
+	//echo ("SELECT * FROM activity WHERE UID='$uid' AND type='user' AND timestampMs>=$start AND timestampMs<=$end");		
 	
 	if (mysqli_num_rows($result)!=0) {
 	
 		$body = ["ON_BICYCLE", "ON_FOOT", "RUNNING", "WALKING"]; //δραστηριότητα σώματος		
 		$results = 0;
 		$body_activities = 0;		
-		var_dump(mysqli_fetch_assoc($result));
+		//var_dump(mysqli_fetch_assoc($result));
 		while($row=mysqli_fetch_assoc($result)) {
 			
 			$activity = $row["type"];
@@ -89,7 +90,9 @@ else{
 //------------------------------------------------------------my ecoscore(current month)----------------------------------------------------------
 $month1 = date("n", $min_date[0]/ 1000.0);
 $year1 = date("Y", $min_date[0]/ 1000.0);
-$eco_score = eco_score($uid, $month1, $year1);					
+// $eco_score = eco_score($uid, $month1, $year1);	
+
+$eco_score = eco_score($uid,'2015-09-01',date("Y") );				
 
 
 //----------------------------------------------------------------η ημερομηνία τελευταίου upload που έκανε ο χρήστης------------------------------------------------
@@ -106,12 +109,13 @@ else{
 
 //-----------------------------------------------------data for annual chart-----------------------------------------------------
 for ($i = 1; $i <= 12; $i++) { //get last 12 months
-    $months[] = date("Y-m", strtotime( date( 'Y-m-01' )." -$i months"));
+    $months[] = date("Y-m", strtotime( date( '2016-m-01' )." -$i months"));
 }
 
 $ac_per_month = [];
 for ($i = 0; $i <= 11; $i++) { //get eco-score of last 12 months
     array_push($ac_per_month, eco_score($uid, $months[$i], date("Y"))); 
+    
 }
 
 // require 'db_handler.inc.php';	
@@ -139,15 +143,16 @@ foreach ($users as $value) { //for each user
     $score = "";
     $upload = "";
     $row1=mysqli_fetch_row($result);
-   
+    
     if($row1 != NULL) {
     	 $score = $row1[0];
-         $upload = $row1[1];              
+         $upload = $row1[1];                     
     }      
   
 	$cur_date = date("Y-m-d H:i:s");					
 	if (is_null($score) || (date('m',strtotime($upload)) != date('m'))){ //if the score isn't of the current month or is null
-		$user_score = eco_score($value[0], date("m"), date("Y")); //get current month's eco-score
+		//$user_score = eco_score($value[0], date("m"), date("Y")); //get current month's eco-score
+	    $user_score = eco_score($value[0], '2015-09-01', "2015");
 		array_push($eco_scores, [$user_score, $value[1], $value[2], $value[0]]);
 		$score_ins = $conn->query("INSERT INTO score VALUES('$value[0]','$user_score','$cur_date') ON DUPLICATE KEY UPDATE ecoScore='$user_score', updateTime='$cur_date'"); //insert eco_score and insertion time
 		
@@ -186,6 +191,7 @@ $my_surname = mb_substr($my_surname, 0, 1,'UTF8'); //get only the first characte
 $rank[3]['name'] = $my_name;
 $rank[3]['surname'] = $my_surname;
 $rank[3]['score'] = $eco_score;
+
 
 if($my_rank[0]==NULL){
 	$my_rank = "N/A";
