@@ -15,7 +15,8 @@ $u_name = $_SESSION['name'];
 require 'db_handler.inc.php';
 
 $result_a = $conn->query("SELECT type,COUNT(*) as type_counter FROM activity GROUP BY type"); //per activity type
-$result_b = $conn->query("SELECT user.username as UID,COUNT(*) as user_counter FROM data INNER JOIN user ON user.userID = data.UID GROUP BY data.UID"); 
+$result_b = $conn->query("SELECT user.username as UID,COUNT(*) as user_counter FROM data INNER JOIN user ON user.userID = data.UID GROUP BY data.UID ORDER BY user_counter"); 
+
 $result_c = $conn->query("SELECT COUNT(*) as month_counter, FROM_UNIXTIME(timestampMs/1000, '%M') as month FROM data GROUP BY month ORDER BY FIELD(month, 'January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December')"); //per month
 $result_d = $conn->query("SELECT COUNT(*) as day_counter, FROM_UNIXTIME(timestampMs/1000, '%W') as day FROM data GROUP BY day ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')"); //per day
 $result_e = $conn->query("SELECT COUNT(*) as hour_counter, HOUR(FROM_UNIXTIME(timestampMs/1000)) as hour FROM data GROUP BY hour ORDER BY hour"); //per hour
@@ -28,6 +29,10 @@ $monthArray = array();
 $dayArray = array();
 $hourArray = array();
 $yearArray = array();
+$newAr = array();
+$bins = array();
+$bins_sum = array();
+
 
 while($row1 = mysqli_fetch_assoc($result_a)){
 
@@ -36,7 +41,81 @@ while($row1 = mysqli_fetch_assoc($result_a)){
 
 while($row2 = mysqli_fetch_assoc($result_b)){
 
-   $userArray[$row2['UID']] = $row2['user_counter'];
+   //$userArray[$row2['UID']] = $row2['user_counter'];  
+   array_push($newAr,$row2['user_counter']);
+}
+$max_score = max($newAr);
+$min_score = min($newAr);
+$score_size = count($newAr);
+// var_dump($max_score-$min_score);
+$k = ceil(sqrt($score_size));
+$width = floor(($max_score-$min_score)/$k)+1;
+// echo($k);
+function quantile($p,$score_size,$newAr) {
+     $idx = 1 + ($score_size - 1) * $p;
+      $lo = floor($idx);
+      $hi = ceil($idx);
+      $h = $idx - $lo;     
+    return (1 - $h) * $newAr[$lo-1] + $h * $newAr[$hi-1];
+  }
+
+  function freedmanDiaconis($score_size,$newAr) {
+    $iqr = quantile(0.75,$score_size,$newAr) - quantile(0.25,$score_size,$newAr);
+    // var_dump($iqr);
+    // echo("   ");
+    //var_dump(2 * $iqr * pow($score_size, -1 / 3));
+    return 2 * $iqr * pow($score_size, -1 / 3);
+  }
+$b = floor(freedmanDiaconis($score_size,$newAr));
+//var_dump(freedmanDiaconis($score_size,$newAr));
+$c = ceil(($max_score-$min_score)/$b);
+//var_dump($c);
+
+for($i=0; $i<(int)$max_score; $i+=$b){
+  //echo($i);
+ // echo("  ");
+   array_push($bins,$i);
+}
+array_push($bins, (int)$max_score);
+$a = $newAr;
+$count_scores = 0;
+ for($j=0; $j<count($bins)-1; $j++){
+  // echo($j);
+  $m=0;
+  while(!empty($a)){
+  //for($m=0; $m<count($a); $m++){
+    // var_dump($a);
+    // var_dump($m);
+    // if($m==(count($a)-1) && $a[$m]>=$bins[$j]){
+    //    array_splice($a,$m,1);
+    //     $count_scores++;
+    //    // var_dump($bins[$j]);
+    // }
+    if($a[0]>=$bins[$j] && $a[0]<$bins[$j+1]){
+     // unset($a[$m]);
+      array_splice($a,0,1);
+       $count_scores++;
+      // var_dump($bins[$j]);
+      // var_dump($a[$m]);
+      
+    }
+    else if($a[0]==$max_score && $a[0]<=$bins[$j+1] ){
+        array_splice($a,0,1);
+        $count_scores++;
+         // var_dump($bins[$j]);
+         $m++;
+    }
+     else{
+    //    $m++;
+      break;
+    }
+
+ }
+ array_push( $bins_sum,$count_scores);
+ $count_scores = 0;
+}
+for($j=0; $j<count($bins)-1; $j++){
+  $userArray[$bins[$j]."-" .$bins[$j+1]] = $bins_sum[$j];
 }
 
 while($row3 = mysqli_fetch_assoc($result_c)){
