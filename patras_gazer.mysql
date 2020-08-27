@@ -1,0 +1,65 @@
+CREATE TABLE "user" (
+	"userID"	VARCHAR(255) NOT NULL,
+	"username"	TEXT NOT NULL,
+	"password"	TEXT NOT NULL,
+	"email"		TEXT NOT NULL,
+	"reg_date" 	DATETIME NOT NULL,
+	"type"		ENUM('admin','user'),
+	"firstname"     VARCHAR(55) NOT NULL,
+	"lastname"      VARCHAR(55) NOT NULL,
+	PRIMARY KEY("userID")
+);
+
+CREATE TABLE "data"(
+	"UID"			VARCHAR(255) NOT NULL,
+	"fileID"		INT(100) NOT NULL DEFAULT 0,
+	"location_id"		INT(11) NOT NULL DEFAULT 0,
+	"timestampMs"		BIGINT NOT NULL,
+	"latitudeE7"		BIGINT NOT NULL,
+	"longitudeE7"		BIGINT NOT NULL,
+	"velocity"		INT,
+	"accuracy"	        INT(15) NOT NULL,
+	"altitude"              SMALLINT(5),
+	"verticalAccuracy"      SMALLINT(10),
+	"heading"		INT(11),
+	"uploadTime"		DATETIME NOT NULL,
+	PRIMARY KEY ("UID","fileID","location_id"),	
+	CONSTRAINT usrIDtoUser
+	FOREIGN KEY("UID") REFERENCES user("userID")
+	ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE activity(
+	"UID"		        VARCHAR(255) NOT NULL,
+	"fileID"		INT NOT NULL,
+	"location_id"		INT NOT NULL,
+	"activity_id"		INT NOT NULL,
+	"type"		        VARCHAR(50),
+	"confidence"		INT(3) NOT NULL DEFAULT 0,
+	"timestampMs"		BIGINT NOT NULL,
+	"main_activity"	        INT(11) NOT NULL,
+	"uploadTime"		DATETIME NOT NULL, 
+	PRIMARY KEY ("UID","fileID","location_id","activity_id","main_activity"),
+	CONSTRAINT userIDtoUSER
+	FOREIGN KEY ("UID") REFERENCES user("userID")
+	ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT dataIDtoLoc
+	FOREIGN KEY (fileID) REFERENCES data(fileID)
+	ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT locIDtoLoc
+	FOREIGN KEY (location_id) REFERENCES location(location_id)
+	ON DELETE CASCADE ON UPDATE CASCADE	
+);
+
+CREATE TABLE score(
+	"UID"	        VARCHAR(255) NOT NULL,
+	"updateTime"	DATETIME,
+	"score"	        INT(4),
+	PRIMARY KEY("UID"),
+	CONSTRAINT usrScore
+	FOREIGN KEY ("UID") REFERENCES user("userID")
+	ON DELETE CASCADE ON UPDATE CASCADE,
+);
+
+INSERT INTO `user` (userID, username, password, email, type, firstname, lastname) VALUES ('fMBGynlMFdP1HBFb5crZnKmDReRc56F4ZTvxpWu7318=','romanosK','$2y$10$gaIfq9FJI0WrnP6cv4IZieILxaUZg.qzNd/JjLHnnc4nYfwJ2n8Qy', 'romanos_kapsalis@gmail.com','admin', 'Ρωμανός', 'Καψάλης');
