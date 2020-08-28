@@ -15,31 +15,30 @@ CREATE TABLE "data"(
 	"fileID"		INT(100) NOT NULL DEFAULT 0,
 	"location_id"		INT(11) NOT NULL DEFAULT 0,
 	"timestampMs"		BIGINT NOT NULL,
-	"latitudeE7"		BIGINT NOT NULL,
-	"longitudeE7"		BIGINT NOT NULL,
-	"velocity"		INT,
+	"latitudeE7"		BIGINT(15) NOT NULL,
+	"longitudeE7"		BIGINT(15) NOT NULL,
+	"velocity"		INT(10),
 	"accuracy"	        INT(15) NOT NULL,
 	"altitude"              SMALLINT(5),
 	"verticalAccuracy"      SMALLINT(10),
 	"heading"		INT(11),
-	"uploadTime"		DATETIME NOT NULL,
+	"uploadTime"		DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY ("UID","fileID","location_id"),	
-	CONSTRAINT usrIDtoUser
+	CONSTRAINT usr_id
 	FOREIGN KEY("UID") REFERENCES user("userID")
 	ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
-CREATE TABLE activity(
+CREATE TABLE "activity"(
 	"UID"		        VARCHAR(255) NOT NULL,
-	"fileID"		INT NOT NULL,
-	"location_id"		INT NOT NULL,
-	"activity_id"		INT NOT NULL,
+	"fileID"		INT(100) NOT NULL,
+	"location_id"		INT(11) NOT NULL,
+	"activity_id"		INT(11) NOT NULL,
 	"type"		        VARCHAR(50),
-	"confidence"		INT(3) NOT NULL DEFAULT 0,
-	"timestampMs"		BIGINT NOT NULL,
+	"confidence"		INT(11) NOT NULL DEFAULT 0,
+	"timestampMs"		BIGINT(20) NOT NULL,
 	"main_activity"	        INT(11) NOT NULL,
-	"uploadTime"		DATETIME NOT NULL, 
+	"uploadTime"		DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
 	PRIMARY KEY ("UID","fileID","location_id","activity_id","main_activity"),
 	CONSTRAINT userIDtoUSER
 	FOREIGN KEY ("UID") REFERENCES user("userID")
@@ -52,13 +51,13 @@ CREATE TABLE activity(
 	ON DELETE CASCADE ON UPDATE CASCADE	
 );
 
-CREATE TABLE score(
-	"UID"	        VARCHAR(255) NOT NULL,
-	"updateTime"	DATETIME,
-	"score"	        INT(4),
-	PRIMARY KEY("UID"),
+CREATE TABLE "score"(
+	"userID"	VARCHAR(255) NOT NULL,
+	"updateTime"	DATETIME NOT NULL,
+	"ecoScore"	INT(4),
+	PRIMARY KEY("userID"),
 	CONSTRAINT usrScore
-	FOREIGN KEY ("UID") REFERENCES user("userID")
+	FOREIGN KEY ("userID") REFERENCES user("userID")
 	ON DELETE CASCADE ON UPDATE CASCADE,
 );
 
