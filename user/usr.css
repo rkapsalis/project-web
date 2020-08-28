@@ -66,7 +66,7 @@ section {max-width: 90%;}
 
 @media only screen and (max-width: 360px) {
 h1{font-size:20px;}
-label{padding:5px 0px;}
+label{/*padding:5px 0px;*/}
 #logo{font-size: 20px;}
 nav{top:47px;}
 }
@@ -228,19 +228,19 @@ h1 {padding: 20px 0px;}
 }
 
 @media only screen and (max-width: 880px) {
-  .pill-wrapper{width:95%; grid-template-columns:repeat(1, 1fr); }
+  .pill-wrapper{width:95%; grid-template-columns:repeat(1, 1fr); min-width: 350px;}
   .pill{border-radius:20px; width:100%;}
   .pill__content{padding:0 0 0 10; grid-column: 1 / 3}
   .chart_cont{
-    width: 300px;
-    height: 300px;
+    width: 300px !important;
+    height: 400px;
   }
-  #text_picker{margin-right: 40px !important; margin-left: 30px;}
-  #select-box{ max-width: 80% !important; } 
+  #text_picker{margin-right: 40px !important; /*margin-left: 30px;*/ max-width: 340px;}
+  #select-box{ /*max-width: 80% !important; */} 
   #select-box{
-      width: 87% !important;
+      /*width: 87% !important;*/
     height: 180px !important;
-    margin-left: 30px !important;
+    /*margin-left: 30px !important;*/
     }
   .map-container{ /*max-width: 40% !important;*/ margin:5px;}
 
@@ -326,6 +326,7 @@ tr:nth-child(even) {
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
   width:340px;
   min-width: 340px;
+  max-width: 350px;
 }
 tr{
  background-color:  #D3D3D3;

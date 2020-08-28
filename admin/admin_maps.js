@@ -133,7 +133,7 @@
 
          },
          error: function(XMLHttpRequest, textStatus, errorThrown) {
-           
+
              alert("Status: " + textStatus);
              alert("Error: " + errorThrown);
          }
@@ -152,6 +152,11 @@
      var $am_pm;
      var $am_pm2;
      var selected = [];
+
+     if (selected === undefined || selected.length == 0) {
+        alert("Please select at least one activity and try again.");
+    // array empty or does not exist
+     }
 
      //-------------------------------------------------submit button handling----------------------------------------------
      $("#submitrange").click(function() {
@@ -210,13 +215,13 @@
                  mymap.setView([38.246242, 21.7350847], 16);
                  var heat = L.heatLayer(response['lon']).addTo(mymap),
                      draw = true;
-                 //show export buttons 
-                 
+
+                 //show export buttons
                  $('#portfolio').show();
 
              },
              error: function(XMLHttpRequest, textStatus, errorThrown) {
-                 
+
                  alert("Status: " + textStatus);
                  alert("Error: " + errorThrown);
              }
@@ -252,7 +257,7 @@
 
              },
              error: function(XMLHttpRequest, textStatus, errorThrown) {
-                 
+
                  alert("Status: " + textStatus);
                  alert("Error: " + errorThrown);
              }
@@ -287,7 +292,7 @@
 
 
              },
-             error: function(XMLHttpRequest, textStatus, errorThrown) {                 
+             error: function(XMLHttpRequest, textStatus, errorThrown) {
                  alert("Status: " + textStatus);
                  alert("Error: " + errorThrown);
              }
@@ -320,7 +325,7 @@
                  console.log(response);
 
              },
-             error: function(XMLHttpRequest, textStatus, errorThrown) {                 
+             error: function(XMLHttpRequest, textStatus, errorThrown) {
                  alert("Status: " + textStatus);
                  alert("Error: " + errorThrown);
              }

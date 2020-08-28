@@ -81,7 +81,13 @@
                          title: {
                              display: true,
                              text: ' '
-                         }
+                         },
+                          legend: {
+                            labels:{boxWidth: 15},
+                            display:false,
+                           position: 'top',
+                           align: 'start',
+                          }
                      }
                      //}
                  });
