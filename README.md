@@ -25,9 +25,12 @@ data can be downloaded in JSON or KMZ format (zipped KML).
   f. per year
   
 2. **Heatmap**  
+
 3. **Delete Data**
+
 4. **Export Data**
-##User
+
+## User
 1. **Sign up**
 
 2. **User data**
