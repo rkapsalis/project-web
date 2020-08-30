@@ -1,15 +1,15 @@
 <?php
 session_start();
-// header("Access-Control-Allow-Origin: *");
-// header("Access-Control-Allow-Headers: content-type,  x-filename,cache-control");
-// header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: content-type,  x-filename,cache-control");
+header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
 
-// ini_set('memory_limit', '-1');
-// ini_set('file_uploads'   , '1');
-// ini_set('max_input_vars', '10000');
-// //ini_set('post_max_size', '6000M');
-// ini_set('max_input_time', '2592000');
-// ini_set('upload_max_filesize', '6000M');
+ini_set('memory_limit', '-1');
+ini_set('file_uploads'   , '1');
+ini_set('max_input_vars', '10000');
+//ini_set('post_max_size', '6000M');
+ini_set('max_input_time', '2592000');
+ini_set('upload_max_filesize', '6000M');
 
 // set_time_limit(900);
 // Resume the previous session
@@ -117,14 +117,16 @@ while($row=mysqli_fetch_assoc($result)) {
     array_push($type, $row['type']);
     array_push($confidence, $row['confidence']);
     array_push($UID, $row['UID']);
-    array_push($data,['latitudeE7' => $row['latitudeE7'],'longitudeE7'=> $row['longitudeE7'],'velocity'=> $row['velocity'],'accuracy' => $row['accuracy'],'verticalAccuracy'=> $row['verticalAccuracy'],'altitude', $row['altitude'],'timestampMs'=> $row['timestampMs'],'a_timestampMs'=> $row['a_timestampMs'],'heading'=>$row['heading'],'type'=> $row['type'],'confidence'=> $row['confidence'], 'UID'=> $row['UID'] ]);
+    array_push($data,['latitudeE7' => $row['latitudeE7'],'longitudeE7'=> $row['longitudeE7'],'velocity'=> $row['velocity'],'accuracy' => $row['accuracy'],'verticalAccuracy'=> $row['verticalAccuracy'], 'altitude'=>$row['altitude'],'timestampMs'=> $row['timestampMs'],'a_timestampMs'=> $row['a_timestampMs'],'heading'=>$row['heading'],'type'=> $row['type'],'confidence'=> $row['confidence'], 'UID'=> $row['UID'] ]);
 }
+
 if($file_type=="JSON"){
    $fp = fopen('data.json', 'w');
    fwrite($fp, json_encode($data,JSON_PRETTY_PRINT));
    fclose($fp);
   
 }
+
 if($file_type=="CSV"){
 	$pathToGenerate='data.csv';    // your path and file name
     $header=FALSE;
@@ -138,24 +140,27 @@ if($file_type=="CSV"){
     }
     fclose($createFile);
 }
+
 if($file_type=="XML"){
-	$xml = new SimpleXMLElement('<Locations/>'); 
-	array_to_xml($newArray, $xml);
+	// $xml = new SimpleXMLElement('<Locations/>'); 
+	// array_to_xml($newArray, $xml);
 
 	//Creates XML string and XML document using the DOM 
 	$domxml = new DOMDocument('1.0');
-	$root = $xmlDoc->appendChild($xmlDoc->createElement("Locations"));
-   foreach($data['employe'] as $user){
+	$root = $domxml->appendChild($domxml->createElement("Locations"));
+    foreach($data as $user){
         if(!empty($user)){
-            $tabUser = $tabUsers->appendChild($xmlDoc->createElement('employe'));
+            $loc = $root->appendChild($domxml->createElement('Location'));
             foreach($user as $key=>$val){
-                $tabUser->appendChild($xmlDoc->createElement($key, $val));
+                $loc->appendChild($domxml->createElement($key, $val));
             }
         }
     }
+
+	
 	$domxml->preserveWhiteSpace = false; //remove redundant white space
 	$domxml->formatOutput = true; //make the output pretty
-	$domxml->loadXML($xml->asXML());
+	// $domxml->loadXML($xml->asXML());
 
 	$data = $domxml->saveXML();
 	$domxml->save('data.xml'); //save as file

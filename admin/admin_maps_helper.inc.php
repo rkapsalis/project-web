@@ -20,8 +20,8 @@ if (!isset($_SESSION['rememberMe'])) {
 $uid = $_SESSION['id'];
 $u_name = $_SESSION['name'];
 require 'db_handler.inc.php';
-$result1 = $conn->query("SELECT DISTINCT FROM_UNIXTIME(timestampMs/1000, '%Y') as time FROM activity ORDER BY time");
-$result2 = $conn->query("SELECT DISTINCT type FROM activity"); //GET YEARS TO FILL DROP-DOWN MENU
+$result1 = $conn->query("SELECT DISTINCT FROM_UNIXTIME(timestampMs/1000, '%Y') as time FROM data ORDER BY time");//GET YEARS TO FILL DROP-DOWN MENU
+$result2 = $conn->query("SELECT DISTINCT type FROM activity"); //GET ACTIVITY TYPES TO FILL DROP-DOWN MENU
  $years =[];
  $activities = [];
 
