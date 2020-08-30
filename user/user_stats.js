@@ -21,8 +21,9 @@
          },
          error: function(XMLHttpRequest, textStatus, errorThrown) {
              //console.log(response);
-             alert("Status: " + textStatus);
-             alert("Error: " + errorThrown);
+             // alert("Status: " + textStatus);
+             // alert("Error: " + errorThrown);
+               window.location.href = "main.php";
          }
      });
 

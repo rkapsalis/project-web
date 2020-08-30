@@ -3,7 +3,7 @@
 
      $.ajax({ //create an ajax request to display.php
          type: "POST",
-         url: "dashboard.php",
+         url: "dashboard.inc.php",
          dataType: "json",
          success: function(response) {
              console.log(response);
@@ -318,57 +318,97 @@
                  }
                  //}
              });
-
+             if(response['histogram']=='yes'){
              //create chart6
-             new Chart(document.getElementById("users"), {
-                 type: 'bar',
-                 data: {
-                     labels: user,
-                     datasets: [{
-                         label: "users",
-                         backgroundColor: [
-                             'rgba(255, 99, 132, 1)',
-                             'rgba(54, 162, 235, 1)',
-                             'rgba(255, 206, 86, 1)',
-                             'rgba(75, 192, 192, 1)',
-                             'rgba(153, 102, 255, 1)',
-                             'rgba(43, 59, 62, 1)',
-                             'rgba(120, 159, 64, 1)',
-                             'rgba(420, 49, 264, 1)',
-                             'rgba(4, 58, 154, 1)',
-                             'rgba(320, 159, 64, 1)',
-                             'rgba(20, 139, 64, 1)',
-                             'rgba(217, 233, 21, 1)',
-                             'rgba(66,15,100,1)',
-                             'rgba(520, 69, 64, 1)',
-                             'rgba(66,15,10,1)'
-                         ],
-                         data: user_sum,
-                     }]
-                 },
-                 options: {
-                     title: {
-                         display: true,
-                         text: ' '
-                     },
-                     scales: {
-                         xAxes: [{
-                             scaleLabel: {
-                                 display: true,
-                                 labelString: 'records'
-                             }
-                         }],
-
-                         yAxes: [{
-                             scaleLabel: {
-                                 display: true,
-                                 labelString: 'users'
-                             }
+                 new Chart(document.getElementById("users"), {
+                     type: 'bar',
+                     data: {
+                         labels: user,
+                         datasets: [{
+                             label: "users",
+                             backgroundColor: [
+                                 'rgba(255, 99, 132, 1)',
+                                 'rgba(54, 162, 235, 1)',
+                                 'rgba(255, 206, 86, 1)',
+                                 'rgba(75, 192, 192, 1)',
+                                 'rgba(153, 102, 255, 1)',
+                                 'rgba(43, 59, 62, 1)',
+                                 'rgba(120, 159, 64, 1)',
+                                 'rgba(420, 49, 264, 1)',
+                                 'rgba(4, 58, 154, 1)',
+                                 'rgba(320, 159, 64, 1)',
+                                 'rgba(20, 139, 64, 1)',
+                                 'rgba(217, 233, 21, 1)',
+                                 'rgba(66,15,100,1)',
+                                 'rgba(520, 69, 64, 1)',
+                                 'rgba(66,15,10,1)'
+                             ],
+                             data: user_sum,
                          }]
+                     },
+                     options: {
+                         title: {
+                             display: true,
+                             text: ' '
+                         },
+                         scales: {
+                             xAxes: [{
+                                 scaleLabel: {
+                                     display: true,
+                                     labelString: 'records'
+                                 }
+                             }],
+
+                             yAxes: [{
+                                 scaleLabel: {
+                                     display: true,
+                                     labelString: 'users'
+                                 }
+                             }]
+                         }
                      }
-                 }
-                 //}
-             });
+                     //}
+                 });
+             }
+             else{
+
+                new Chart(document.getElementById("users"), {
+                     type: 'bar',
+                     data: {
+                         labels: user,
+                         datasets: [{
+                             label: "users",
+                             backgroundColor: [
+                                 'rgba(255, 99, 132, 1)',
+                                 'rgba(54, 162, 235, 1)',
+                                 'rgba(255, 206, 86, 1)',
+                                 'rgba(75, 192, 192, 1)',
+                                 'rgba(153, 102, 255, 1)',
+                                 'rgba(43, 59, 62, 1)',
+                                 'rgba(120, 159, 64, 1)',
+                                 'rgba(420, 49, 264, 1)',
+                                 'rgba(4, 58, 154, 1)',
+                                 'rgba(320, 159, 64, 1)',
+                                 'rgba(20, 139, 64, 1)',
+                                 'rgba(217, 233, 21, 1)',
+                                 'rgba(66,15,100,1)',
+                                 'rgba(520, 69, 64, 1)',
+                                 'rgba(66,15,10,1)'
+                             ],
+                             data: user_sum,
+                         }]
+                     },
+                     options: {
+                         title: {
+                             display: true,
+                             text: ' '
+                         },
+                         
+                     }
+                     //}
+                 });
+             }
+
          },
          error: function(XMLHttpRequest, textStatus, errorThrown) {
              //console.log(response);

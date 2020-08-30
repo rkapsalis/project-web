@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['rememberMe'])) {
+    header('Location: main.php');
+    session_destroy();
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html>
   <meta charset="utf-8">
@@ -19,14 +27,14 @@
       <header>
         <section>
           <img src="yellow_low res.png" style="padding: 20px 0px 5px 0px" height="35" width="44">
-          <a href="user_data.html" id="logo" target="_blank">Patras Gazer</a>
+          <a href="user_data.php" id="logo" target="_blank">Patras Gazer</a>
           <label for="toggle-1" class="toggle-menu"><ul><li></li> <li></li> <li></li></ul></label>
           <input type="checkbox" id="toggle-1">
           <nav >
             <ul>
-              <li><a href="user_data.html"><i class="icon-user"></i>User Data</a></li>
-              <li><a href="user_stats.html"><i class="fas fa-chart-bar"></i>Statistics</a></li>
-              <li><a href="upload1.html"><i class="fa fa-upload"></i>Upload</a></li>
+              <li><a href="user_data.php"><i class="icon-user"></i>User Data</a></li>
+              <li><a href="user_stats.php"><i class="fas fa-chart-bar"></i>Statistics</a></li>
+              <li><a href="upload_file.php"><i class="fa fa-upload"></i>Upload</a></li>
               <li><a href="help.html"><i class="fa fa-question-circle"></i>Help</a></li>
               <li><a href="http://localhost/logout.php"><i class="fa fa-sign-out-alt" ></i>Sign out</a></li>
             </ul>
@@ -36,7 +44,7 @@
       <main>
         <section id="gallery" class="content" style="margin-bottom: 30px !important;">
           <div class="welcome">
-            <img src="patra.jpg" style="padding: 20px 0px 5px 0px" height="210" width="100%">
+            <img src="patra.jpg" style="padding: 20px 0px 5px 0px; image-rendering: -webkit-optimize-contrast;" height="210" width="100%">
             <!-- <h3>Welcome back, <br /> <?=$_SESSION['name']?>!</h3> -->
           </div>
         </section>

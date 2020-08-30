@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['rememberMe'])) {
+    header('Location: main.php');
+    session_destroy();
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <meta charset="utf-8">
@@ -21,15 +29,14 @@
       <header>
         <section>
           <img src="yellow_low res.png" style="padding: 20px 0px 5px 0px" height="35" width="44">
-          <a href="upload1.html" id="logo" target="_blank">Patras Gazer</a>
+          <a href="user_data.html" id="logo" target="_blank">Patras Gazer</a>
           <label for="toggle-1" class="toggle-menu"><ul><li></li> <li></li> <li></li></ul></label>
           <input type="checkbox" id="toggle-1">
           <nav >
             <ul>
-              <li><a href="#logo"><i class="fa fa-home"></i>Home</a></li>
-              <li><a href="user_data.html"><i class="icon-user"></i>User Data</a></li>
-              <li><a href="user_stats.html"><i class="fas fa-chart-bar"></i>Statistics</a></li>
-              <li><a href="upload1.html"><i class="fa fa-upload"></i>Upload</a></li>
+              <li><a href="user_data.php"><i class="icon-user"></i>User Data</a></li>
+              <li><a href="user_stats.php"><i class="fas fa-chart-bar"></i>Statistics</a></li>
+              <li><a href="upload_file.php"><i class="fa fa-upload"></i>Upload</a></li>
               <li><a href="help.html"><i class="fa fa-question-circle"></i>Help</a></li>
               <li><a href="http://localhost/logout.php"><i class="fa fa-sign-out-alt" ></i>Sign out</a></li>
             </ul>
@@ -78,8 +85,10 @@
                 <p></p>
               </div>
               <div id="progress"></div>
+              <div class="done" style="display:none;">
               <h3>File Uploaded!</h3>
               <p>Your .json file has been uploaded successfully.</p>
+            </div>
               <div class="button">Cancel</div>
             </fieldset>
           </form>

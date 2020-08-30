@@ -278,6 +278,7 @@ h1 {padding: 20px 0px;}
 }
 .confirmation-popup-container{
    visibility: hidden;
+   
 }
 .confirmation-popup-container.is-visible{
   visibility: visible;  

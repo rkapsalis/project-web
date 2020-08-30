@@ -1,143 +1,130 @@
 <?php
 session_start();
-//require_once 'db_handler.inc.php';
-// Resume the previous session
-error_reporting(E_ALL);
-
-// If the user is not logged in redirect to the login page
 if (!isset($_SESSION['rememberMe'])) {
-	header('Location: main.html');
-	session_destroy();
-	exit();
+    header('Location: main.php');
+    session_destroy();
+    exit();
 }
-$uid = $_SESSION['id'];
-$u_name = $_SESSION['name'];
-require 'db_handler.inc.php';
-
-$result_a = $conn->query("SELECT type,COUNT(*) as type_counter FROM activity GROUP BY type"); //per activity type
-$result_b = $conn->query("SELECT user.username as UID,COUNT(*) as user_counter FROM data INNER JOIN user ON user.userID = data.UID GROUP BY data.UID ORDER BY user_counter"); 
-
-$result_c = $conn->query("SELECT COUNT(*) as month_counter, FROM_UNIXTIME(timestampMs/1000, '%M') as month FROM data GROUP BY month ORDER BY FIELD(month, 'January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December')"); //per month
-$result_d = $conn->query("SELECT COUNT(*) as day_counter, FROM_UNIXTIME(timestampMs/1000, '%W') as day FROM data GROUP BY day ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')"); //per day
-$result_e = $conn->query("SELECT COUNT(*) as hour_counter, HOUR(FROM_UNIXTIME(timestampMs/1000)) as hour FROM data GROUP BY hour ORDER BY hour"); //per hour
-$result_f = $conn->query("SELECT COUNT(*) as year_counter, FROM_UNIXTIME(timestampMs/1000, '%Y') as year FROM data GROUP BY year ORDER BY year"); //per year
-
-
-$typeArray = array();
-$userArray = array();
-$monthArray = array();
-$dayArray = array();
-$hourArray = array();
-$yearArray = array();
-$newAr = array();
-$bins = array();
-$bins_sum = array();
-
-
-while($row1 = mysqli_fetch_assoc($result_a)){
-
-   $typeArray[$row1['type']] = $row1['type_counter'];
-}
-
-while($row2 = mysqli_fetch_assoc($result_b)){
-
-   //$userArray[$row2['UID']] = $row2['user_counter'];  
-   array_push($newAr,$row2['user_counter']);
-}
-$max_score = max($newAr);
-$min_score = min($newAr);
-$score_size = count($newAr);
-// var_dump($max_score-$min_score);
-$k = ceil(sqrt($score_size));
-$width = floor(($max_score-$min_score)/$k)+1;
-// echo($k);
-function quantile($p,$score_size,$newAr) {
-     $idx = 1 + ($score_size - 1) * $p;
-      $lo = floor($idx);
-      $hi = ceil($idx);
-      $h = $idx - $lo;     
-    return (1 - $h) * $newAr[$lo-1] + $h * $newAr[$hi-1];
-  }
-
-  function freedmanDiaconis($score_size,$newAr) {
-    $iqr = quantile(0.75,$score_size,$newAr) - quantile(0.25,$score_size,$newAr);
-    // var_dump($iqr);
-    // echo("   ");
-    //var_dump(2 * $iqr * pow($score_size, -1 / 3));
-    return 2 * $iqr * pow($score_size, -1 / 3);
-  }
-$b = floor(freedmanDiaconis($score_size,$newAr));
-//var_dump(freedmanDiaconis($score_size,$newAr));
-$c = ceil(($max_score-$min_score)/$b);
-//var_dump($c);
-
-for($i=0; $i<(int)$max_score; $i+=$b){
-  //echo($i);
- // echo("  ");
-   array_push($bins,$i);
-}
-array_push($bins, (int)$max_score);
-$a = $newAr;
-$count_scores = 0;
- for($j=0; $j<count($bins)-1; $j++){
-  // echo($j);
-  $m=0;
-  while(!empty($a)){
-  //for($m=0; $m<count($a); $m++){
-    // var_dump($a);
-    // var_dump($m);
-    // if($m==(count($a)-1) && $a[$m]>=$bins[$j]){
-    //    array_splice($a,$m,1);
-    //     $count_scores++;
-    //    // var_dump($bins[$j]);
-    // }
-    if($a[0]>=$bins[$j] && $a[0]<$bins[$j+1]){
-     // unset($a[$m]);
-      array_splice($a,0,1);
-       $count_scores++;
-      // var_dump($bins[$j]);
-      // var_dump($a[$m]);
-      
-    }
-    else if($a[0]==$max_score && $a[0]<=$bins[$j+1] ){
-        array_splice($a,0,1);
-        $count_scores++;
-         // var_dump($bins[$j]);
-         $m++;
-    }
-     else{
-    //    $m++;
-      break;
-    }
-
- }
- array_push( $bins_sum,$count_scores);
- $count_scores = 0;
-}
-for($j=0; $j<count($bins)-1; $j++){
-  $userArray[$bins[$j]."-" .$bins[$j+1]] = $bins_sum[$j];
-}
-
-while($row3 = mysqli_fetch_assoc($result_c)){
-
-   $monthArray[$row3['month']] = $row3['month_counter'];
-}
-
-while($row4 = mysqli_fetch_assoc($result_d)){
-
-   $dayArray[$row4['day']] = $row4['day_counter'];
-}
-
-while($row5 = mysqli_fetch_assoc($result_e)){
-
-   $hourArray[$row5['hour']] = $row5['hour_counter'];
-}
-
-while($row6 = mysqli_fetch_assoc($result_f)){
-
-   $yearArray[$row6['year']] = $row6['year_counter'];
-}
-
-$db_stats = array('name'=>$u_name,'type'=> $typeArray,'user'=>$userArray, 'month'=>$monthArray,'day'=>$dayArray, 'hour'=>$hourArray, 'year'=>$yearArray);
-echo json_encode($db_stats);
 ?>
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+  <link rel="icon"
+    type="image/png"
+    href="yellow_high res.png">
+    <title>Dashboard | Patras Gazer</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
+    <link rel="stylesheet" href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="dashboard.js"></script>
+    <body>
+      <header>
+        <section>
+          <img src="yellow_low res.png" style="padding: 20px 0px 5px 0px; image-rendering: -webkit-optimize-contrast;" height="35" width="44">
+          <a href="dashboard.php" id="logo" target="_blank">Patras Gazer</a>
+          <label for="toggle-1" class="toggle-menu"><ul><li></li> <li></li> <li></li></ul></label>
+          <input type="checkbox" id="toggle-1">
+          <nav >
+            <ul>
+              <li><a href="dashboard.php"><i class="fa fa-tachometer-alt"></i>Dashboard</a></li>
+              <li><a href="admin_maps.php"><i class="fas fa-map-marker-alt"></i>Heatmap</a></li>
+              <li><a href="delete_data.php"><i class="fa fa-trash-alt"></i>Delete</a></li>
+              <li><a href="admin_maps.php"><i class="fa fa-file-export"></i>Export</a></li>
+              <li><a href="http://localhost/logout.php"><i class="fa fa-sign-out-alt" ></i>Sign out</a></li>
+            </ul>
+          </nav>
+        </header>
+      </section>
+      <main>
+        <section id="gallery" class="content">
+          <div class="welcome">
+            <img src="patra.jpg" style="padding: 15px 0px 5px 0px; image-rendering: -webkit-optimize-contrast;" height="210" width="100%">
+          </div>
+        </section>
+        <div class="central-container">
+          <section id="about" class="content">
+            <h2>Distribution of the number of records</h2>
+            <div class="pill-wrapper">
+              <div class="pill">
+                <div class="pill__content">
+                  <div class="pill__title">Per activity type</div>
+                  <div class="pill__value" id="range"> </div>
+                  <div class="chart_cont">
+                    <canvas id="activities" width="400" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="pill">
+                <div class="pill__content">
+                  <div class="pill__title">Per user</div>
+                  <div class="pill__value" id="my_eco"> </div>
+                  <div class="chart_cont">
+                    <canvas id="users" width="400" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="portfolio" class="content">
+            <div class="pill-wrapper">
+              <div class="pill">
+                <div class="pill__content">
+                  <div class="pill__title">Per month</div>
+                  <div class="pill__value" id="my_eco"> </div>
+                  <div class="chart_cont">
+                    <canvas id="monthly" width="400" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="pill">
+                <div class="pill__content">
+                  <div class="pill__title">Per Day</div>
+                  <div class="pill__value" id="last_up"> </div>
+                  <div class="chart_cont">
+                    <canvas id="daily" width="400" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="portfolio" class="content">
+            <div class="pill-wrapper">
+              <div class="pill">
+                <div class="pill__content">
+                  <div class="pill__title">Per Hour</div>
+                  <div class="pill__value" id="range"> </div>
+                  <div class="chart_cont">
+                    <canvas id="hourly" width="400" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="pill">
+                <div class="pill__content">
+                  <div class="pill__date"> </div>
+                  <div class="pill__title">Per Year</div>
+                  <div class="pill__value" id="my_eco"> </div>
+                  <div class="chart_cont">
+                    <canvas id="annual" width="400" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- <section id="services" class="content"> -->
+        </section>
+      </div>
+    </main>
+  </body>
+  <footer>
+    <ul class="social">
+      <p><span class="footer__copyright">Romanos Kapsalis &copy;</span> 2020 </p>
+      <li><a href="https://www.linkedin.com/in/romanos-kapsalis/" style="padding: 0px 0px 0px 68px" target="_blank"><i class="icon-linkedin"></i></a></li>
+      <li><a href="https://github.com/rkapsalis" target="_blank"><i class="icon-github"></i></a></li>
+    </ul>
+  </footer>
+</html>

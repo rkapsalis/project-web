@@ -3,17 +3,18 @@
 session_start();
 //require_once 'db_handler.inc.php';
 // Resume the previous session
-header("content-type: text/html; charset=utf8");  
+// header("content-type: text/html; charset=utf8");  
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // If the user is not logged in redirect to the login page
-if (!isset($_SESSION['rememberMe'])) {
-	header('Location: main.html');
+if (!isset($_SESSION['id'])) {
+	header("location:http://localhost/main.php");
 	session_destroy();
 	exit();
 }
+// var_dump($_SESSION['id']);
 $uid = $_SESSION['id'];
 $u_name = $_SESSION['name'];
 $month = date("(F)", date("m"));
@@ -90,9 +91,9 @@ else{
 //------------------------------------------------------------my ecoscore(current month)----------------------------------------------------------
 $month1 = date("n", $min_date[0]/ 1000.0);
 $year1 = date("Y", $min_date[0]/ 1000.0);
-// $eco_score = eco_score($uid,date("Y-m")); //-------------------------------current month--------------------------------------
+$eco_score = eco_score($uid,date("Y-m")); //-------------------------------current month--------------------------------------
 
-$eco_score = eco_score($uid,'2015-09');				
+//$eco_score = eco_score($uid,'2015-09');				
 
 
 //----------------------------------------------------------------η ημερομηνία τελευταίου upload που έκανε ο χρήστης------------------------------------------------
@@ -109,7 +110,7 @@ else{
 
 //-----------------------------------------------------data for annual chart-----------------------------------------------------
 for ($i = 1; $i <= 12; $i++) { //get last 12 months
-    $months[] = date("Y-m", strtotime( date( '2016-m-01' )." -$i months")); //οι τελευταιοι 12 μήνες
+    $months[] = date("Y-m", strtotime( date( 'Y-m-01' )." -$i months")); //οι τελευταιοι 12 μήνες
 }
 
 $ac_per_month = [];

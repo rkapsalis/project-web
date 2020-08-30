@@ -152,11 +152,7 @@
      var $am_pm;
      var $am_pm2;
      var selected = [];
-
-     if (selected === undefined || selected.length == 0) {
-        alert("Please select at least one activity and try again.");
-    // array empty or does not exist
-     }
+     
 
      //-------------------------------------------------submit button handling----------------------------------------------
      $("#submitrange").click(function() {
@@ -171,17 +167,21 @@
          $minutessince = jQuery('#minutessince').val();
          $minutesuntil = jQuery('#minutesuntil').val();
          $am_pm = jQuery('#am-pm').val();
-         $am_pm2 = jQuery('#am-pm2').val();
+         $am_pm2 = jQuery('#am-pm2').val();         
 
          $('.dropdown-list input:checked').each(function() {
              selected.push($(this).attr('value'));
          });
-
+        if ( selected.length == 0) {
+            alert("Please select at least one activity and try again.");
+            return;
+            // array empty or does not exist
+         }
 
          //---------------------------------------------create an ajax request to admin_maps.php-------------------------------------------
          $.ajax({
              type: "POST",
-             url: "admin_maps.php",
+             url: "admin_maps.inc.php",
              data: {
                  month_s: $month_s,
                  month_u: $month_u,

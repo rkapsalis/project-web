@@ -162,7 +162,8 @@ marker.bindPopup("<b>Πλατεία Γεωργίου</b>");
             // file received/failed
             xhr.onreadystatechange = function(e) {
                 if (xhr.readyState == 4) { //The operation is complete
-                    progress.className = (xhr.status == 200 ? "success" : "failure");                   
+                    progress.className = (xhr.status == 200 ? "success" : "failure");
+                     $('.done').show();
                 }
             };
 
@@ -180,7 +181,7 @@ marker.bindPopup("<b>Πλατεία Γεωργίου</b>");
                 console.log(cens);
                 //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.setRequestHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-                xhr.setRequestHeader("X-FILENAME", file.name);
+                xhr.setRequestHeader("X-FILENAME", unescape(encodeURIComponent(file.name)));
                 //xhr.send("file=" + file + "&cens="+ cens);
                 xhr.send(data);
                 console.log(xhr.responseText);
