@@ -7,8 +7,7 @@
                   
         dataType: "json",                   
         success: function(response){       
-            console.log(response);		
-            //response = JSON.parse(response);
+            
             //$('.html').append("<div class='new' id='" + id + "'>jitender</div>");
 			$('.welcome').append(" <h3>Welcome back, <br />" + response["name"] + "!</h3>");
             $(".pill_date").text("" + response["month"] + "" + response["year"]);			
@@ -17,7 +16,7 @@
 			$("#last_up").text(response["upload"]);
             $("#range").text(response["id"]);
 			
-			annual(response["months"]);
+			annual(response["months"], response['chart_months']);
             //1st		
             console.log(response["lead"][3]["name"]);				
 			if ('0' in response["lead"]) {$("#one").text("" + response["lead"][0]["name"] + "  " + response["lead"][0]["surname"] + ".");}
@@ -36,20 +35,20 @@
 			
         },
 		error: function(XMLHttpRequest, textStatus, errorThrown){
-            window.location.href = "main.php";
-		   //console.log(response);
+            // window.location.href = "main.php";
 		   // alert("Status: " + textStatus); alert("Error: " + errorThrown); 
 		}
       });
 
 	
 //annual chart
-function annual(months) {
+function annual(months, chart_months) {
 var ctx = document.getElementById('annual');	
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        labels: chart_months,
+        // labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         datasets: [{
             label: 'eco-score',
             data:   months,

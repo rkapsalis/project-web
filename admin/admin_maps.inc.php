@@ -79,10 +79,7 @@ $start = strtotime(date("Y-m-w h:i A", strtotime($date_start)))*1000;
 $end = strtotime(date("Y-m-31", strtotime($date_end)))*1000;
 
 $selected = implode("','",$selected);
-echo("SELECT d.latitudeE7, d.longitudeE7, COUNT(*) AS heat_count
-                          FROM data d 
-                          INNER JOIN activity a ON a.fileID = d.fileID AND a.location_id = d.location_id
-                          WHERE a.type IN ('$selected') AND d.timestampMs>=$start AND d.timestampMs<=$end GROUP BY d.latitudeE7, d.longitudeE7");
+
 $result5 =  $conn->query("SELECT d.latitudeE7, d.longitudeE7, COUNT(*) AS heat_count
                           FROM data d 
                           INNER JOIN activity a ON a.fileID = d.fileID AND a.location_id = d.location_id

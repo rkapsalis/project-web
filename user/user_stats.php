@@ -42,7 +42,7 @@ if (!isset($_SESSION['rememberMe'])) {
                                 <li><a href="user_data.php"><i class="icon-user"></i>User Data</a></li>
                                 <li><a href="user_stats.php"><i class="fas fa-chart-bar"></i>Statistics</a></li>
                                 <li><a href="upload_file.php"><i class="fa fa-upload"></i>Upload</a></li>
-                                <li><a href="help.html"><i class="fa fa-question-circle"></i>Help</a></li>
+                                <li><a href="help.php"><i class="fa fa-question-circle"></i>Help</a></li>
                                 <li><a href="http://localhost/logout.php"><i class="fa fa-sign-out-alt" ></i>Sign out</a></li>
                             </ul>
                         </nav>
@@ -85,9 +85,7 @@ if (!isset($_SESSION['rememberMe'])) {
                         <h5>Month</h5>
                         <select
                             name="monthuntil"
-                            id="monthuntil"
-                            onchange="getForms()"
-                            action="showDate(monthsince1,yearsince1,monthuntil1,yearuntil1)"
+                            id="monthuntil"                            
                             >
                             <option value="ALL" selected>ALL </option>
                             <option value="01">Ιανουάριος</option>

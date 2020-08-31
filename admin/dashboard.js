@@ -52,7 +52,7 @@
                  user_sum.push(response['user'][i])
              }
 
-             //create chart1
+             //------------------------------------------------create chart1 "per year"---------------------------------------------
              var ctx = document.getElementById('annual');
              Chart.defaults.global.defaultFontColor = 'black';
              var myChart = new Chart(ctx, {
@@ -62,7 +62,6 @@
                      datasets: [{
 
                          barThickness: 12,
-
                          label: 'records per year',
                          data: years_sum,
                          backgroundColor: [
@@ -119,7 +118,8 @@
                  var b = Math.floor(Math.random() * 255);
                  return "rgb(" + r + "," + g + "," + b + ")";
              };
-             //create chart2
+
+             //-----------------------------------------------create chart2 "per hour"----------------------------------------------
              var ctx = document.getElementById('hourly');
              Chart.defaults.global.defaultFontColor = 'black';
              var myChart = new Chart(ctx, {
@@ -156,7 +156,7 @@
                  }
              });
 
-             //create chart3
+             //---------------------------------------------create chart3 "per day"---------------------------------------------------
              var ctx = document.getElementById('daily');
              Chart.defaults.global.defaultFontColor = 'black';
              var myChart = new Chart(ctx, {
@@ -221,7 +221,7 @@
                  }
              });
 
-             //create chart4
+             //------------------------------------------------------------create chart4 "per month"---------------------------------------------------
              var ctx = document.getElementById('monthly');
              Chart.defaults.global.defaultFontColor = 'black';
              var myChart = new Chart(ctx, {
@@ -283,7 +283,7 @@
                  }
              });
 
-             //create chart5
+             //--------------------------------------------------create chart5 "per activity type"------------------------------------------------------
              new Chart(document.getElementById("activities"), {
                  type: 'pie',
                  data: {
@@ -318,8 +318,10 @@
                  }
                  //}
              });
+
+             //---------------------------------------------------------create chart6 "per user"-----------------------------------------------------
              if(response['histogram']=='yes'){
-             //create chart6
+             
                  new Chart(document.getElementById("users"), {
                      type: 'bar',
                      data: {
@@ -377,7 +379,7 @@
                      data: {
                          labels: user,
                          datasets: [{
-                             label: "users",
+                             label: "records per user",
                              backgroundColor: [
                                  'rgba(255, 99, 132, 1)',
                                  'rgba(54, 162, 235, 1)',
