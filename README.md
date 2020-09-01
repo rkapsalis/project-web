@@ -17,12 +17,12 @@ data can be downloaded in JSON or KMZ format (zipped KML).
 ## Admin
 1. **Dashboard**  
   Distribution of the number of records:  
-  a. per activity type  
+  a. per activity type 
   b. per user  
-  c. per month  
-  d. per day  
-  e. per hour  
-  f. per year
+  c. per month 
+  d. per day 
+  e. per hour 
+  f. per year 
   
 2. **Heatmap**  
 
@@ -33,7 +33,18 @@ data can be downloaded in JSON or KMZ format (zipped KML).
 ## User
 1. **Sign up**
 
+The user signs up by choosing a username, a password, firstname & lastname and an email. Password must
+be at least 8 characters long and contain at least one uppercase letter, a number
+and a symbol (for example #$*&@). System creates a unique identifier (user id)
+for each user using 2-way encryption, using email and password (as key).
+
 2. **User data**
+After sign in, user can see:
+a. eco-score (percentage of sites with body activity relative to all activities) for current month
+b. the period covered by user uploads
+c. the date of the latest upload
+d. a chart showing users' eco-score for the last 12 months
+e. an eco-score leaderboard showing the 3 users with the highest eco-score for the current month and the position of the user
 
 3. **User data analysis**
 
