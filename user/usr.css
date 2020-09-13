@@ -139,7 +139,7 @@ h1 {padding: 20px 0px;}
 .pill__value {
   font-size: 1.5em;
 }
-.chart_cont{
+.chart_cont, .chart_cont1, .chart_cont2{
 	width: 100%;
         height: 90%;
 }
@@ -231,7 +231,7 @@ h1 {padding: 20px 0px;}
   .pill-wrapper{width:95%; grid-template-columns:repeat(1, 1fr); min-width: 350px;}
   .pill{border-radius:20px; width:100%;}
   .pill__content{padding:0 0 0 10; grid-column: 1 / 3}
-  .chart_cont{
+  .chart_cont, .chart_cont1, .chart_cont2{
     width: 300px !important;
     height: 400px;
   }

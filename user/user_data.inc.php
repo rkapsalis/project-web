@@ -158,8 +158,10 @@ foreach ($users as $value) { //for each user
 	if (is_null($score) || (date('m',strtotime($upload)) != date('m'))){ //if the score isn't of the current month or is null
 		$user_score = eco_score($value[0], date("Y-m")); //get current month's eco-score
 	    //$user_score = eco_score($value[0], '2015-09');     //get random month's eco-score
-		array_push($eco_scores, [$user_score, $value[1], $value[2], $value[0]]);
-		$score_ins = $conn->query("INSERT INTO score VALUES('$value[0]','$user_score','$cur_date') ON DUPLICATE KEY UPDATE ecoScore='$user_score', updateTime='$cur_date'"); //insert eco_score and insertion time
+	   
+		array_push($eco_scores, [$user_score, $value[1], $value[2], $value[0]]);		
+		$user_score= !empty($user_score) ? "'$user_score'" : "NULL";		
+		$score_ins = $conn->query("INSERT INTO score VALUES('$value[0]',$user_score,'$cur_date') ON DUPLICATE KEY UPDATE ecoScore=$user_score, updateTime='$cur_date'"); //insert eco_score and insertion time
 		
 	}
 	else{  //if eco_score of current month exists
@@ -178,7 +180,12 @@ if($scores) {
        	    
 	         $name = $row3['firstname'];
              $surname = mb_substr($row3['lastname'], 0, 1,'UTF-8');//get only the first character of lastname
-             $score = $row3['ecoScore'];
+             if($row3['ecoScore']!=NULL){
+             	 $score = $row3['ecoScore'];
+             }
+             else{
+             	$score = "N/A";
+             }
 	                    
              $rank[$key]['name'] = $name;                 
              $rank[$key]['surname'] = $surname;

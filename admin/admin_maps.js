@@ -152,7 +152,7 @@
      var $am_pm;
      var $am_pm2;
      var selected = [];
-     
+     var mymap;
 
      //-------------------------------------------------submit button handling----------------------------------------------
      $("#submitrange").click(function() {
@@ -177,7 +177,7 @@
             return;
             // array empty or does not exist
          }
-
+        
          //---------------------------------------------create an ajax request to admin_maps.php-------------------------------------------
          $.ajax({
              type: "POST",
@@ -201,16 +201,21 @@
              dataType: "json",
              success: function(response) {
                  console.log(response);
+                 
+                 if(mymap != undefined || mymap != null){ //remove on button click
+                    mymap.remove();                   
+                 }
                  //show heatmap
                  $('.central-container').show();
                  $('#contact').show();
                  //heatmap
-                 let mymap = L.map('mapid')
+                 mymap = L.map('mapid')
                  let osmUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
                  let osmAttrib = 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
                  let osm = new L.TileLayer(osmUrl, {
                      attribution: osmAttrib
                  });
+                 
                  mymap.addLayer(osm);
                  mymap.setView([38.246242, 21.7350847], 16);
                  var heat = L.heatLayer(response['lon']).addTo(mymap),

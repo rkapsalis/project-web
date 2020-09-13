@@ -47,10 +47,10 @@ if($daysince == "ALL"){
     $daysince = "1";
 }
 if($dayuntil == "ALL"){
-    $dayuntil = "6";
+    $dayuntil = "7";
 }
 if($hoursince == "ALL"){
-    $hoursince = "12";
+    $hoursince = "00";
 }
 if($houruntil == "ALL"){
     $houruntil = "11";
@@ -78,12 +78,24 @@ $date_end = "$year_u-$month_u-$dayuntil $houruntil:$minutesuntil $pm_am_u";
 $start = strtotime(date("Y-m-w h:i A", strtotime($date_start)))*1000;
 $end = strtotime(date("Y-m-31", strtotime($date_end)))*1000;
 
+$hour_s = "$hoursince:$minutessince $pm_am_s";
+$hour_u = "$houruntil:$minutesuntil $pm_am_u";
+$hoursince = date("H:i", strtotime($hour_s));
+$houruntil = date("H:i", strtotime($hour_u));
 $selected = implode("','",$selected);
+// var_dump($hoursince);
+// var_dump($houruntil);
+// $result5 =  $conn->query("SELECT d.latitudeE7, d.longitudeE7, COUNT(*) AS heat_count
+//                           FROM data d 
+//                           INNER JOIN activity a ON a.fileID = d.fileID AND a.location_id = d.location_id
+//                           WHERE a.type IN ('$selected') AND d.timestampMs>=$start AND d.timestampMs<=$end GROUP BY d.latitudeE7, d.longitudeE7")or die(mysqli_error($conn));
 
 $result5 =  $conn->query("SELECT d.latitudeE7, d.longitudeE7, COUNT(*) AS heat_count
                           FROM data d 
                           INNER JOIN activity a ON a.fileID = d.fileID AND a.location_id = d.location_id
-                          WHERE a.type IN ('$selected') AND d.timestampMs>=$start AND d.timestampMs<=$end GROUP BY d.latitudeE7, d.longitudeE7")or die(mysqli_error($conn));
+                          WHERE a.type IN ('$selected') AND DAYOFWEEK(from_unixtime(d.timestampMs/1000)) BETWEEN $daysince AND $dayuntil AND FROM_UNIXTIME(d.timestampMs/1000,'%H:%i')
+                          BETWEEN '$hoursince' AND '$houruntil' AND MONTH(FROM_UNIXTIME(d.timestampMs/1000)) BETWEEN $month_s AND $month_u AND YEAR(FROM_UNIXTIME(d.timestampMs/1000)) BETWEEN $year_s AND $year_u GROUP BY d.latitudeE7, d.longitudeE7")or die(mysqli_error($conn));
+
 
  $years =[];
  $sum = [];

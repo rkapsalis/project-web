@@ -47,8 +47,7 @@ var ctx = document.getElementById('annual');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: chart_months,
-        // labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        labels: chart_months,        
         datasets: [{
             label: 'eco-score',
             data:   months,

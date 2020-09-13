@@ -121,7 +121,7 @@ if (!isset($_SESSION['rememberMe'])) {
                             <div class="pill__content">
                                 <div class="pill__title">Percentage of records per activity type</div>
                                 <div class="pill__value" id="range"> </div>
-                                <div class="chart_cont" >
+                                <div class="chart_cont1" >
                                     <canvas id="percentage" width="400" height="400"></canvas>
                                 </div>
                             </div>
@@ -156,7 +156,7 @@ if (!isset($_SESSION['rememberMe'])) {
                         <div class="pill__content">
                             <div class="pill__title">Number of records at this day per activity type </div>
                             <div class="pill__value" id="range"> </div>
-                            <div class="chart_cont">
+                            <div class="chart_cont2">
                                 <canvas id="sum_pd" width="400" height="400"></canvas>
                             </div>
                         </div>
