@@ -17,7 +17,7 @@ error_reporting(E_ALL);
 
 // If the user is not logged in redirect to the login page
 if (!isset($_SESSION['rememberMe'])) {
-	header('Location: main.html');
+	header('Location: main.php');
 	session_destroy();
 	exit();
 }
@@ -48,10 +48,10 @@ if($month_u == 'ALL'){
     $month_u = "12";
 }
 if($daysince == "ALL"){
-    $daysince = "1";
+    $daysince = "0";
 }
 if($dayuntil == "ALL"){
-    $dayuntil = "7";
+    $dayuntil = "6";
 }
 if($hoursince == "ALL"){
     $hoursince = "00";
@@ -96,7 +96,7 @@ $selected = implode("','",$selected);
 $result =  $conn->query("SELECT d.latitudeE7, d.longitudeE7, d.heading, a.type, a.confidence, a.timestampMs as a_timestampMs, d.verticalAccuracy, d.velocity, d.accuracy, d.altitude, d.timestampMs, d.UID
                           FROM data d 
                           INNER JOIN activity a ON a.fileID = d.fileID AND a.location_id = d.location_id
-                          WHERE a.type IN ('$selected') AND DAYOFWEEK(from_unixtime(d.timestampMs/1000)) BETWEEN $daysince AND $dayuntil AND FROM_UNIXTIME(d.timestampMs/1000,'%H:%i')
+                          WHERE a.type IN ('$selected') AND WEEKDAY(from_unixtime(d.timestampMs/1000)) BETWEEN $daysince AND $dayuntil AND FROM_UNIXTIME(d.timestampMs/1000,'%H:%i')
                           BETWEEN '$hoursince' AND '$houruntil' AND MONTH(FROM_UNIXTIME(d.timestampMs/1000)) BETWEEN $month_s AND $month_u AND YEAR(FROM_UNIXTIME(d.timestampMs/1000)) BETWEEN $year_s AND $year_u")or die(mysqli_error($conn));
 
  $latitudeE7 =[];

@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 // If the user is not logged in redirect to the login page
 if (!isset($_SESSION['rememberMe'])) {
-	header('Location: main.html');
+	header('Location: main.php');
 	session_destroy();
 	exit();
 }
@@ -77,32 +77,25 @@ var_dump($filename);
 //$in = fopen('php://input','r');
 $users = JsonMachine::fromFile($filename,'/locations');
 
-//var_dump(count(array_keys((array)$users)));
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "web";
-//$mysql_con = mysqli_connect($servername, $username, $password, $dbname);
 
 $pdo = new PDO('mysql:host=localhost;dbname=web', $username, $password);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
-//SELECT MAX(fileID) FROM data
-//if (!($stmt = $mysql_con->prepare("INSERT INTO data (timestampMs, latitudeE7, longitudeE7, accuracy) VALUES ( ? , ? , ? , ?  )"))){
-	//echo "Prepare failed: (" . $mysql_con->errno . ") " . $mysql_con->error;
-//}
 $stmt =  $pdo->prepare("SELECT MAX(fileID) FROM data");
- $stmt->execute(); 
- $file_id = $stmt->fetchColumn();
- // $file_id = $file_id;
- $file_id++;
- var_dump($file_id);
+$stmt->execute(); 
+$file_id = $stmt->fetchColumn();
+ 
+$file_id++; 
 
 function withinPatras($latitudeTo, $longitudeTo) {
 
         $earth_radius = 6371000;
-	    	$latitudeFrom = deg2rad(38.230462);
+	    $latitudeFrom = deg2rad(38.230462);
         $longitudeFrom = deg2rad(21.753150);
         $latitudeTo = deg2rad($latitudeTo);
         $longitudeTo = deg2rad($longitudeTo);
@@ -163,9 +156,9 @@ foreach ($users as $row=>$value ) { //iterate locations
 			   $arr[$count]["verticalAccuracy"] = $verticalAccuracy;
 			   $arr[$count]["velocity"] = $velocity;
 			   $arr[$count]["heading"] = $heading;
-			      $arr[$count]["location_id"] = $count;
+			     
 			   $count++;
-
+               $arr[$count-1]["location_id"] = $count;
 							if (isset($value["activity"])) {
 
 									//main activity iteration
@@ -182,25 +175,25 @@ foreach ($users as $row=>$value ) { //iterate locations
 									       $activity_type = $activity["activity"][$counter1]["type"];
 									       $activity_confidence = $activity["activity"][$counter1]["confidence"];
 									       $arr_ac[$temp_count]["timestampMs"] = $activity_timestamp;
-										     $arr_ac[$temp_count]["nested"] = "yes";
-			                   $arr_ac[$temp_count]["type"] = $activity_type;
-			                   $arr_ac[$temp_count]["confidence"] = $activity_confidence;
-			                   $arr_ac[$temp_count]["count"] = $count;
-										     $arr_ac[$temp_count]["count_arr"] = $counter2;
-										     $arr_ac[$temp_count]["activity_id"] = $counter1;
+										   $arr_ac[$temp_count]["nested"] = "yes";
+						                   $arr_ac[$temp_count]["type"] = $activity_type;
+						                   $arr_ac[$temp_count]["confidence"] = $activity_confidence;
+						                   $arr_ac[$temp_count]["count"] = $count;
+										   $arr_ac[$temp_count]["count_arr"] = $counter2;
+										   $arr_ac[$temp_count]["activity_id"] = $counter1;
 									       $counter1++;
-										     $temp_count++;
+										   $temp_count++;
 									   }
 									    $counter = $temp_count;
 									}
 									else{
 
 										$activity_type = $activity["activity"][0]["type"];
-									  $activity_confidence = $activity["activity"][0]["confidence"];
-									  $arr_ac[$counter]["timestampMs"] = $activity_timestamp;
-									  $arr_ac[$counter]["type"] = $activity_type;
-			              $arr_ac[$counter]["confidence"] = $activity_confidence;
-			              $arr_ac[$counter]["count"] = $count;
+										$activity_confidence = $activity["activity"][0]["confidence"];
+										$arr_ac[$counter]["timestampMs"] = $activity_timestamp;
+										$arr_ac[$counter]["type"] = $activity_type;
+							            $arr_ac[$counter]["confidence"] = $activity_confidence;
+							            $arr_ac[$counter]["count"] = $count;
 								      // $arr_ac[$counter]["count_arr"] = NULL;
 									    // $arr_ac[$counter]["activity_id"] = 0;
 									    $arr_ac[$counter]["count_arr"] = $counter2;
@@ -214,31 +207,26 @@ foreach ($users as $row=>$value ) { //iterate locations
 									}
 									 $counter2 = 0;
 								}
-	 //var_dump($arr_ac);
-	 //var_dump(count($arr));
-	 //var_dump($arr);
-	//var_dump([$row,$value]);
+	
 	}
 	else{
 		//$count++;
 	}
 }
 
-var_dump(count($arr));
-
 $inserter = new BulkInserter($pdo, 'data', ['UID','fileID','timestampMs', 'latitudeE7', 'longitudeE7', 'accuracy', 'altitude', 'verticalAccuracy', 'velocity', 'heading', 'uploadTime','location_id']);
-$inserter2 = new BulkInserter($pdo, 'activity', ['UID','timestampMs', 'type', 'confidence', 'location_id', 'main_activity', 'activity_id', 'uploadTime','fileID']);
+$inserter2 = new BulkInserter($pdo, 'activity', ['UID','fileID','timestampMs', 'type', 'confidence', 'location_id', 'main_activity', 'activity_id', 'uploadTime']);
 $pdo->beginTransaction();
 
 foreach ($arr as $value){
 	$inserter->queue( $uid, $file_id, $value['timestampMs'] , $value['latitudeE7'] , $value['longitudeE7'] , $value['accuracy'], $value['altitude'], $value['verticalAccuracy'], $value['velocity'], $value['heading'], date("Y-m-d H:i:s"), $value['location_id'] );
 }
-
+$inserter->flush();
 foreach ($arr_ac as $value_ac){
-	$inserter2->queue( $uid, $value_ac['timestampMs'] , $value_ac['type'] , $value_ac['confidence'] , $value_ac['count'] , $value_ac['count_arr'], $value_ac['activity_id'], date("Y-m-d H:i:s"),$file_id );
+	$inserter2->queue( $uid,$file_id,  $value_ac['timestampMs'] , $value_ac['type'] , $value_ac['confidence'] , $value_ac['count'] , $value_ac['count_arr'], $value_ac['activity_id'], date("Y-m-d H:i:s"));
 }
 
-$inserter->flush();
+
 $inserter2->flush();
 $pdo->commit();
 unlink($_SERVER['DOCUMENT_ROOT'].'/' . $fn);

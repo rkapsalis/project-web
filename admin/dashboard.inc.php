@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 // If the user is not logged in redirect to the login page
 if (!isset($_SESSION['rememberMe'])) {
-	header('Location: main.html');
+	header('Location: main.php');
 	session_destroy();
 	exit();
 }
@@ -35,38 +35,38 @@ $bins_sum = array();
 
 
 while($row1 = mysqli_fetch_assoc($result_a)){
-
    $typeArray[$row1['type']] = $row1['type_counter'];
 }
-if(sizeof($userArray)>10){
-    while($row2 = mysqli_fetch_assoc($result_b)){
-        
+
+if(sizeof($userArray)>10){//-----------------------------------------if number of users>10---------------------------------------
+    while($row2 = mysqli_fetch_assoc($result_b)){        
        array_push($newAr,$row2['user_counter']);
     }
 
     $max_score = max($newAr);
     $min_score = min($newAr);
     $score_size = count($newAr);
-    // var_dump($max_score-$min_score);
+    
     $k = ceil(sqrt($score_size));
     $width = floor(($max_score-$min_score)/$k)+1;
-   
+
+    //--------------------------------calculate number of bins with Freedman-Diaconis rule------------------------------
     function quantile($p,$score_size,$newAr) {
          $idx = 1 + ($score_size - 1) * $p;
           $lo = floor($idx);
           $hi = ceil($idx);
           $h = $idx - $lo;     
         return (1 - $h) * $newAr[$lo-1] + $h * $newAr[$hi-1];
-      }
+    }
 
-      function freedmanDiaconis($score_size,$newAr) {
-        $iqr = quantile(0.75,$score_size,$newAr) - quantile(0.25,$score_size,$newAr);     
-        return 2 * $iqr * pow($score_size, -1 / 3);
-      }
+    function freedmanDiaconis($score_size,$newAr) {
+      $iqr = quantile(0.75,$score_size,$newAr) - quantile(0.25,$score_size,$newAr);     
+      return 2 * $iqr * pow($score_size, -1 / 3);
+    }
     $b = floor(freedmanDiaconis($score_size,$newAr));
 
     // $c = ceil(($max_score-$min_score)/$b);    
-
+    //--------------------------------calculate bin values--------------------------------
     for($i=0; $i<(int)$max_score; $i+=$b){     
        array_push($bins,$i);
     }
@@ -74,59 +74,53 @@ if(sizeof($userArray)>10){
     array_push($bins, (int)$max_score);
     $a = $newAr;
     $count_scores = 0;
-
+    //----------------------------------put values in bins--------------------------------
     for($j=0; $j<count($bins)-1; $j++){      
       $m=0;
       while(!empty($a)){
       
         if($a[0]>=$bins[$j] && $a[0]<$bins[$j+1]){         
-          array_splice($a,0,1);
-           $count_scores++;   
-          
+            array_splice($a,0,1);
+            $count_scores++;          
         }
         else if($a[0]==$max_score && $a[0]<=$bins[$j+1] ){
             array_splice($a,0,1);
             $count_scores++;        
-             $m++;
+            $m++;
         }
         else{    
-          break;
+            break;
         }
 
-     }
+    }
      array_push( $bins_sum,$count_scores);
      $count_scores = 0;
-    }
+   }
     for($j=0; $j<count($bins)-1; $j++){
       $userArray[$bins[$j]."-" .$bins[$j+1]] = $bins_sum[$j];
     }
     $histogram = "yes";
 }
-else{
+else{//-------------------------------------------if number of users <=10--------------------------------------------
    while($row2 = mysqli_fetch_assoc($result_b)){
-
        $userArray[$row2['UID']] = $row2['user_counter']; 
    } 
    $histogram = "no";
 }
 
 while($row3 = mysqli_fetch_assoc($result_c)){
-
    $monthArray[$row3['month']] = $row3['month_counter'];
 }
 
 while($row4 = mysqli_fetch_assoc($result_d)){
-
    $dayArray[$row4['day']] = $row4['day_counter'];
 }
 
 while($row5 = mysqli_fetch_assoc($result_e)){
-
    $hourArray[$row5['hour']] = $row5['hour_counter'];
 }
 
 while($row6 = mysqli_fetch_assoc($result_f)){
-
    $yearArray[$row6['year']] = $row6['year_counter'];
 }
 

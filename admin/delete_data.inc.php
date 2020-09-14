@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 // If the user is not logged in redirect to the login page
 if (!isset($_SESSION['rememberMe'])) {
-	header('Location: main.html');
+	header('Location: main.php');
 	session_destroy();
 	exit();
 }

@@ -7,6 +7,6 @@ session_start();
 session_destroy();
 
 // Redirect to the login page
-header('Location: main.html');
+header('Location: main.php');
 
 ?>

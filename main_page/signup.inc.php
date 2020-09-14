@@ -12,41 +12,35 @@ if(isset($_POST["pwd_repeat"])){
 	$name =  $_POST["name"];
 	$surname =  $_POST["surname"];
     
-    if(strlen($password)<8 ){
-	  //echo "$password";
-	  //header("Location:.../main.html?error=shortPassword");
-        echo "Password must contain at least 8 characters. Please try again!";
-      exit();
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)){ //check if email is valid
+         echo "E-mail not valid. Please try again!";       
+        exit();
     }
-    elseif (!preg_match("/[A-Z]/", $password)) { //at least one capital letter
-        // header("Location:.../www/main.html?error=atLeastOneCapital");
+    elseif(strlen($password)<8 ){ //at least 8 characters
+        echo "Password must contain at least 8 characters. Please try again!";
+        exit();
+    }
+    elseif (!preg_match("/[A-Z]/", $password)) { //at least one capital letter        
         echo "Password must contain at least one capital letter. Please try again!";
         exit();
     }
-    elseif (!preg_match("/\W/", $password)) { //at least one special character
-        //header("Location:.../main.html?error=atLeastOneSymbol");
+    elseif (!preg_match("/\W/", $password)) { //at least one special character        
         echo "Password must contain at least one special character. Please try again!";
         exit();
     }
-    elseif (!preg_match("/\d/", $password)) { //at least one digit
-        // header("Location:.../www/main.html?error=atLeastOneDigit");
+    elseif (!preg_match("/\d/", $password)) { //at least one digit       
         echo "Password must contain at least one digit. Please try again!";
         exit();
-    }
-    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)){ //δεν το ζηταει,ισως χρειαζεται
-        header("Location:.../main.html?error=");        
-        exit();
-    }
-    elseif ($password !== $passwordr){
-        echo "Passwords do not match. Please try again!";
-        // header("Location:.../main.html?error=passwordsNotMatch");
+    }   
+    elseif ($password !== $passwordr){ //password and repeat password must be the same
+        echo "Passwords do not match. Please try again!";      
         exit();
     }
     else{
 
         //2-way encryption
         $EncryptedEmail = $email;
-        $encryptionMethod = "AES-256-CBC";  // υπαρχουν πολλες επιλογές εδώ, βλέπουμε
+        $encryptionMethod = "AES-256-CBC";  
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc')); //initialization vector
         $key = $password;
         $userID = openssl_encrypt($EncryptedEmail, $encryptionMethod, $key, 0, $iv);
@@ -57,8 +51,7 @@ if(isset($_POST["pwd_repeat"])){
         $sql = "INSERT INTO user(userID, username, password, firstname, lastname, email) VALUES (?,?,?,?,?,?)";
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt,$sql)){
-            //header("Location:.../main.html?error=sqlerror");
-			//echo 'sth';
+            //header("Location:.../main.html?error=sqlerror");			
 			echo("Error description: " . mysqli_error($conn));
             exit();
         }
@@ -73,7 +66,7 @@ if(isset($_POST["pwd_repeat"])){
         }
                
     }
-    //θα βαλουμε να τσεκαρει και αν υπαρχει ηδη χρηστης στην βαση με το ιδιο username?
+   
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
 

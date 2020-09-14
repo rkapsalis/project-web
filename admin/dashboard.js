@@ -129,7 +129,6 @@
                      datasets: [{
 
                          barThickness: 12,
-
                          label: 'records per hour',
                          data: hours_sum,
                          backgroundColor: 'rgb(255, 99, 132,0.6)',
@@ -167,7 +166,6 @@
                      datasets: [{
 
                          barThickness: 12,
-
                          label: 'records per day',
                          data: days_sum,
 

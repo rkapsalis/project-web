@@ -23,7 +23,7 @@ session_start();
         $sql = "SELECT * FROM user WHERE username=?";
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt,$sql)){
-            header("Location:.../main.html?error=sqlerror");
+            header("Location:.../main.php?error=sqlerror");
             exit();
         }
         mysqli_stmt_bind_param($stmt,"s",$username);
@@ -43,9 +43,9 @@ session_start();
 					$_SESSION['rememberMe'] = TRUE;
 					
 					if($row['type']== 'admin'){
-                      header("Location: http://localhost/dashboard.html");                    			
+                      header("Location: http://localhost/dashboard.php");                    			
                     } else {
-                      header("Location: http://localhost/user_data.html"); 					   
+                      header("Location: http://localhost/user_data.php"); 					   
                     }
                     $count++;                
                     exit();                                       
@@ -55,16 +55,15 @@ session_start();
         } 
         else{
             $error="Sorry, wrong password or username. Please try again.";
-             $_SESSION["error"] = $error;
+            $_SESSION["error"] = $error;
             header("location: http://localhost/main.php"); //send user back to the login page
-           // die("wrong password or username");
+           
         }
-        if($count == 0){
-            // var_dump($password_check)
-             $error1 ="Sorry, username not found. Please try again.";
+        if($count == 0){            
+            $error1 ="Sorry, username not found. Please try again.";
             $_SESSION["error"] = $error1;
             header("location: http://localhost/main.php"); //send user back to the login page
-           // die("username not found");
+           
         }
         mysqli_stmt_close($stmt);
         mysqli_close($conn);

@@ -1,13 +1,10 @@
 $(document).ready(function() {
     //var $sel = jQuery('#monthsince').val();
 
-
     $(".button").click(function() {        
             
-            $('.confirmation-popup-container').toggleClass('is-visible');
+        $('.confirmation-popup-container').toggleClass('is-visible');         
        
-         console.log('skata');
-        //           $('body').prepend($content);
         $('.doAction').click(function() { //delete button
 
             $.ajax({ //create an ajax request to display.php
@@ -21,7 +18,6 @@ $(document).ready(function() {
                         alert("Data have been successfully deleted from database.");
                     } else {
                         alert("An error occurred. Please try again.");
-
                     }
 
                 },

@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 // set_time_limit(900);
 // If the user is not logged in redirect to the login page
 if (!isset($_SESSION['rememberMe'])) {
-	header('Location: main.html');
+	header('Location: main.php');
 	session_destroy();
 	exit();
 }

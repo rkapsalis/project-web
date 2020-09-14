@@ -1,7 +1,7 @@
  $(document).ready(function() {
      var $sel = jQuery('#monthsince').val();
      var mymap;
-     $.ajax({ //create an ajax request to display.php
+     $.ajax({ //----------------------------------create an ajax request to fill drop-down menus------------------------------------------
          type: "POST",
          url: "user_stats_helper.inc.php",
          data: {
@@ -17,7 +17,6 @@
                  $("#yearuntil").append(" <option value= " + response['years'][$i] + ">" + response['years'][$i] + "</option>");
              }
 
-
          },
          error: function(XMLHttpRequest, textStatus, errorThrown) {
              //console.log(response);
@@ -27,7 +26,7 @@
          }
      });
 
-     $(".button").click(function() {
+     $(".button").click(function() {//-----------------------------when the user clicks "Submit"----------------------------
          var $month_s = jQuery('#monthsince').val();
          var $month_u = jQuery('#monthuntil').val();
          var $year_s = jQuery('#yearsince').val();
@@ -52,25 +51,24 @@
                  $('#gallery').show();
                  $('#contact').show();
                  
-                 var dynamicColors = function() {
+                 var dynamicColors = function() {  //function to fill chart colors dynamically
                      var r = Math.floor(Math.random() * 255);
                      var g = Math.floor(Math.random() * 255);
                      var b = Math.floor(Math.random() * 255);
-                     // var o = 0.8;
-                     //console.log("rgba(" + r + "," + g + "," + b + "," + o +")");
+                     // var o = 0.8;                     
                      return "rgb(" + r + "," + g + "," + b + ")";
                  };
                  var coloR = [];
                  for (var i in response['sum']) {
-
                      coloR.push(dynamicColors());
                  }
 
-                 //-----------------------------------------------------------percentage graph----------------------------------------------------
+                //remove chart on button click
                  $('#percentage').remove(); 
                 $('.chart_cont1').append('<canvas id="percentage" width="400" height="400"><canvas>');
                  var myChart1;
-                
+
+                 //-----------------------------------------------------------percentage graph----------------------------------------------------
                  myChart1 = new Chart(document.getElementById("percentage"), {
                      type: 'pie',
                      data: {
@@ -94,18 +92,18 @@
                            position: 'top',
                            align: 'start',
                           }
-                     }
-                    
+                     }                    
                      //}
                  });
                   
                  Chart.defaults.global.defaultFontColor = 'black';
-                 //----------------------------------------------------most frequent hours graph-----------------------------------------------
-                 
+                                 
                  var myChart;
-                 //remove on button click
-                $('#sum_ph').remove(); // this is my <canvas> element
+                //remove chart on button click
+                $('#sum_ph').remove(); 
                 $('.chart_cont').append('<canvas id="sum_ph" width="400" height="400"><canvas>');
+
+                //----------------------------------------------------most frequent hours graph------------------------------------------
                 var ctx = document.getElementById('sum_ph');
                  myChart = new Chart(ctx, {
                      type: 'bar',
@@ -132,7 +130,7 @@
                      
                  });
                
-                 //most frequent hours table
+                 //----------------------------------------------most frequent hours table--------------------------------------------
                  var html = '<table>';
                  html += '<tr>';
 
@@ -141,8 +139,7 @@
 
 
                  html += '</tr>';
-                 //for( var i = 0; i < response['hour'].length; i++) {
-
+                 
                  for (var j in response['type']) {
                      html += '<tr>';
                      html += '<td>' + response['type'][j] + '</td>';
@@ -153,10 +150,12 @@
                  html += '</table>';
                  document.getElementById('table0').innerHTML = html;
                  var myChart2;
-                  //remove on button click
-                $('#sum_pd').remove(); // this is my <canvas> element
+
+                //remove chart on button click
+                $('#sum_pd').remove(); 
                 $('.chart_cont2').append('<canvas id="sum_pd" width="400" height="400"><canvas>');
-                 //most frequent days graph
+
+                 //-----------------------------------------------most frequent days graph-------------------------------------------------
                  var ctx = document.getElementById('sum_pd');
                  myChart2 = new Chart(ctx, {
                      type: 'bar',
@@ -183,7 +182,7 @@
                     
                  });
                   
-                 //most frequent days table
+                 //-----------------------------------------most frequent days table------------------------------------------
                  var html = '<table>';
                  html += '<tr>';
 
@@ -192,8 +191,7 @@
 
 
                  html += '</tr>';
-                 //for( var i = 0; i < response['hour'].length; i++) {
-
+                
                  for (var j in response['type']) {
                      html += '<tr>';
                      html += '<td>' + response['type'][j] + '</td>';
@@ -203,13 +201,14 @@
 
                  html += '</table>';
                  document.getElementById('table1').innerHTML = html;
-                  //remove on button click
+
+                //remove heatmap(if is set) on button click
                  if(mymap != undefined || mymap != null){
                     mymap.off();
                     mymap.remove();                
                    
                  }
-                 //heatmap
+                 //--------------------------------------------------------heatmap-------------------------------------------------
                  mymap = L.map('mapid');
 
                  let osmUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -221,8 +220,7 @@
                  mymap.addLayer(osm);
                  mymap.setView([38.246242, 21.7350847], 16);
                  var heat = L.heatLayer(response['lon']).addTo(mymap),
-                     draw = true;
-                 
+                     draw = true;                 
 
              },
              error: function(XMLHttpRequest, textStatus, errorThrown) {
