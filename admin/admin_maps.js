@@ -236,7 +236,7 @@
 
      //-------------------------------------------------------------JSON button--------------------------------------------------------
      $("#JSONbutton").click(function() {
-         alert("skata");
+        
          $.ajax({
              type: "POST",
              url: "export_data.php",
@@ -291,7 +291,7 @@
                  pm_am_u: $am_pm2,
                  file_type: 'XML',
              },
-             dataType: "json",
+             dataType: "",
              success: function(response) {
                  console.log(response);
 
@@ -325,7 +325,7 @@
                  pm_am_u: $am_pm2,
                  file_type: 'CSV',
              },
-             dataType: "json",
+             dataType: "",
              success: function(response) {
                  console.log(response);
 

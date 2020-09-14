@@ -51,10 +51,10 @@ if($daysince == "ALL"){
     $daysince = "1";
 }
 if($dayuntil == "ALL"){
-    $dayuntil = "6";
+    $dayuntil = "7";
 }
 if($hoursince == "ALL"){
-    $hoursince = "12";
+    $hoursince = "00";
 }
 if($houruntil == "ALL"){
     $houruntil = "11";
@@ -83,12 +83,21 @@ $date_end = "$year_u-$month_u-$dayuntil $houruntil:$minutesuntil $pm_am_u";
 $start = strtotime(date("Y-m-w h:i A", strtotime($date_start)))*1000000;
 $end = strtotime(date("Y-m-31", strtotime($date_end)))*1000;
 
+$hour_s = "$hoursince:$minutessince $pm_am_s";
+$hour_u = "$houruntil:$minutesuntil $pm_am_u";
+$hoursince = date("H:i", strtotime($hour_s));
+$houruntil = date("H:i", strtotime($hour_u));
 $selected = implode("','",$selected);
 
+// $result =  $conn->query("SELECT d.latitudeE7, d.longitudeE7, d.heading, a.type, a.confidence, a.timestampMs as a_timestampMs, d.verticalAccuracy, d.velocity, d.accuracy, d.altitude, d.timestampMs, d.UID
+//                           FROM data d 
+//                           INNER JOIN activity a ON a.fileID = d.fileID AND a.location_id = d.location_id
+//                           WHERE a.type IN ('$selected') AND d.timestampMs>=$start AND d.timestampMs<=$end")or die(mysqli_error($conn));
 $result =  $conn->query("SELECT d.latitudeE7, d.longitudeE7, d.heading, a.type, a.confidence, a.timestampMs as a_timestampMs, d.verticalAccuracy, d.velocity, d.accuracy, d.altitude, d.timestampMs, d.UID
                           FROM data d 
                           INNER JOIN activity a ON a.fileID = d.fileID AND a.location_id = d.location_id
-                          WHERE a.type IN ('$selected') AND d.timestampMs>=$start AND d.timestampMs<=$end")or die(mysqli_error($conn));
+                          WHERE a.type IN ('$selected') AND DAYOFWEEK(from_unixtime(d.timestampMs/1000)) BETWEEN $daysince AND $dayuntil AND FROM_UNIXTIME(d.timestampMs/1000,'%H:%i')
+                          BETWEEN '$hoursince' AND '$houruntil' AND MONTH(FROM_UNIXTIME(d.timestampMs/1000)) BETWEEN $month_s AND $month_u AND YEAR(FROM_UNIXTIME(d.timestampMs/1000)) BETWEEN $year_s AND $year_u")or die(mysqli_error($conn));
 
  $latitudeE7 =[];
  $longitudeE7 = [];
@@ -142,9 +151,7 @@ if($file_type=="CSV"){
 }
 
 if($file_type=="XML"){
-	// $xml = new SimpleXMLElement('<Locations/>'); 
-	// array_to_xml($newArray, $xml);
-
+	
 	//Creates XML string and XML document using the DOM 
 	$domxml = new DOMDocument('1.0');
 	$root = $domxml->appendChild($domxml->createElement("Locations"));
@@ -160,8 +167,7 @@ if($file_type=="XML"){
 	
 	$domxml->preserveWhiteSpace = false; //remove redundant white space
 	$domxml->formatOutput = true; //make the output pretty
-	// $domxml->loadXML($xml->asXML());
-
+	
 	$data = $domxml->saveXML();
 	$domxml->save('data.xml'); //save as file
 }

@@ -15,12 +15,10 @@ if (!isset($_SESSION['rememberMe'])) {
 $uid = $_SESSION['id'];
 $u_name = $_SESSION['name'];
 require 'db_handler.inc.php';
-// mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 $sql = "SELECT DISTINCT FROM_UNIXTIME(timestampMs/1000, '%Y') as time FROM data WHERE UID='$uid' ORDER BY time";  //GET YEARS TO FILL DROP-DOWN MENU
  $result2 = mysqli_query($conn,$sql );
  $years =[];
- // var_dump($uid);
 
 while($row=mysqli_fetch_assoc($result2)) {
     array_push($years, $row['time']);

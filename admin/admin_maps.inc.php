@@ -10,7 +10,7 @@ header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
 header("Access-Control-Allow-Headers: content-type,  x-filename,cache-control, Origin");
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-
+ini_set('memory_limit', '-1');
 // If the user is not logged in redirect to the login page
 if (!isset($_SESSION['rememberMe'])) {
 	header('Location: main.html');

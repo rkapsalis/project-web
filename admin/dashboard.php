@@ -114,8 +114,7 @@ if (!isset($_SESSION['rememberMe'])) {
                 </div>
               </div>
             </div>
-          </section>
-          <!-- <section id="services" class="content"> -->
+          </section>          
         </section>
       </div>
     </main>

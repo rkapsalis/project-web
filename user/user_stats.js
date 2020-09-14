@@ -67,7 +67,7 @@
                  }
 
                  //-----------------------------------------------------------percentage graph----------------------------------------------------
-                 $('#percentage').remove(); // this is my <canvas> element
+                 $('#percentage').remove(); 
                 $('.chart_cont1').append('<canvas id="percentage" width="400" height="400"><canvas>');
                  var myChart1;
                 

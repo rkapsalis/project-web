@@ -219,13 +219,12 @@ h1 {padding: 20px 0px;}
 }
 .welcome h3 { 
   z-index: 100;
-  position: absolute;
-  
+  position: absolute;  
   font-size: 24px;
   font-weight: bold;
   left: 150px;
   top: 37px;
-   color: #fff;
+  color: #fff;
 }
 @media only screen and (max-width: 880px) {
     .pill-wrapper{width:90%; grid-template-columns:repeat(1, 1fr); }
@@ -392,7 +391,7 @@ h1 {padding: 20px 0px;}
   margin-right: 0px;
   padding: 2px;
   width: 100px !important;  
-  margin-bottom: 10px;   
+  margin-bottom: 10px;
 
 }
 #submitrange{
@@ -443,16 +442,14 @@ h1 {padding: 20px 0px;}
 select{
   width: 100px ;  
   margin-bottom: 10px;
-    background-color: #002e5b;
+  background-color: #002e5b;
   color:#fde428;
   padding: 2px;
   border-radius: 5px;
 }
-#select-box h5{
- 
+#select-box h5{ 
  width: 20%;
- display: inline;
-  
+ display: inline;  
 }
 #am-pm, #minutesuntil, #minutessince, #hoursince, #houruntil, #am-pm2{
    width: 60px ;  
@@ -512,7 +509,7 @@ select{
   cursor: pointer;
   box-sizing: border-box;
   background-color:  #002e5b;  
-color: #fde428;
+  color: #fde428;
 }
   
 .dropdown-label:before {
@@ -524,7 +521,6 @@ color: #fde428;
     transform: scale(1, 1);
     transition-delay: 0s;
     box-sizing: border-box;
-
 }
     
 .on .dropdown-option {

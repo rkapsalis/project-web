@@ -43,11 +43,9 @@ if (!isset($_SESSION['rememberMe'])) {
       <main>
         <section id="gallery" class="content">
           <div class="welcome">
-            <img src="patra.jpg" style="padding: 20px 0px 5px 0px" height="210" width="95%">
-            <!-- <h3>Welcome back, <br /> <?=$_SESSION['name']?>!</h3> -->
+            <img src="patra.jpg" style="padding: 20px 0px 5px 0px" height="210" width="95%">            
           </div>
-        </section>
-        <!-- <section id="services" class="content"> -->
+        </section>        
         <section id="portfolio" class="content">
           <h2>Delete Data</h2>
           <div id="select-box" style="height:65px !important; width:900px;">
@@ -62,21 +60,15 @@ if (!isset($_SESSION['rememberMe'])) {
             <h3>Please Confirm </h3><i class='fa fa-close'></i>
           </header>
           <div class="modal-center">
-            <p>Data will be permanently deleted and cannot be recovered. Are you sure?</p>
-            <!-- <ul class="modal-buttons">
-              <li><a href="#0">Cancel</a></li>
-              <li><a href="#0">Yes</a></li>
-            </ul> -->
+            <p>Data will be permanently deleted and cannot be recovered. Are you sure?</p>           
           </div>
           <div class='controls'>
             <button class='button button-danger cancelAction'>Cancel</button>
             <button class='button button-default doAction'>Delete</button>
-          </div>
-          <!--  <a href="#0" class="cd-popup-close img-replace">Close</a> -->
+          </div>          
         </div>
         </div> <!-- cd-popup-container -->
-        </div> <!-- cd-popup -->
-        
+        </div> <!-- cd-popup -->        
       </body>
       <footer>
         <ul class="social">
