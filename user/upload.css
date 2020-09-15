@@ -57,6 +57,7 @@ fieldset{
   max-width: 1000px;
   margin: 0 auto;
   position: relative;
+  min-width: 300px;
 }
 
 .row{
@@ -338,4 +339,9 @@ fieldset{
 footer{
 	top: 0;
 	margin-top: 400px;
+}
+@media only screen and (max-width: 880px) {
+  .form-wrapper .section h3{
+    margin-bottom: 15px;
+  }
 }

@@ -257,9 +257,8 @@
                  file_type: "JSON"
              },
              dataType: "",
-             success: function(response) {
-                 console.log(response);
-
+             success: function(response) {                 
+                 document.getElementById('json_btn').click();
              },
              error: function(XMLHttpRequest, textStatus, errorThrown) {
 
@@ -292,10 +291,8 @@
                  file_type: 'XML',
              },
              dataType: "",
-             success: function(response) {
-                 console.log(response);
-
-
+             success: function(response) {                 
+                 document.getElementById('xml_btn').click();
              },
              error: function(XMLHttpRequest, textStatus, errorThrown) {
                  alert("Status: " + textStatus);
@@ -327,8 +324,8 @@
              },
              dataType: "",
              success: function(response) {
-                 console.log(response);
-
+                 document.getElementById('csv_btn').click();
+                 
              },
              error: function(XMLHttpRequest, textStatus, errorThrown) {
                  alert("Status: " + textStatus);

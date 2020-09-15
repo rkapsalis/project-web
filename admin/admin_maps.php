@@ -216,8 +216,11 @@ if (!isset($_SESSION['rememberMe'])) {
         <section id="portfolio" class="content" style="display:none;">
           <h2>Export Data</h2>
           <button type="submit" id="CSVbutton" class="button">CSV</button>
-          <button type="submit" id="XMLbutton" href="xml.png" class="button">XML</button>
+          <button type="submit" id="XMLbutton" class="button">XML</button>
           <button type="submit" id="JSONbutton" class="button">JSON</button>
+          <a href='data.csv' download id="csv_btn" style="display: none"></a>
+          <a href='data.json' download id="json_btn" style="display: none"></a>
+          <a href='data.xml' download id="xml_btn" style="display: none"></a>
         </section>
       </div>
     </body>

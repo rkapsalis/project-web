@@ -50,7 +50,8 @@ session_start();
 								</div>
 								<div class="hr"></div>
 								<div class="foot-lnk">
-									<a href="#forgot">Forgot Password?</a>
+									<!-- <a href="#forgot">Forgot Password?</a> -->
+									<label for="tab-2" style="cursor:pointer">Forgot Password?</a>
 								</div>
 								<?php
 								if(isset($_SESSION["error"])){
