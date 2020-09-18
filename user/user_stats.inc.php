@@ -31,6 +31,19 @@ if($year_u == "ALL"){
     $year_u = date('Y');
 }
 
+$temp = "";
+if($year_s>$year_u){
+  $temp = $year_s;
+  $year_s = $year_u;
+  $year_u = $temp;
+}
+$temp1 = "";
+if(($year_s==$year_u) & ($month_s>$month_u)) {
+  $temp1 = $month_s;
+  $month_s = $month_u;
+  $month_u = $temp1;
+}
+
 $month = date("(F)", date("m"));
 $year = date("Y");
 $date_start = "$year_s-$month_s";
@@ -38,7 +51,6 @@ $date_end = "$year_u-$month_u";
 $start = strtotime(date("Y-m-01", strtotime($date_start)))*1000;
 $end = strtotime(date("Y-m-31", strtotime($date_end)))*1000;
 
-	
 $result1 = $conn->query("SELECT type,COUNT(*) as type_counter FROM activity WHERE UID='$uid' AND timestampMs>=$start AND timestampMs<=$end GROUP BY type");//per activity type
 $result2 = $conn->query("SELECT DISTINCT FROM_UNIXTIME(timestampMs/1000, '%Y') as time FROM activity WHERE UID='$uid' ORDER BY time"); //GET YEARS TO FILL DROP-DOWN MENU
 $result3 = $conn->query("SELECT ph,type_counter FROM (SELECT type, COUNT(*) as type_counter, FROM_UNIXTIME(timestampMs/1000, '%h%p') as ph FROM activity WHERE UID='$uid' AND timestampMs>=$start AND timestampMs<=$end GROUP BY type,ph ORDER BY type_counter DESC, type) AS Y GROUP BY type"); //per hour

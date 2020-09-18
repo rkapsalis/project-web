@@ -89,15 +89,46 @@ $hoursince = date("H:i", strtotime($hour_s));
 $houruntil = date("H:i", strtotime($hour_u));
 $selected = implode("','",$selected);
 
-// $result =  $conn->query("SELECT d.latitudeE7, d.longitudeE7, d.heading, a.type, a.confidence, a.timestampMs as a_timestampMs, d.verticalAccuracy, d.velocity, d.accuracy, d.altitude, d.timestampMs, d.UID
-//                           FROM data d 
-//                           INNER JOIN activity a ON a.fileID = d.fileID AND a.location_id = d.location_id
-//                           WHERE a.type IN ('$selected') AND d.timestampMs>=$start AND d.timestampMs<=$end")or die(mysqli_error($conn));
-$result =  $conn->query("SELECT d.latitudeE7, d.longitudeE7, d.heading, a.type, a.confidence, a.timestampMs as a_timestampMs, d.verticalAccuracy, d.velocity, d.accuracy, d.altitude, d.timestampMs, d.UID
+
+$temp = "";
+if($year_s>$year_u){
+  $temp = $year_s;
+  $year_s = $year_u;
+  $year_u = $temp;
+}
+$query1 = "SELECT d.latitudeE7, d.longitudeE7, d.heading, a.type, a.confidence, a.timestampMs as a_timestampMs, d.verticalAccuracy, d.velocity, d.accuracy, d.altitude, d.timestampMs, d.UID
                           FROM data d 
                           INNER JOIN activity a ON a.fileID = d.fileID AND a.location_id = d.location_id
-                          WHERE a.type IN ('$selected') AND WEEKDAY(from_unixtime(d.timestampMs/1000)) BETWEEN $daysince AND $dayuntil AND FROM_UNIXTIME(d.timestampMs/1000,'%H:%i')
-                          BETWEEN '$hoursince' AND '$houruntil' AND MONTH(FROM_UNIXTIME(d.timestampMs/1000)) BETWEEN $month_s AND $month_u AND YEAR(FROM_UNIXTIME(d.timestampMs/1000)) BETWEEN $year_s AND $year_u")or die(mysqli_error($conn));
+                          WHERE a.type IN ('$selected')";
+// Days        
+if($daysince > $dayuntil){
+    $query2 = "AND ( NOT (WEEKDAY(from_unixtime(d.timestampMs/1000)) < $daysince AND WEEKDAY(from_unixtime(d.timestampMs/1000)) > $dayuntil) ) ";               
+}            
+else{
+    $query2 = " AND WEEKDAY(from_unixtime(d.timestampMs/1000)) BETWEEN $daysince AND $dayuntil ";               
+}  
+
+// Months        
+if($month_s > $month_u){
+    $query3 = " AND ( NOT (MONTH(FROM_UNIXTIME(d.timestampMs/1000)) < $month_s AND MONTH(FROM_UNIXTIME(d.timestampMs/1000)) > $month_u) ) ";                
+}            
+else{
+    $query3 = "AND MONTH(FROM_UNIXTIME(d.timestampMs/1000)) BETWEEN $month_s AND $month_u";                
+}
+
+//Hours and minutes       
+if($hoursince > $houruntil){
+    $query4 = " AND (NOT (FROM_UNIXTIME(d.timestampMs/1000,'%H:%i') < '$hoursince' AND FROM_UNIXTIME(d.timestampMs/1000,'%H:%i') > '$houruntil')) ";           
+}           
+else{
+    $query4 = " AND FROM_UNIXTIME(d.timestampMs/1000,'%H:%i') BETWEEN '$hoursince' AND '$houruntil' ";                
+}
+
+$query5 = "AND YEAR(FROM_UNIXTIME(d.timestampMs/1000)) BETWEEN $year_s AND $year_u GROUP BY d.latitudeE7, d.longitudeE7";
+
+$query = $query1.$query2.$query3.$query4.$query5;
+
+$result = $conn->query($query);
 
  $latitudeE7 =[];
  $longitudeE7 = [];
