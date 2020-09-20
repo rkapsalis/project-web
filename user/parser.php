@@ -25,15 +25,9 @@ ini_set('max_input_vars', '10000');
 ini_set('max_input_time', '2592000');
 ini_set('upload_max_filesize', '6000M');
 
-//ini_set('xdebug.var_display_max_depth', '10');
-//ini_set('xdebug.var_display_max_children', '256');
-//ini_set('xdebug.var_display_max_data', '1024');
 set_time_limit(900);
 use Brick\Db\Bulk\BulkInserter;
-//filename = $_POST['file'];
-//print_r($_FILES);
- //$f = $_POST['fileselect'];
-       // $filename = "data";
+
 	   print_r($_POST);
 var_dump(isset($_SERVER['HTTP_X_FILENAME']));
 var_dump($_POST['cens']);
@@ -125,10 +119,8 @@ foreach ($users as $row=>$value ) { //iterate locations
    $heading = NULL;
    $verticalAccuracy = NULL;
    $excluded = false;
-
-   //if($row == 'timestampMs'){
-   $timestampMs = $value['timestampMs'];
-   //}
+   
+   $timestampMs = $value['timestampMs'];   
    $latitudeE7 = $value['latitudeE7'];
    $longitudeE7 = $value['longitudeE7'];
    $accuracy = $value['accuracy'];
@@ -137,12 +129,13 @@ foreach ($users as $row=>$value ) { //iterate locations
 	foreach ($rect as &$value2) {  //exclude censored areas
 		  $rect_reshaped = [$value2["p1"], $value2["p2"], $value2["p3"], $value2["p4"]];
 		  $xs = [$rect_reshaped[0][0], $rect_reshaped[1][0], $rect_reshaped[2][0], $rect_reshaped[3][0]];
-		  $ys = [$rect_reshaped[0][1], $rect_reshaped[1][1], $rect_reshaped[2][1], $rect_reshaped[3][1]];
-		  if ($longitudeE7 > min($xs) && $latitudeE7 < max($xs) && $latitudeE7 > min($ys) && $latitudeE7 < max($ys)){ $excluded = true; }
-		  var_dump($excluded);
+		  $ys = [$rect_reshaped[0][1], $rect_reshaped[1][1], $rect_reshaped[2][1], $rect_reshaped[3][1]];		  
+		  if ($longitudeE7/ 10000000.0 > min($xs) && $longitudeE7/ 10000000.0 < max($xs) && $latitudeE7/ 10000000.0 > min($ys) && $latitudeE7/ 10000000.0 < max($ys)){ $excluded = true; }
+		  var_dump($excluded);		  
+		  
 		  if ($excluded) { break; }
 	}
-
+    
 		if((withinPatras($latitudeE7 / 10000000.0, $longitudeE7 / 10000000.0)<=10000) && $excluded == false){ //check if it's inside Patras and censored areas
 			   $arr[$count]["timestampMs"] = $timestampMs;
 			   $arr[$count]["latitudeE7"] = $latitudeE7;
@@ -193,11 +186,9 @@ foreach ($users as $row=>$value ) { //iterate locations
 										$arr_ac[$counter]["timestampMs"] = $activity_timestamp;
 										$arr_ac[$counter]["type"] = $activity_type;
 							            $arr_ac[$counter]["confidence"] = $activity_confidence;
-							            $arr_ac[$counter]["count"] = $count;
-								      // $arr_ac[$counter]["count_arr"] = NULL;
-									    // $arr_ac[$counter]["activity_id"] = 0;
+							            $arr_ac[$counter]["count"] = $count;								     
 									    $arr_ac[$counter]["count_arr"] = $counter2;
-									    $arr_ac[$counter]["activity_id"] = 0;										  
+									    $arr_ac[$counter]["activity_id"] = 0;								  
 									   
 
 									}
