@@ -1,64 +1,99 @@
-CREATE TABLE "user" (
-	"userID"	VARCHAR(255) NOT NULL,
-	"username"	TEXT NOT NULL,
-	"password"	TEXT NOT NULL,
-	"email"		TEXT NOT NULL,
-	"reg_date" 	DATETIME NOT NULL,
-	"type"		ENUM('admin','user'),
-	"firstname"     VARCHAR(55) NOT NULL,
-	"lastname"      VARCHAR(55) NOT NULL,
-	PRIMARY KEY("userID")
-);
+DROP TABLE IF EXISTS `activity`;
+CREATE TABLE IF NOT EXISTS `activity` (
+  `UID` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `fileID` int(100) NOT NULL DEFAULT '0',
+  `timestampMs` bigint(20) DEFAULT NULL,
+  `type` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `confidence` int(11) NOT NULL DEFAULT '0',
+  `location_id` int(11) NOT NULL,
+  `main_activity` int(11) NOT NULL,
+  `activity_id` int(11) NOT NULL,
+  `uploadTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`UID`,`fileID`,`location_id`,`main_activity`,`activity_id`),
+  KEY `f_id` (`fileID`),
+  KEY `loc_id` (`location_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE "data"(
-	"UID"			VARCHAR(255) NOT NULL,
-	"fileID"		INT(100) NOT NULL DEFAULT 0,
-	"location_id"		INT(11) NOT NULL DEFAULT 0,
-	"timestampMs"		BIGINT NOT NULL,
-	"latitudeE7"		BIGINT(15) NOT NULL,
-	"longitudeE7"		BIGINT(15) NOT NULL,
-	"velocity"		INT(10),
-	"accuracy"	        INT(15) NOT NULL,
-	"altitude"              SMALLINT(5),
-	"verticalAccuracy"      SMALLINT(10),
-	"heading"		INT(11),
-	"uploadTime"		DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY ("UID","fileID","location_id"),	
-	CONSTRAINT usr_id
-	FOREIGN KEY("UID") REFERENCES user("userID")
-	ON DELETE CASCADE ON UPDATE CASCADE
-);
+-- --------------------------------------------------------
 
-CREATE TABLE "activity"(
-	"UID"		        VARCHAR(255) NOT NULL,
-	"fileID"		INT(100) NOT NULL,
-	"location_id"		INT(11) NOT NULL,
-	"activity_id"		INT(11) NOT NULL,
-	"type"		        VARCHAR(50),
-	"confidence"		INT(11) NOT NULL DEFAULT 0,
-	"timestampMs"		BIGINT(20) NOT NULL,
-	"main_activity"	        INT(11) NOT NULL,
-	"uploadTime"		DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-	PRIMARY KEY ("UID","fileID","location_id","activity_id","main_activity"),
-	CONSTRAINT userIDtoUSER
-	FOREIGN KEY ("UID") REFERENCES user("userID")
-	ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT dataIDtoLoc
-	FOREIGN KEY (fileID) REFERENCES data(fileID)
-	ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT locIDtoLoc
-	FOREIGN KEY (location_id) REFERENCES location(location_id)
-	ON DELETE CASCADE ON UPDATE CASCADE	
-);
+--
+-- Table structure for table `data`
+--
 
-CREATE TABLE "score"(
-	"userID"	VARCHAR(255) NOT NULL,
-	"updateTime"	DATETIME NOT NULL,
-	"ecoScore"	INT(4),
-	PRIMARY KEY("userID"),
-	CONSTRAINT usrScore
-	FOREIGN KEY ("userID") REFERENCES user("userID")
-	ON DELETE CASCADE ON UPDATE CASCADE,
-);
+DROP TABLE IF EXISTS `data`;
+CREATE TABLE IF NOT EXISTS `data` (
+  `UID` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `fileID` int(100) NOT NULL DEFAULT '0',
+  `timestampMs` bigint(15) NOT NULL,
+  `latitudeE7` bigint(15) NOT NULL,
+  `longitudeE7` bigint(15) NOT NULL,
+  `accuracy` int(15) NOT NULL,
+  `altitude` smallint(5) DEFAULT NULL,
+  `verticalAccuracy` smallint(10) DEFAULT NULL,
+  `velocity` int(10) DEFAULT NULL,
+  `heading` int(11) DEFAULT NULL,
+  `uploadTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `location_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`UID`,`fileID`,`location_id`),
+  KEY `fileID` (`fileID`) USING BTREE,
+  KEY `loc_id` (`location_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `user` (userID, username, password, email, type, firstname, lastname) VALUES ('fMBGynlMFdP1HBFb5crZnKmDReRc56F4ZTvxpWu7318=','romanosK','$2y$10$gaIfq9FJI0WrnP6cv4IZieILxaUZg.qzNd/JjLHnnc4nYfwJ2n8Qy', 'romanos_kapsalis@gmail.com','admin', 'Ρωμανός', 'Καψάλης');
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `score`
+--
+
+DROP TABLE IF EXISTS `score`;
+CREATE TABLE IF NOT EXISTS `score` (
+  `userID` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ecoScore` int(4) DEFAULT NULL,
+  `updateTime` datetime NOT NULL,
+  PRIMARY KEY (`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `userID` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `username` text COLLATE utf8_unicode_ci NOT NULL,
+  `password` text CHARACTER SET latin1 NOT NULL,
+  `email` text CHARACTER SET latin1 NOT NULL,
+  `reg_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `type` enum('admin','user') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'user',
+  `firstname` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
+  `lastname` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `activity`
+--
+ALTER TABLE `activity`
+  ADD CONSTRAINT `f_id` FOREIGN KEY (`fileID`) REFERENCES `data` (`fileID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `loc_id` FOREIGN KEY (`location_id`) REFERENCES `data` (`location_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `usrIDac` FOREIGN KEY (`UID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `data`
+--
+ALTER TABLE `data`
+  ADD CONSTRAINT `usr_id` FOREIGN KEY (`UID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `score`
+--
+ALTER TABLE `score`
+  ADD CONSTRAINT `usrScore` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
