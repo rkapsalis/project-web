@@ -1,5 +1,5 @@
 ![Patras Gazer](https://github.com/rkapsalis/project-web/blob/master/images/Patras_Gazer_logo.png) 
-# Patras Gazer
+
 University project for the course "Web Programming and Systems".
 The aim of this project is to develop a complete system of collection, management and
 a crowdsourced information analysis of spatiotemporal information data on human activity.
@@ -48,7 +48,7 @@ data can be downloaded in JSON or KMZ format (zipped KML).
 	e. an eco-score leaderboard showing the 3 users with the highest eco-score for the current month and the position of the user  
 
 3. **User data analysis**  
-   The user selects a year and a month, or a range of these values or all the months and years. Then, after the selection user will be able to see detailed stats of   his data for the selected period. This data includes:  						
+   The user selects a year and a month, or a range of these values or all the months and years. Then, after the selection, user will be able to see detailed stats of   his data for the selected period. This data includes:  						
 	* a graph showing the percentage of records per activity type  
 	* a table showing the time of the day with the most records per activity type and a graph showing the number of records per activity type  
 	* a table showing the day with the most records per activity type and a graph showing the number of records per activity type  
