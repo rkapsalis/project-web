@@ -1,4 +1,4 @@
-![Patras Gazer](https://github.com/rkapsalis/project-web/blob/master/images/yellow_low%20res.png)  
+![Patras Gazer](https://github.com/rkapsalis/project-web/blob/master/images/Patras_Gazer_logo.png) 
 # Patras Gazer
 University project for the course "Web Programming and Systems".
 The aim of this project is to develop a complete system of collection, management and
